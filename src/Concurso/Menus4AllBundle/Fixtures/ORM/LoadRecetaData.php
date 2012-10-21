@@ -19,6 +19,8 @@ class LoadRecetaData extends AbstractFixture implements OrderedFixtureInterface 
         $receta1->setUsuario($this->getReference('alberto'));
         $receta1->addIngrediente($this->getReference('arroz'));
         $receta1->addIngrediente($this->getReference('trigo'));
+        
+        $this->addReference('arroz_trigo', $receta1);
 
         $receta2 = new Receta();
         $receta2->setNombre('Arroz con avena');
@@ -28,6 +30,8 @@ class LoadRecetaData extends AbstractFixture implements OrderedFixtureInterface 
         $receta2->setUsuario($this->getReference('maria'));
         $receta2->addIngrediente($this->getReference('arroz'));
         $receta2->addIngrediente($this->getReference('avena'));
+        
+        $this->addReference('arroz_avena', $receta2);
 
         $receta3 = new Receta();
         $receta3->setNombre('Arroz con maiz');
@@ -37,6 +41,8 @@ class LoadRecetaData extends AbstractFixture implements OrderedFixtureInterface 
         $receta3->setUsuario($this->getReference('isaac'));
         $receta3->addIngrediente($this->getReference('arroz'));
         $receta3->addIngrediente($this->getReference('maiz'));
+        
+        $this->addReference('arroz_maiz', $receta3);
 
         $manager->persist($receta1);
         $manager->persist($receta2);
