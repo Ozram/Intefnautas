@@ -1,0 +1,7 @@
+parameters:
+#    concurso_menus4_all.example.class: Concurso\Menus4AllBundle\Example
+
+services:
+#    concurso_menus4_all.example:
+#        class: %concurso_menus4_all.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
