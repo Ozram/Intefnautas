@@ -101,4 +101,70 @@ class Valoracion {
         return $this->comentario;
     }
 
+
+    /**
+     * Add recetas
+     *
+     * @param Concurso\Menus4AllBundle\Entity\Receta $recetas
+     * @return Valoracion
+     */
+    public function addReceta(\Concurso\Menus4AllBundle\Entity\Receta $recetas)
+    {
+        $this->recetas[] = $recetas;
+    
+        return $this;
+    }
+
+    /**
+     * Remove recetas
+     *
+     * @param Concurso\Menus4AllBundle\Entity\Receta $recetas
+     */
+    public function removeReceta(\Concurso\Menus4AllBundle\Entity\Receta $recetas)
+    {
+        $this->recetas->removeElement($recetas);
+    }
+
+    /**
+     * Get recetas
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getRecetas()
+    {
+        return $this->recetas;
+    }
+
+    /**
+     * Add menus
+     *
+     * @param Concurso\Menus4AllBundle\Entity\Menu $menus
+     * @return Valoracion
+     */
+    public function addMenu(\Concurso\Menus4AllBundle\Entity\Menu $menus)
+    {
+        $this->menus[] = $menus;
+    
+        return $this;
+    }
+
+    /**
+     * Remove menus
+     *
+     * @param Concurso\Menus4AllBundle\Entity\Menu $menus
+     */
+    public function removeMenu(\Concurso\Menus4AllBundle\Entity\Menu $menus)
+    {
+        $this->menus->removeElement($menus);
+    }
+
+    /**
+     * Get menus
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getMenus()
+    {
+        return $this->menus;
+    }
 }

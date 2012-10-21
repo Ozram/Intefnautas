@@ -139,4 +139,116 @@ class Receta {
         return $this->n_personas;
     }
 
+
+    /**
+     * Set usuario
+     *
+     * @param Concurso\Menus4AllBundle\Entity\Usuario $usuario
+     * @return Receta
+     */
+    public function setUsuario(\Concurso\Menus4AllBundle\Entity\Usuario $usuario = null)
+    {
+        $this->usuario = $usuario;
+    
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return Concurso\Menus4AllBundle\Entity\Usuario 
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
+
+    /**
+     * Set valoracion
+     *
+     * @param Concurso\Menus4AllBundle\Entity\Valoracion $valoracion
+     * @return Receta
+     */
+    public function setValoracion(\Concurso\Menus4AllBundle\Entity\Valoracion $valoracion = null)
+    {
+        $this->valoracion = $valoracion;
+    
+        return $this;
+    }
+
+    /**
+     * Get valoracion
+     *
+     * @return Concurso\Menus4AllBundle\Entity\Valoracion 
+     */
+    public function getValoracion()
+    {
+        return $this->valoracion;
+    }
+
+    /**
+     * Add ingredientes
+     *
+     * @param Concurso\Menus4AllBundle\Entity\Ingrediente $ingredientes
+     * @return Receta
+     */
+    public function addIngrediente(\Concurso\Menus4AllBundle\Entity\Ingrediente $ingredientes)
+    {
+        $this->ingredientes[] = $ingredientes;
+    
+        return $this;
+    }
+
+    /**
+     * Remove ingredientes
+     *
+     * @param Concurso\Menus4AllBundle\Entity\Ingrediente $ingredientes
+     */
+    public function removeIngrediente(\Concurso\Menus4AllBundle\Entity\Ingrediente $ingredientes)
+    {
+        $this->ingredientes->removeElement($ingredientes);
+    }
+
+    /**
+     * Get ingredientes
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getIngredientes()
+    {
+        return $this->ingredientes;
+    }
+
+    /**
+     * Add menus
+     *
+     * @param Concurso\Menus4AllBundle\Entity\Menu $menus
+     * @return Receta
+     */
+    public function addMenu(\Concurso\Menus4AllBundle\Entity\Menu $menus)
+    {
+        $this->menus[] = $menus;
+    
+        return $this;
+    }
+
+    /**
+     * Remove menus
+     *
+     * @param Concurso\Menus4AllBundle\Entity\Menu $menus
+     */
+    public function removeMenu(\Concurso\Menus4AllBundle\Entity\Menu $menus)
+    {
+        $this->menus->removeElement($menus);
+    }
+
+    /**
+     * Get menus
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getMenus()
+    {
+        return $this->menus;
+    }
 }

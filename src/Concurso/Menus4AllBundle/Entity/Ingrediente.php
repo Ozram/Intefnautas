@@ -185,4 +185,70 @@ class Ingrediente {
         return $this->proteinas;
     }
 
+
+    /**
+     * Add recetas
+     *
+     * @param Concurso\Menus4AllBundle\Entity\Receta $recetas
+     * @return Ingrediente
+     */
+    public function addReceta(\Concurso\Menus4AllBundle\Entity\Receta $recetas)
+    {
+        $this->recetas[] = $recetas;
+    
+        return $this;
+    }
+
+    /**
+     * Remove recetas
+     *
+     * @param Concurso\Menus4AllBundle\Entity\Receta $recetas
+     */
+    public function removeReceta(\Concurso\Menus4AllBundle\Entity\Receta $recetas)
+    {
+        $this->recetas->removeElement($recetas);
+    }
+
+    /**
+     * Get recetas
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getRecetas()
+    {
+        return $this->recetas;
+    }
+
+    /**
+     * Add listasCompra
+     *
+     * @param Concurso\Menus4AllBundle\Entity\ListaCompra $listasCompra
+     * @return Ingrediente
+     */
+    public function addListasCompra(\Concurso\Menus4AllBundle\Entity\ListaCompra $listasCompra)
+    {
+        $this->listasCompra[] = $listasCompra;
+    
+        return $this;
+    }
+
+    /**
+     * Remove listasCompra
+     *
+     * @param Concurso\Menus4AllBundle\Entity\ListaCompra $listasCompra
+     */
+    public function removeListasCompra(\Concurso\Menus4AllBundle\Entity\ListaCompra $listasCompra)
+    {
+        $this->listasCompra->removeElement($listasCompra);
+    }
+
+    /**
+     * Get listasCompra
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getListasCompra()
+    {
+        return $this->listasCompra;
+    }
 }

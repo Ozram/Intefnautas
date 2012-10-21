@@ -67,4 +67,37 @@ class TipoMenu {
         return $this->nombre;
     }
 
+
+    /**
+     * Add menus
+     *
+     * @param Concurso\Menus4AllBundle\Entity\menu $menus
+     * @return TipoMenu
+     */
+    public function addMenu(\Concurso\Menus4AllBundle\Entity\menu $menus)
+    {
+        $this->menus[] = $menus;
+    
+        return $this;
+    }
+
+    /**
+     * Remove menus
+     *
+     * @param Concurso\Menus4AllBundle\Entity\menu $menus
+     */
+    public function removeMenu(\Concurso\Menus4AllBundle\Entity\menu $menus)
+    {
+        $this->menus->removeElement($menus);
+    }
+
+    /**
+     * Get menus
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getMenus()
+    {
+        return $this->menus;
+    }
 }

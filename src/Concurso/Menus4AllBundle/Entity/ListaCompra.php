@@ -72,4 +72,60 @@ class ListaCompra {
         return $this->nombre;
     }
 
+
+    /**
+     * Set usuario
+     *
+     * @param Concurso\Menus4AllBundle\Entity\Usuario $usuario
+     * @return ListaCompra
+     */
+    public function setUsuario(\Concurso\Menus4AllBundle\Entity\Usuario $usuario = null)
+    {
+        $this->usuario = $usuario;
+    
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return Concurso\Menus4AllBundle\Entity\Usuario 
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
+
+    /**
+     * Add ingredientes
+     *
+     * @param Concurso\Menus4AllBundle\Entity\Ingrediente $ingredientes
+     * @return ListaCompra
+     */
+    public function addIngrediente(\Concurso\Menus4AllBundle\Entity\Ingrediente $ingredientes)
+    {
+        $this->ingredientes[] = $ingredientes;
+    
+        return $this;
+    }
+
+    /**
+     * Remove ingredientes
+     *
+     * @param Concurso\Menus4AllBundle\Entity\Ingrediente $ingredientes
+     */
+    public function removeIngrediente(\Concurso\Menus4AllBundle\Entity\Ingrediente $ingredientes)
+    {
+        $this->ingredientes->removeElement($ingredientes);
+    }
+
+    /**
+     * Get ingredientes
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getIngredientes()
+    {
+        return $this->ingredientes;
+    }
 }
