@@ -3,6 +3,7 @@
 namespace Concurso\Menus4AllBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Concurso\Menus4AllBundle\Entity\Receta

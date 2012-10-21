@@ -4,6 +4,7 @@ namespace Concurso\Menus4AllBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Entity\User as BaseUser;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Concurso\Menus4AllBundle\Entity\Usuario
