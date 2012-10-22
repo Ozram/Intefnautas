@@ -1,0 +1,35 @@
+{% block javascripts %}
+
+<script src="{{ asset('bundles/concursomenus4all/vendors/js/jquery-1.8.2.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/concursomenus4all/vendors/js/jquery.json-2.3.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+
+Hello {{ receta }}!
+<div id="pruebajson" ></div>
+<script type="text/javascript">
+    $(document).ready(function(){
+       
+        var thing = {descripcion: 'cocinemos con jquery', n_personas: '3'};
+        var encoded = $.toJSON( thing );
+        // '{"plugin":"jquery-json","version":2.3}'
+        var name = $.evalJSON( encoded ).plugin;
+        // "jquery-json"
+        var version = $.evalJSON(encoded).version;
+        jQuery.ajax({
+            type:'POST',
+            dataType:'json',
+            data:{
+                json: encoded
+            },
+            success:function(data, textStatus){
+                jQuery('#pruebajson').html(data);
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                errors = jQuery.parseJSON(jqXHR.responseText);
+                alert(errors.message);
+            },
+            url: '{{ url('cm4all_recetas_post') }}'
+        });
+    });
+</script>
