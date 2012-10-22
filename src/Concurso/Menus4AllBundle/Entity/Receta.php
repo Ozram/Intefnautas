@@ -54,9 +54,10 @@ class Receta {
     private $valoracion;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Ingrediente", inversedBy="recetas")
+     * @ORM\OneToMany(targetEntity="IngredientesReceta", mappedBy="receta", cascade={"persist"}))
      */
-    private $ingredientes;
+    private $ingredientesReceta;
+
 
     /**
      * @ORM\ManyToMany(targetEntity="Menu", mappedBy="recetas")
@@ -64,7 +65,6 @@ class Receta {
     private $menus;
 
     public function __construct() {
-        $this->ingredientes = new ArrayCollection();
         $this->menus = new ArrayCollection();
     }
 
@@ -140,17 +140,15 @@ class Receta {
         return $this->n_personas;
     }
 
-
     /**
      * Set usuario
      *
      * @param Concurso\Menus4AllBundle\Entity\Usuario $usuario
      * @return Receta
      */
-    public function setUsuario(\Concurso\Menus4AllBundle\Entity\Usuario $usuario = null)
-    {
+    public function setUsuario(\Concurso\Menus4AllBundle\Entity\Usuario $usuario = null) {
         $this->usuario = $usuario;
-    
+
         return $this;
     }
 
@@ -159,8 +157,7 @@ class Receta {
      *
      * @return Concurso\Menus4AllBundle\Entity\Usuario 
      */
-    public function getUsuario()
-    {
+    public function getUsuario() {
         return $this->usuario;
     }
 
@@ -170,10 +167,9 @@ class Receta {
      * @param Concurso\Menus4AllBundle\Entity\Valoracion $valoracion
      * @return Receta
      */
-    public function setValoracion(\Concurso\Menus4AllBundle\Entity\Valoracion $valoracion = null)
-    {
+    public function setValoracion(\Concurso\Menus4AllBundle\Entity\Valoracion $valoracion = null) {
         $this->valoracion = $valoracion;
-    
+
         return $this;
     }
 
@@ -182,42 +178,8 @@ class Receta {
      *
      * @return Concurso\Menus4AllBundle\Entity\Valoracion 
      */
-    public function getValoracion()
-    {
+    public function getValoracion() {
         return $this->valoracion;
-    }
-
-    /**
-     * Add ingredientes
-     *
-     * @param Concurso\Menus4AllBundle\Entity\Ingrediente $ingredientes
-     * @return Receta
-     */
-    public function addIngrediente(\Concurso\Menus4AllBundle\Entity\Ingrediente $ingredientes)
-    {
-        $this->ingredientes[] = $ingredientes;
-    
-        return $this;
-    }
-
-    /**
-     * Remove ingredientes
-     *
-     * @param Concurso\Menus4AllBundle\Entity\Ingrediente $ingredientes
-     */
-    public function removeIngrediente(\Concurso\Menus4AllBundle\Entity\Ingrediente $ingredientes)
-    {
-        $this->ingredientes->removeElement($ingredientes);
-    }
-
-    /**
-     * Get ingredientes
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getIngredientes()
-    {
-        return $this->ingredientes;
     }
 
     /**
@@ -226,10 +188,9 @@ class Receta {
      * @param Concurso\Menus4AllBundle\Entity\Menu $menus
      * @return Receta
      */
-    public function addMenu(\Concurso\Menus4AllBundle\Entity\Menu $menus)
-    {
+    public function addMenu(\Concurso\Menus4AllBundle\Entity\Menu $menus) {
         $this->menus[] = $menus;
-    
+
         return $this;
     }
 
@@ -238,8 +199,7 @@ class Receta {
      *
      * @param Concurso\Menus4AllBundle\Entity\Menu $menus
      */
-    public function removeMenu(\Concurso\Menus4AllBundle\Entity\Menu $menus)
-    {
+    public function removeMenu(\Concurso\Menus4AllBundle\Entity\Menu $menus) {
         $this->menus->removeElement($menus);
     }
 
@@ -248,8 +208,45 @@ class Receta {
      *
      * @return Doctrine\Common\Collections\Collection 
      */
-    public function getMenus()
-    {
+    public function getMenus() {
         return $this->menus;
+    }
+
+
+  
+
+    /**
+     * Add ingredientesReceta
+     *
+     * @param Concurso\Menus4AllBundle\Entity\IngredientesReceta $ingredientesReceta
+     * @return Receta
+     */
+    public function addIngrediente(\Concurso\Menus4AllBundle\Entity\Ingrediente $ingrediente, $cantidad)
+    {    
+        $ingredientesReceta = new \Concurso\Menus4AllBundle\Entity\IngredientesReceta();
+        $ingredientesReceta->setIngrediente($ingrediente)->setCantidad($cantidad)->setReceta($this);
+        $this->ingredientesReceta[] = $ingredientesReceta;
+    
+        return $this;
+    }
+
+    /**
+     * Remove ingredientesReceta
+     *
+     * @param Concurso\Menus4AllBundle\Entity\IngredientesReceta $ingredientesReceta
+     */
+    public function removeIngrediente(\Concurso\Menus4AllBundle\Entity\IngredientesReceta $ingredientesReceta)
+    {
+        $this->ingredientesReceta->removeElement($ingredientesReceta);
+    }
+
+    /**
+     * Get ingredientesReceta
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getIngredientesReceta()
+    {
+        return $this->ingredientesReceta;
     }
 }

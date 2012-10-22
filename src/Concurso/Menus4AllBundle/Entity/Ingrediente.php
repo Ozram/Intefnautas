@@ -57,20 +57,17 @@ class Ingrediente {
      */
     private $proteinas;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Receta", mappedBy="ingredientes")
+     /**
+     * @ORM\OneToMany(targetEntity="IngredientesReceta", mappedBy="ingrediente")
      */
-    private $recetas;
+    private $ingredientesReceta;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="ListaCompra", mappedBy="ingredientes")
+     /**
+     * @ORM\OneToMany(targetEntity="IngredientesListaCompra", mappedBy="ingrediente")
      */
-    private $listasCompra;
+    private $ingredientesListaCompra;
 
-    public function __construct() {
-        $this->recetas = new ArrayCollection();
-        $this->listasCompra = new ArrayCollection();
-    }
+
 
     /**
      * Get id
@@ -251,5 +248,79 @@ class Ingrediente {
     public function getListasCompra()
     {
         return $this->listasCompra;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->ingredientesReceta = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->ingredientesListaCompra = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add ingredientesReceta
+     *
+     * @param Concurso\Menus4AllBundle\Entity\IngredientesReceta $ingredientesReceta
+     * @return Ingrediente
+     */
+    public function addIngredientesReceta(\Concurso\Menus4AllBundle\Entity\IngredientesReceta $ingredientesReceta)
+    {
+        $this->ingredientesReceta[] = $ingredientesReceta;
+    
+        return $this;
+    }
+
+    /**
+     * Remove ingredientesReceta
+     *
+     * @param Concurso\Menus4AllBundle\Entity\IngredientesReceta $ingredientesReceta
+     */
+    public function removeIngredientesReceta(\Concurso\Menus4AllBundle\Entity\IngredientesReceta $ingredientesReceta)
+    {
+        $this->ingredientesReceta->removeElement($ingredientesReceta);
+    }
+
+    /**
+     * Get ingredientesReceta
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getIngredientesReceta()
+    {
+        return $this->ingredientesReceta;
+    }
+
+    /**
+     * Add ingredientesListaCompra
+     *
+     * @param Concurso\Menus4AllBundle\Entity\IngredientesListaCompra $ingredientesListaCompra
+     * @return Ingrediente
+     */
+    public function addIngredientesListaCompra(\Concurso\Menus4AllBundle\Entity\IngredientesListaCompra $ingredientesListaCompra)
+    {
+        $this->ingredientesListaCompra[] = $ingredientesListaCompra;
+    
+        return $this;
+    }
+
+    /**
+     * Remove ingredientesListaCompra
+     *
+     * @param Concurso\Menus4AllBundle\Entity\IngredientesListaCompra $ingredientesListaCompra
+     */
+    public function removeIngredientesListaCompra(\Concurso\Menus4AllBundle\Entity\IngredientesListaCompra $ingredientesListaCompra)
+    {
+        $this->ingredientesListaCompra->removeElement($ingredientesListaCompra);
+    }
+
+    /**
+     * Get ingredientesListaCompra
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getIngredientesListaCompra()
+    {
+        return $this->ingredientesListaCompra;
     }
 }
