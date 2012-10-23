@@ -1,7 +1,11 @@
 cm4all_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: ConcursoMenus4AllBundle:Default:index }
+    pattern:  /
+    defaults: { _controller: ConcursoMenus4AllBundle:Main:index }
 
+cm4all_recetas_formNueva:
+    pattern: /recetas/formNueva
+    defaults: { _controller: ConcursoMenus4AllBundle:Recetas:formNueva } 
+  
 cm4all_recetas_index:
     pattern:  /recetas/hola
     defaults: { _controller: ConcursoMenus4AllBundle:Recetas:index }

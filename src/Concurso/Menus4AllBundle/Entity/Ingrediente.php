@@ -4,6 +4,8 @@ namespace Concurso\Menus4AllBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Concurso\Menus4AllBundle\Entity\Ingrediente
@@ -24,21 +26,32 @@ class Ingrediente {
 
     /**
      * @var string $nombre
-     *
+     * -------------validadores-------------
+     * @Assert\Length(
+     *  min = "1",
+     *  max = "255",
+     *  minMessage = "El nombre de la receta no puede contener menos de 2 caracteres alfanuméricos",
+     *  maxMessage = "El nombre de la receta no puede contener más de 255 caracteres alfanuméricos"
+     * )
+     * 
      * @ORM\Column(name="nombre", type="string", length=255)
      */
     private $nombre;
 
     /**
      * @var integer $calorias
-     *
+     * -------------validadores-------------
+     * @Assert\NotBlank()
+     * 
      * @ORM\Column(name="calorias", type="integer")
      */
     private $calorias;
 
     /**
      * @var float $carbohidratos
-     *
+     * -------------validadores-------------
+     * @Assert\NotBlank()
+     * 
      * @ORM\Column(name="carbohidratos", type="float")
      */
     private $carbohidratos;
@@ -52,7 +65,9 @@ class Ingrediente {
 
     /**
      * @var float $proteinas
-     *
+     * -------------validadores-------------
+     * @Assert\NotBlank()
+     * 
      * @ORM\Column(name="proteinas", type="float")
      */
     private $proteinas;

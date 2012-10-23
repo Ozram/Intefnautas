@@ -13,23 +13,9 @@ class RecetasManager {
     }
 
     public function createReceta($json) {
-        $data = json_decode($json, true);
         $receta1 = new Receta();
-        try {
-            $receta1->setNombre($data['nombre']);
-            $receta1->setDescripcion($data['descripcion']);
-            $receta1->setNPersonas($data['n_personas']);
-            $this->em->persist($receta1);
-            $flushexc = $this->em->flush();
-            $statusCode = 200;
-            return $statusCode;
-        } catch (\ErrorException $mapexc) {
-            $statusCode = 500;
-            return $statusCode;
-        } catch (\Doctrine\ORM\OptimisticLockException $flushexc) {
-            $statusCode = 500;
-            return $statusCode;
-        }
+        
+
     }
 
     public function readReceta($id) {
