@@ -10,12 +10,8 @@ Hello {{ receta }}!
 <script type="text/javascript">
     $(document).ready(function(){
        
-        var thing = {descripcion: 'cocinemos con jquery', n_personas: '3'};
+        var thing = {nombre: 'jquery', descripcion: 'cocinemos con jquery', n_personas: '3'};
         var encoded = $.toJSON( thing );
-        // '{"plugin":"jquery-json","version":2.3}'
-        var name = $.evalJSON( encoded ).plugin;
-        // "jquery-json"
-        var version = $.evalJSON(encoded).version;
         jQuery.ajax({
             type:'POST',
             dataType:'json',
@@ -23,11 +19,11 @@ Hello {{ receta }}!
                 json: encoded
             },
             success:function(data, textStatus){
-                jQuery('#pruebajson').html(data);
+                jQuery('#pruebajson').html(data.success.message);
             },
-            error: function(jqXHR, textStatus, errorThrown){
-                errors = jQuery.parseJSON(jqXHR.responseText);
-                alert(errors.message);
+            error: function(jqXHR, textStatus, errorThrown){            
+                data = jQuery.parseJSON(jqXHR.responseText);
+                jQuery('#pruebajson').html(data.error.message);
             },
             url: '{{ url('cm4all_recetas_post') }}'
         });
