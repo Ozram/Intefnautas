@@ -42,9 +42,9 @@ class Menu {
     private $usuario;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Valoracion")
+     * @ORM\OneToMany(targetEntity="ValoracionMenu", mappedBy="menu")
      */
-    private $valoracion;
+    private $valoraciones;
 
     /**
      * @ORM\ManyToOne(targetEntity="TipoMenu")
@@ -136,29 +136,6 @@ class Menu {
     }
 
     /**
-     * Set valoracion
-     *
-     * @param Concurso\Menus4AllBundle\Entity\Valoracion $valoracion
-     * @return Menu
-     */
-    public function setValoracion(\Concurso\Menus4AllBundle\Entity\Valoracion $valoracion = null)
-    {
-        $this->valoracion = $valoracion;
-    
-        return $this;
-    }
-
-    /**
-     * Get valoracion
-     *
-     * @return Concurso\Menus4AllBundle\Entity\Valoracion 
-     */
-    public function getValoracion()
-    {
-        return $this->valoracion;
-    }
-
-    /**
      * Set tipo_menu
      *
      * @param Concurso\Menus4AllBundle\Entity\TipoMenu $tipoMenu
@@ -212,5 +189,38 @@ class Menu {
     public function getRecetas()
     {
         return $this->recetas;
+    }
+
+    /**
+     * Add valoraciones
+     *
+     * @param Concurso\Menus4AllBundle\Entity\ValoracionMenu $valoraciones
+     * @return Menu
+     */
+    public function addValoraciones(\Concurso\Menus4AllBundle\Entity\ValoracionMenu $valoraciones)
+    {
+        $this->valoraciones[] = $valoraciones;
+    
+        return $this;
+    }
+
+    /**
+     * Remove valoraciones
+     *
+     * @param Concurso\Menus4AllBundle\Entity\ValoracionMenu $valoraciones
+     */
+    public function removeValoraciones(\Concurso\Menus4AllBundle\Entity\ValoracionMenu $valoraciones)
+    {
+        $this->valoraciones->removeElement($valoraciones);
+    }
+
+    /**
+     * Get valoraciones
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getValoraciones()
+    {
+        return $this->valoraciones;
     }
 }

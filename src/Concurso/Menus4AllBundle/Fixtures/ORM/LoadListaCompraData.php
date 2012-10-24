@@ -37,7 +37,7 @@ class LoadListaCompraData extends AbstractFixture implements OrderedFixtureInter
     }
 
     public function getOrder() {
-        return 7;
+        return 4;
     }
 
 }

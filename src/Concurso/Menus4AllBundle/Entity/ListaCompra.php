@@ -135,4 +135,17 @@ class ListaCompra {
     {
         return $this->ingredientesListaCompra;
     }
+
+    /**
+     * Add ingredientesListaCompra
+     *
+     * @param Concurso\Menus4AllBundle\Entity\IngredientesListaCompra $ingredientesListaCompra
+     * @return ListaCompra
+     */
+    public function addIngredientesListaCompra(\Concurso\Menus4AllBundle\Entity\IngredientesListaCompra $ingredientesListaCompra)
+    {
+        $this->ingredientesListaCompra[] = $ingredientesListaCompra;
+    
+        return $this;
+    }
 }

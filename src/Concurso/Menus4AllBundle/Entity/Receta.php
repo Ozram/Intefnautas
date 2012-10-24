@@ -66,9 +66,9 @@ class Receta {
     private $usuario;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Valoracion")
+     * @ORM\OneToMany(targetEntity="ValoracionReceta", mappedBy="receta")
      */
-    private $valoracion;
+    private $valoraciones;
 
     /**
      * @ORM\OneToMany(targetEntity="IngredientesReceta", mappedBy="receta", cascade={"persist"}))
@@ -178,26 +178,6 @@ class Receta {
         return $this->usuario;
     }
 
-    /**
-     * Set valoracion
-     *
-     * @param Concurso\Menus4AllBundle\Entity\Valoracion $valoracion
-     * @return Receta
-     */
-    public function setValoracion(\Concurso\Menus4AllBundle\Entity\Valoracion $valoracion = null) {
-        $this->valoracion = $valoracion;
-
-        return $this;
-    }
-
-    /**
-     * Get valoracion
-     *
-     * @return Concurso\Menus4AllBundle\Entity\Valoracion 
-     */
-    public function getValoracion() {
-        return $this->valoracion;
-    }
 
     /**
      * Add menus
@@ -238,7 +218,7 @@ class Receta {
      * @param Concurso\Menus4AllBundle\Entity\IngredientesReceta $ingredientesReceta
      * @return Receta
      */
-    public function addIngrediente(\Concurso\Menus4AllBundle\Entity\Ingrediente $ingrediente, $cantidad)
+    public function addIngredientes(\Concurso\Menus4AllBundle\Entity\Ingrediente $ingrediente, $cantidad)
     {    
         $ingredientesReceta = new \Concurso\Menus4AllBundle\Entity\IngredientesReceta();
         $ingredientesReceta->setIngrediente($ingrediente)->setCantidad($cantidad)->setReceta($this);
@@ -252,7 +232,7 @@ class Receta {
      *
      * @param Concurso\Menus4AllBundle\Entity\IngredientesReceta $ingredientesReceta
      */
-    public function removeIngrediente(\Concurso\Menus4AllBundle\Entity\IngredientesReceta $ingredientesReceta)
+    public function removeIngredientes(\Concurso\Menus4AllBundle\Entity\IngredientesReceta $ingredientesReceta)
     {
         $this->ingredientesReceta->removeElement($ingredientesReceta);
     }
@@ -265,5 +245,61 @@ class Receta {
     public function getIngredientesReceta()
     {
         return $this->ingredientesReceta;
+    }
+
+    /**
+     * Add valoraciones
+     *
+     * @param Concurso\Menus4AllBundle\Entity\ValoracionReceta $valoraciones
+     * @return Receta
+     */
+    public function addValoracione(\Concurso\Menus4AllBundle\Entity\ValoracionReceta $valoraciones)
+    {
+        $this->valoraciones[] = $valoraciones;
+    
+        return $this;
+    }
+
+    /**
+     * Remove valoraciones
+     *
+     * @param Concurso\Menus4AllBundle\Entity\ValoracionReceta $valoraciones
+     */
+    public function removeValoracione(\Concurso\Menus4AllBundle\Entity\ValoracionReceta $valoraciones)
+    {
+        $this->valoraciones->removeElement($valoraciones);
+    }
+
+    /**
+     * Get valoraciones
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getValoraciones()
+    {
+        return $this->valoraciones;
+    }
+
+    /**
+     * Add ingredientesReceta
+     *
+     * @param Concurso\Menus4AllBundle\Entity\IngredientesReceta $ingredientesReceta
+     * @return Receta
+     */
+    public function addIngredientesReceta(\Concurso\Menus4AllBundle\Entity\IngredientesReceta $ingredientesReceta)
+    {
+        $this->ingredientesReceta[] = $ingredientesReceta;
+    
+        return $this;
+    }
+
+    /**
+     * Remove ingredientesReceta
+     *
+     * @param Concurso\Menus4AllBundle\Entity\IngredientesReceta $ingredientesReceta
+     */
+    public function removeIngredientesReceta(\Concurso\Menus4AllBundle\Entity\IngredientesReceta $ingredientesReceta)
+    {
+        $this->ingredientesReceta->removeElement($ingredientesReceta);
     }
 }
