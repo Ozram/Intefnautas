@@ -1,0 +1,89 @@
+  <form id="miformulario" class="form-horizontal">
+
+    <fieldset>
+      <div id="legend" class="">
+        <legend class="">Nueva Receta</legend>
+      </div>
+    <div class="control-group">
+
+          <!-- Text input-->
+          <div id="exitosReceta" class="alert alert-success"><button type="button" class="close" data-dismiss="alert">×</button>
+              <strong>Exito:</strong>
+              
+          </div>
+          <div id="erroresReceta" class="alert alert-error"><button type="button" class="close" data-dismiss="alert">×</button>
+              <strong>Error:</strong>
+              <ul id="listErrorsNueva"></ul>
+          </div>
+          {{ form_label(form.nombre) }}
+          <div class="controls">
+            {{ form_widget(form.nombre) }}
+          </div>
+        </div>
+
+    <div class="control-group">
+
+          <!-- Text input-->
+          {{ form_label(form.n_personas) }}
+          <div class="controls">
+            {{ form_widget(form.n_personas) }}
+          </div>
+        </div>
+
+    <div class="control-group">
+
+          <!-- Textarea -->
+          {{ form_label(form.descripcion) }}
+          <div class="controls">
+            <div class="textarea">
+                  {{ form_widget(form.descripcion) }}
+            </div>
+          </div>
+        </div>
+
+    <div class="control-group">
+          <!-- Form Actions -->
+            <div class="form-actions">
+              <a id="crearReceta" type="submit" class="btn btn-primary">Save changes</a>
+              <button type="button" class="btn">Cancel</button>
+            </div>
+        </div>
+    {{ form_rest(form) }}
+
+    </fieldset>
+  </form>
+
+<script type="text/javascript">
+    
+$(document).ready(function(){
+    $('#erroresReceta').hide();
+    $('#exitosReceta').hide();
+    $('#crearReceta').click(function(){
+        jQuery.ajax({
+            type:'POST',
+            dataType:'json',
+            data: $("#miformulario").serializeArray(),
+            success:function(data, textStatus){
+                $('#exitosReceta').show();
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                var coleccionErrores = jQuery.parseJSON(jqXHR.responseText);
+                listErrors = recorreNotificaciones(coleccionErrores.error.messages);
+                $('#listErrorsNueva').html(listErrors);
+                $('#erroresReceta').show();
+            },
+            url: '{{ url('cm4all_recetas_post') }}'
+        });
+    });
+});
+
+var recorreNotificaciones = function (coleccionMensajes){
+    var txt = '';
+    for each (var mensajesCampo in coleccionMensajes){
+        for each (var mensaje in mensajesCampo){
+            txt = txt + '<li>'+mensaje+'</li>';
+        }
+    }
+    return txt;
+};
+</script>
