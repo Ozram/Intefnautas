@@ -1,0 +1,9 @@
+<script type="text/template" id="plantillaRecetaFormNueva">
+    <% _.each(recetas, function(receta){ %>
+    <div id="receta_<%= receta.id %>">
+        <h3><%= receta.nombre %></h3>
+        <p>La receta está pensada para: <%= receta.n_personas %></p>
+        <p><%= receta.descripcion %></p>
+    </div>
+    <%}); %>
+</script>

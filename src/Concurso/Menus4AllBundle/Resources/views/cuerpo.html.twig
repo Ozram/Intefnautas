@@ -3,13 +3,69 @@
 {% block cuerpo %}
 <div id="opcionesRecetas">
     <a id="anadirReceta" class="btn btn-success">Añadir Receta</a>
+    <a id="editarReceta" class="btn btn-success">Editar Receta</a> 
     <a id="buscarRecetas" class="btn btn-success">Buscar Recetas</a> 
 </div>
 
 
- 
+<div id="listaRecetasBusqueda">
+    
+</div>
 <div id="formNuevaReceta" style="display:none">
-<form id="miformulario" class="form-horizontal">
+<form class="form-horizontal">
+    <fieldset>
+      <div id="legend" class="">
+        <legend class="">Nueva Receta</legend>
+      </div>
+    <div class="control-group">
+
+          <!-- Text input-->
+          <div id="exitosReceta" class="alert alert-success"><button type="button" class="close" data-dismiss="alert">×</button>
+              <strong>Exito:</strong>       
+          </div>
+          <div id="erroresReceta" class="alert alert-error"><button type="button" class="close" data-dismiss="alert">×</button>
+              <strong>Error:</strong>
+              <ul id="listErrorsNueva"></ul>
+          </div>
+          <label class=" control-label required" for="receta_nombre"> Nombre </label>
+          <div class="controls">
+            <input class="receta_nombre" type="text" required="required">
+          </div>
+        </div>
+
+    <div class="control-group">
+
+          <!-- Text input-->
+          <label class=" control-label required" for="receta_n_personas"> Comensales </label>
+          <div class="controls">
+            <input class="receta_n_personas" type="text" required="required">
+          </div>
+        </div>
+
+    <div class="control-group">
+
+          <!-- Textarea -->
+          <label class=" control-label required" for="receta_descripcion"> Descripcion </label>
+          <div class="controls">
+            <div class="textarea">
+                <textarea class="receta_descripcion" required="required"></textarea>
+            </div>
+          </div>
+        </div>
+
+    <div class="control-group">
+          <!-- Form Actions -->
+            <div class="form-actions">
+              <a id="crearReceta" type="submit" class="btn btn-primary">Save changes</a>
+              <button type="button" class="btn">Cancel</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+</div>
+
+<div id="formEditarReceta" style="display:none">
+<form class="form-horizontal">
     <fieldset>
       <div id="legend" class="">
         <legend class="">Nueva Receta</legend>
@@ -53,17 +109,22 @@
     <div class="control-group">
           <!-- Form Actions -->
             <div class="form-actions">
-              <a id="crearReceta" type="submit" class="btn btn-primary">Save changes</a>
+              <a id="actualizarReceta" type="submit" class="btn btn-primary">Save changes</a>
               <button type="button" class="btn">Cancel</button>
             </div>
         </div>
     </fieldset>
 </form>
 </div>
+
 <script type="text/javascript">    
 $(document).ready(function(){
     $('#anadirReceta').click(function(){
         $('#formNuevaReceta').show();
+    });
+    
+     $('#editarReceta').click(function(){
+        $('#formEditarReceta').show();
     });
 
     $('#erroresReceta').hide();

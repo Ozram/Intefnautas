@@ -13,7 +13,7 @@
         <script src="{{ asset('bundles/concursomenus4all/vendors/js/jquery.json-2.3.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bundles/concursomenus4all/vendors/js/bootstrap.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bundles/concursomenus4all/vendors/js/underscore.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('bundles/concursomenus4all/vendors/js/backbone.js') }}" type="text/javascript"></script>
+        <script src="http://backbonejs.org/backbone-min.js" type="text/javascript"></script>
         <script src="{{ asset('bundles/concursomenus4all/frontend/js/menus4all.js') }}" type="text/javascript"></script>
         {% endblock %}
         
@@ -40,8 +40,6 @@
                 </div>
             </div>
         </div>
-        
-
-
+        {% include 'ConcursoMenus4AllBundle::plantillasUnderscore.html.twig' %} 
     </body>
 </html>
