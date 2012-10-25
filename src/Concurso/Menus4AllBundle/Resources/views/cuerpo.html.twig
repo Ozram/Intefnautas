@@ -12,35 +12,34 @@
 
           <!-- Text input-->
           <div id="exitosReceta" class="alert alert-success"><button type="button" class="close" data-dismiss="alert">×</button>
-              <strong>Exito:</strong>
-              
+              <strong>Exito:</strong>       
           </div>
           <div id="erroresReceta" class="alert alert-error"><button type="button" class="close" data-dismiss="alert">×</button>
               <strong>Error:</strong>
               <ul id="listErrorsNueva"></ul>
           </div>
-          {{ form_label(form.nombre) }}
+          <label class=" control-label required" for="receta_nombre"> Nombre </label>
           <div class="controls">
-            {{ form_widget(form.nombre) }}
+            <input id="receta_nombre" class=" not-removable" type="text" required="required">
           </div>
         </div>
 
     <div class="control-group">
 
           <!-- Text input-->
-          {{ form_label(form.n_personas) }}
+          <label class=" control-label required" for="receta_n_personas"> Comensales </label>
           <div class="controls">
-            {{ form_widget(form.n_personas) }}
+            <input id="receta_n_personas" class=" not-removable" type="text" required="required">
           </div>
         </div>
 
     <div class="control-group">
 
           <!-- Textarea -->
-          {{ form_label(form.descripcion) }}
+          <label class=" control-label required" for="receta_descripcion"> Descripcion </label>
           <div class="controls">
             <div class="textarea">
-                  {{ form_widget(form.descripcion) }}
+                <textarea id="receta_descripcion" required="required"></textarea>
             </div>
           </div>
         </div>
@@ -52,8 +51,6 @@
               <button type="button" class="btn">Cancel</button>
             </div>
         </div>
-    {{ form_rest(form) }}
-
     </fieldset>
 </form>
 </div>
