@@ -31,7 +31,7 @@ $(document).ready(function(){
             },{
                 success:function(data, textStatus){
                     console.log(receta.id);
-                    that.collection.add(receta);
+                    that.collection.unshift(receta);
 
                     $('#formNuevaReceta').hide();
                 },
@@ -76,6 +76,10 @@ $(document).ready(function(){
     
     window.listarRecRel = Backbone.View.extend({
 
+        initialize: function(){
+            this.collection.bind('reset destroy add', this.render, this);
+        },
+        
         el: $('#opcionesRecetas'),               
 
         events: {                        
@@ -85,7 +89,7 @@ $(document).ready(function(){
         template: _.template($('#plantillaRecetaFormNueva').html()),
 
         buscarRecetasRel: function(e) {
-            console.log('formEditarReceta:actualizarReceta');
+            console.log('listarRecRel:buscarRecetasRel');
             that = this;
             this.collection.fetch({
                 success: function(collection, response){
@@ -99,11 +103,16 @@ $(document).ready(function(){
                     }));
                 },
                 error: function(collection, response){
-                    
                     console.log('recetas.fetch.error');
-
                 }
             });    
+        },
+        
+        render: function(){
+            console.log('listarRecRel.render');
+            $('#listaRecetasBusqueda').html(this.template({
+                recetas: this.collection.toJSON()
+            }));
         }
     });
     
