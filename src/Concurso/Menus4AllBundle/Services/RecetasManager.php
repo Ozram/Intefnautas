@@ -6,10 +6,11 @@ use Concurso\Menus4AllBundle\Entity\Receta;
 
 class RecetasManager {
 
-    protected $em;
+    protected $em, $validator;
 
-    public function __construct($em) {
+    public function __construct($em, $validator) {
         $this->em = $em;
+        $this->validator = $validator;
     }
 
     public function createReceta($json) {
@@ -19,6 +20,12 @@ class RecetasManager {
             $receta->setNombre($data['nombre']);
             $receta->setDescripcion($data['descripcion']);
             $receta->setNPersonas($data['n_personas']);
+
+            $errors = $this->validator->validate($receta);
+            if (count($errors) > 0) {
+                $statusCode = 418;
+                return $statusCode;
+            }
             $this->em->persist($receta);
             $flushexc = $this->em->flush();
             $statusCode = 200;

@@ -58,46 +58,10 @@
     </fieldset>
   </form>
 </div>
-<script type="text/javascript">
-    
+<script type="text/javascript">    
 $(document).ready(function(){
     $('#erroresReceta').hide();
     $('#exitosReceta').hide();
-    console.log('Hola');
-    window.recetaModel = Backbone.Model.extend({
-        urlRoot : '/Intefnautas/web/app_dev.php/recetas'
-    });    
-    
-    window.formNuevaReceta = Backbone.View.extend({
-
-        el: $('#formNuevaReceta'),               
-
-        events: {                        
-            "click #crearReceta"  : "crearReceta"                
-        },                
-
-
-        crearReceta: function(e) {
-            console.log('formNuevaReceta:crearReceta');
-
-            receta = new window.recetaModel();
-            
-            receta.save({
-                nombre: $('#receta_nombre').val(),
-                descripcion: $('#receta_descripcion').val(),
-                n_personas: $('#receta_n_personas').val()
-            },{
-                success:function(data, textStatus){
-                     console.log(receta.id);
-                },
-                error: function(jqXHR, textStatus, errorThrown){     
-                },
-            });
-        }
-    });
-    
-    formNuevaReceta = new window.formNuevaReceta();
-
 });
 
 var recorreNotificaciones = function (coleccionMensajes){
@@ -110,3 +74,4 @@ var recorreNotificaciones = function (coleccionMensajes){
     return txt;
 };
 </script>
+<script src="{{ asset('bundles/concursomenus4all/frontend/js/menus4all.js') }}" type="text/javascript"></script>
