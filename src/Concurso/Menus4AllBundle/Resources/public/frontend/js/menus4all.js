@@ -1,13 +1,19 @@
 $(document).ready(function(){
     window.recetaModel = Backbone.Model.extend({
-        urlRoot : '/Intefnautas/web/app_dev.php/recetas'
+        urlRoot : '/intefnautas/web/app_dev.php/recetas'
     });
+    
+    window.proyectoDocumentacionCollection = Backbone.Collection.extend({
+        model: window.recetaModel,
+        url: '/intefnautas/web/app_dev.php/recetas'
+    });
+    
     window.formNuevaReceta = Backbone.View.extend({
 
         el: $('#formNuevaReceta'),               
 
         events: {                        
-            "click #crearReceta"  : "crearReceta"                
+            "click #crearReceta"  : "crearReceta"            
         },                
 
 
@@ -31,36 +37,29 @@ $(document).ready(function(){
         }
     });
     
-    window.formEditarReceta = Backbone.View.extend({
 
-        el: $('#formEditarReceta'),               
+    
+    window.listarRecRel = Backbone.View.extend({
+
+        el: $('#opcionesRecetas'),               
 
         events: {                        
-            "click #actualizarReceta"  : "actualizarReceta"                
+            "click #buscarRecetas"  : "buscarRecetasRel"                
         },                
 
 
-        actualizarReceta: function(e) {
-            console.log('formEditarReceta:actualizarReceta');
+        buscarRecetasRel: function(e) {
+            console.log('listarRecRel:buscarRecetasRel');
 
             receta = new window.recetaModel();
             
-            receta.save({
-                nombre: $('#receta_nombre').val(),
-                descripcion: $('#receta_descripcion').val(),
-                n_personas: Number($('#receta_n_personas').val())
-            },{
-                success:function(data, textStatus){
-                    console.log(receta.id);
-                    $('#formNuevaReceta').hide();
-                },
-                error: function(jqXHR, textStatus, errorThrown){     
-                }
-            });
         }
     });
     
-    
-    
     formNuevaReceta = new window.formNuevaReceta();
+    
+    listarRecRel = new window.listarRecRel();
+
+    
+    
 });

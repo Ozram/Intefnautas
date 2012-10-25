@@ -1,7 +1,13 @@
 {% extends 'ConcursoMenus4AllBundle::layout.html.twig' %}
 
 {% block cuerpo %}
-<a id="anadirReceta" class="btn btn-success">Añadir Receta</a>
+<div id="opcionesRecetas">
+    <a id="anadirReceta" class="btn btn-success">Añadir Receta</a>
+    <a id="buscarRecetas" class="btn btn-success">Buscar Recetas</a> 
+</div>
+
+
+ 
 <div id="formNuevaReceta" style="display:none">
 <form id="miformulario" class="form-horizontal">
     <fieldset>
@@ -59,6 +65,7 @@ $(document).ready(function(){
     $('#anadirReceta').click(function(){
         $('#formNuevaReceta').show();
     });
+
     $('#erroresReceta').hide();
     $('#exitosReceta').hide();
 });
