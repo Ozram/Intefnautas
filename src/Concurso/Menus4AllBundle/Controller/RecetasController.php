@@ -10,7 +10,7 @@ use Concurso\Menus4AllBundle\Form\Type\IngredienteType;
 
 class RecetasController extends Controller {
 
-    public function formNuevaAction() {
+    public function formNuevaAction() {        
         $receta = new Receta();
         $form = $this->createForm(new RecetaType(), $receta);
         return $this->render('ConcursoMenus4AllBundle:Recetas:nuevaReceta.html.twig', array('form' => $form->createView()));
@@ -19,15 +19,10 @@ class RecetasController extends Controller {
     public function createRecetaAction() {
         $json = $this->getRequest()->getContent();
         $rmService = $this->get('cm4all.recetasmanager');
-        $statusCode = $rmService->createReceta($json);
-        if ($statusCode == 200) {
-            //$result['success']['message'] = 'Receta creada correctamente';
-            $result['id'] = 48;
-        } else {
-            $result['error']['messages'] = 'Error al crear la receta';
-        }
-        $result = json_encode($result);
-        return $this->sendResponse($result, $statusCode);
+        $resultado = $rmService->createReceta($json);
+        $statusCode = $resultado['statusCode'];
+        $resultado = json_encode($resultado);
+        return $this->sendResponse($resultado, $statusCode);
     }
 
     public function readRecetaAction($id) {

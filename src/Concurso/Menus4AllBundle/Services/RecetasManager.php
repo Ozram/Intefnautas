@@ -20,23 +20,26 @@ class RecetasManager {
             $receta->setNombre($data['nombre']);
             $receta->setDescripcion($data['descripcion']);
             $receta->setNPersonas($data['n_personas']);
-
             $errors = $this->validator->validate($receta);
             if (count($errors) > 0) {
-                $statusCode = 418;
-                return $statusCode;
+                $resultado['statusCode'] = 422;
+                foreach($errors as $error){
+                    $resultado['errores'][$error->getPropertyPath()] = $error->getMessage();
+                }
+                return $resultado;
             }
             $this->em->persist($receta);
             $flushexc = $this->em->flush();
-            $statusCode = 200;
+            $resultado['statusCode'] = 200;
+            $resultado['id'] = $receta->getId();
         } catch (\ErrorException $mapexc) {
-            $statusCode = 500;
+            $resultado['statusCode'] = 500;
         } catch (\Doctrine\ORM\OptimisticLockException $flushexc) {
-            $statusCode = 500;
+            $resultado['statusCode'] = 500;
         } catch (\Exception $exc) {
-            $statusCode = 500;
+            $resultado['statusCode'] = 500;
         }
-        return $statusCode;
+        return $resultado;
     }
 
     public function readReceta($id) {

@@ -54,7 +54,8 @@ class Receta {
     /**
      * @var integer $n_personas
      * -------------validadores-------------
-     * @Assert\NotBlank(message = "Debes poner el número de personas")
+     * @Assert\NotBlank(message = "Debes poner el número de comensales")
+     * @Assert\Type(type="integer", message="El valor {{ value }} no del tipo valido {{ type }}.")
      * 
      * @ORM\Column(name="n_personas", type="integer")
      */

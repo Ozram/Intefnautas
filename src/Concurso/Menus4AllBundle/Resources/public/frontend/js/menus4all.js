@@ -19,7 +19,7 @@ $(document).ready(function(){
             receta.save({
                 nombre: $('#receta_nombre').val(),
                 descripcion: $('#receta_descripcion').val(),
-                n_personas: $('#receta_n_personas').val()
+                n_personas: Number($('#receta_n_personas').val())
             },{
                 success:function(data, textStatus){
                     console.log(receta.id);
@@ -30,6 +30,37 @@ $(document).ready(function(){
             });
         }
     });
+    
+    window.formEditarReceta = Backbone.View.extend({
+
+        el: $('#formEditarReceta'),               
+
+        events: {                        
+            "click #actualizarReceta"  : "actualizarReceta"                
+        },                
+
+
+        actualizarReceta: function(e) {
+            console.log('formEditarReceta:actualizarReceta');
+
+            receta = new window.recetaModel();
+            
+            receta.save({
+                nombre: $('#receta_nombre').val(),
+                descripcion: $('#receta_descripcion').val(),
+                n_personas: Number($('#receta_n_personas').val())
+            },{
+                success:function(data, textStatus){
+                    console.log(receta.id);
+                    $('#formNuevaReceta').hide();
+                },
+                error: function(jqXHR, textStatus, errorThrown){     
+                }
+            });
+        }
+    });
+    
+    
     
     formNuevaReceta = new window.formNuevaReceta();
 });
