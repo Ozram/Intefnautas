@@ -1,4 +1,4 @@
-<script type="text/template" id="plantillaRecetaFormNueva">
+<script type="text/template" id="plantillaRecetaList">
     <% _.each(recetas, function(receta){ %>
     <div id="receta_<%= receta.id %>">
         <h3><%= receta.nombre %></h3>
@@ -8,3 +8,62 @@
     <%}); %>
 </script>
 
+<script type="text/template" id="plantillaRecetaForms">
+<form class="form-horizontal">
+    <fieldset>
+        <div id="legend" class="">
+            <legend class=""><%= data.nombreForm %></legend>
+        </div>
+        <div class="control-group">
+
+            <!-- Text input-->
+            <div id="exitosReceta" class="alert alert-success"><button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>Exito:</strong>   
+                <%= data.success %>
+            </div>
+            <div id="erroresReceta" class="alert alert-error"><button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>Error:</strong>
+                <ul id="listErrorsNueva">
+                    <% _.each(data.errores, function(error){ %>
+                    <li>
+                        <%= error %>
+                    </li>
+                    <%}); %>
+                </ul>
+            </div>
+            <label class=" control-label required" for="receta_nombre"> Nombre </label>
+            <div class="controls">
+                <input class="receta_nombre" type="text" required="required" value="<%= data.receta.nombre %>">
+            </div>
+        </div>
+
+        <div class="control-group">
+
+            <!-- Text input-->
+            <label class=" control-label required" for="receta_n_personas"> Comensales </label>
+            <div class="controls">
+                <input class="receta_n_personas" type="text" required="required" value="<%= data.receta.n_personas %>">
+            </div>
+        </div>
+
+        <div class="control-group">
+
+            <!-- Textarea -->
+            <label class=" control-label required" for="receta_descripcion"> Descripcion </label>
+            <div class="controls">
+                <div class="textarea">
+                    <textarea class="receta_descripcion" required="required" value="<%= data.receta.descripcion %>"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- Form Actions -->
+            <div class="form-actions">
+                <a id="<%= data.idAccion %>" type="submit" class="btn btn-primary">Save changes</a>
+                <button type="button" class="btn">Cancel</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+</scrip>
