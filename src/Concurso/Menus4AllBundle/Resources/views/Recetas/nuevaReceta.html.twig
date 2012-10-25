@@ -1,4 +1,9 @@
-  <form id="miformulario" class="form-horizontal">
+
+    
+
+
+<div id="formNuevaReceta">
+<form id="miformulario" class="form-horizontal">
 
     <fieldset>
       <div id="legend" class="">
@@ -52,29 +57,47 @@
 
     </fieldset>
   </form>
-
+</div>
 <script type="text/javascript">
     
 $(document).ready(function(){
     $('#erroresReceta').hide();
     $('#exitosReceta').hide();
-    $('#crearReceta').click(function(){
-        jQuery.ajax({
-            type:'POST',
-            dataType:'json',
-            data: $("#miformulario").serializeArray(),
-            success:function(data, textStatus){
-                $('#exitosReceta').show();
-            },
-            error: function(jqXHR, textStatus, errorThrown){
-                var coleccionErrores = jQuery.parseJSON(jqXHR.responseText);
-                listErrors = recorreNotificaciones(coleccionErrores.error.messages);
-                $('#listErrorsNueva').html(listErrors);
-                $('#erroresReceta').show();
-            },
-            url: '{{ url('cm4all_recetas_post') }}'
-        });
+    console.log('Hola');
+    window.recetaModel = Backbone.Model.extend({
+        urlRoot : '/Intefnautas/web/app_dev.php/recetas'
+    });    
+    
+    window.formNuevaReceta = Backbone.View.extend({
+
+        el: $('#formNuevaReceta'),               
+
+        events: {                        
+            "click #crearReceta"  : "crearReceta"                
+        },                
+
+
+        crearReceta: function(e) {
+            console.log('formNuevaReceta:crearReceta');
+
+            receta = new window.recetaModel();
+            
+            receta.save({
+                nombre: $('#receta_nombre').val(),
+                descripcion: $('#receta_descripcion').val(),
+                n_personas: $('#receta_n_personas').val()
+            },{
+                success:function(data, textStatus){
+                     console.log(receta.id);
+                },
+                error: function(jqXHR, textStatus, errorThrown){     
+                },
+            });
+        }
     });
+    
+    formNuevaReceta = new window.formNuevaReceta();
+
 });
 
 var recorreNotificaciones = function (coleccionMensajes){

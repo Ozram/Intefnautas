@@ -17,33 +17,16 @@ class RecetasController extends Controller {
     }
 
     public function createRecetaAction() {
-        $request = $this->getRequest();
-        $receta = new Receta();
-        $form = $this->createForm(new RecetaType(), $receta);
-        $form->bindRequest($request);
-        if ($form->isValid()) {
-            try {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($receta);
-                $em->flush();
-                $result['success']['message'] = 'Receta creada correctamente';
-                $result = json_encode($result);
-                return $this->sendResponse($result, 200);
-            } catch (\ErrorException $mapexc) {
-                $statusCode = 500;
-                return $statusCode;
-            } catch (\Doctrine\ORM\OptimisticLockException $flushexc) {
-                $statusCode = 500;
-                return $statusCode;
-            }
+        $json = $this->getRequest()->getContent();
+        $rmService = $this->get('cm4all.recetasmanager');
+        $statusCode = $rmService->createReceta($json);
+        if ($statusCode == 200) {
+            //$result['success']['message'] = 'Receta creada correctamente';
+            $result['id'] = 48;
         } else {
-            $result = array('error' => array('messages' => array()));
-            $errors = $this->getErrorMessages($form);
-            $result['error']['messages'] = $errors;
-
-            $result = json_encode($result);
-            return $this->sendResponse($result, 422);
+            $result['error']['messages'] = 'Error al crear la receta';
         }
+        $result = json_encode($result);
         return $this->sendResponse($result, $statusCode);
     }
 

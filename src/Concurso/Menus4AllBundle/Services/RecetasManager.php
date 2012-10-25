@@ -22,30 +22,94 @@ class RecetasManager {
             $this->em->persist($receta);
             $flushexc = $this->em->flush();
             $statusCode = 200;
-            return $statusCode;
         } catch (\ErrorException $mapexc) {
             $statusCode = 500;
-            return $statusCode;
         } catch (\Doctrine\ORM\OptimisticLockException $flushexc) {
             $statusCode = 500;
-            return $statusCode;
+        } catch (\Exception $exc) {
+            $statusCode = 500;
         }
+        return $statusCode;
     }
 
     public function readReceta($id) {
-        return $id . ' has been read';
+        $data = json_decode($json, true);
+        $receta = new Receta();
+        try {
+            $receta->setNombre($data['nombre']);
+            $receta->setDescripcion($data['descripcion']);
+            $receta->setNPersonas($data['n_personas']);
+            $this->em->persist($receta);
+            $flushexc = $this->em->flush();
+            $statusCode = 200;
+        } catch (\ErrorException $mapexc) {
+            $statusCode = 500;
+        } catch (\Doctrine\ORM\OptimisticLockException $flushexc) {
+            $statusCode = 500;
+        } catch (\Exception $exc) {
+            $statusCode = 500;
+        }
+        return $statusCode;
     }
 
     public function readRecetaCollection($data) {
-        return 'Receta collection';
+        $data = json_decode($json, true);
+        $receta = new Receta();
+        try {
+            $receta->setNombre($data['nombre']);
+            $receta->setDescripcion($data['descripcion']);
+            $receta->setNPersonas($data['n_personas']);
+            $this->em->persist($receta);
+            $flushexc = $this->em->flush();
+            $statusCode = 200;
+        } catch (\ErrorException $mapexc) {
+            $statusCode = 500;
+        } catch (\Doctrine\ORM\OptimisticLockException $flushexc) {
+            $statusCode = 500;
+        } catch (\Exception $exc) {
+            $statusCode = 500;
+        }
+        return $statusCode;
     }
 
     public function updateReceta($id, $data) {
-        return $id . ' has been updated';
+        $data = json_decode($json, true);
+        $receta = new Receta();
+        try {
+            $receta->setNombre($data['nombre']);
+            $receta->setDescripcion($data['descripcion']);
+            $receta->setNPersonas($data['n_personas']);
+            $this->em->persist($receta);
+            $flushexc = $this->em->flush();
+            $statusCode = 200;
+        } catch (\ErrorException $mapexc) {
+            $statusCode = 500;
+        } catch (\Doctrine\ORM\OptimisticLockException $flushexc) {
+            $statusCode = 500;
+        } catch (\Exception $exc) {
+            $statusCode = 500;
+        }
+        return $statusCode;
     }
 
     public function deleteReceta($id) {
-        return $id . ' has been deleted';
+        $data = json_decode($json, true);
+        $receta = new Receta();
+        try {
+            $receta->setNombre($data['nombre']);
+            $receta->setDescripcion($data['descripcion']);
+            $receta->setNPersonas($data['n_personas']);
+            $this->em->persist($receta);
+            $flushexc = $this->em->flush();
+            $statusCode = 200;
+        } catch (\ErrorException $mapexc) {
+            $statusCode = 500;
+        } catch (\Doctrine\ORM\OptimisticLockException $flushexc) {
+            $statusCode = 500;
+        } catch (\Exception $exc) {
+            $statusCode = 500;
+        }
+        return $statusCode;
     }
 
 }
