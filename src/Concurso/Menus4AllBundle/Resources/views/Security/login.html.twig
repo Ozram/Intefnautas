@@ -1,22 +1,33 @@
 {% extends "ConcursoMenus4AllBundle::layout.html.twig" %}
-
 {% block central %}
-    {% if error %}
-        <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
-    {% endif %}
+{% block fos_user_content %}
 
-    <form action="{{ path("fos_user_security_check") }}" method="post">
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+<div class="row">
+    <div class="span4 ">
+        <div class="well">
+            <legend>¿Ya tienes cuenta?</legend>
+            <form method="POST" action="{{ path("fos_user_security_check") }}" accept-charset="UTF-8">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
-        <label for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+                {% if error %}
+                    <div class="alert alert-error">
+                        <a class="close" data-dismiss="alert" href="#">x</a><h4>Cuidado!</h4>{{ error|trans({}, 'FOSUserBundle') }}
+                    </div>
+                {% endif %}
 
-        <label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
-        <input type="password" id="password" name="_password" required="required" />
+                <input class="span10" placeholder="Username" type="text" id="username" name="_username" value="{{ last_username }}" required="required">
+                <input class="span10" placeholder="Password" type="password" id="password" name="_password" required="required">
+                <label class="checkbox">
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on" /> Remember Me
+                </label>
+                <p><button class="btn-info btn span7" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}">Login</button></p>
+                <label> 
+                    <a href="{{ path("fos_user_registration_register") }}" style="margin-left: 10px;">Register</a>
+                </label>
+            </form>
+        </div>
+    </div>
+</div>
 
-        <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-        <label for="remember_me">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
-
-        <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
-    </form>
+{% endblock fos_user_content %}
 {% endblock %}
