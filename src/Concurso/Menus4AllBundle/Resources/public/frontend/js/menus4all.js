@@ -1,13 +1,19 @@
 $(document).ready(function(){
     window.recetaModel = Backbone.Model.extend({
-        urlRoot : '/Intefnautas/web/app_dev.php/recetas'
+        urlRoot : '/intefnautas/web/app_dev.php/recetas'
     });
+    
+    window.proyectoDocumentacionCollection = Backbone.Collection.extend({
+        model: window.recetaModel,
+        url: '/intefnautas/web/app_dev.php/recetas'
+    });
+    
     window.formNuevaReceta = Backbone.View.extend({
 
         el: $('#formNuevaReceta'),               
 
         events: {                        
-            "click #crearReceta"  : "crearReceta"                
+            "click #crearReceta"  : "crearReceta"            
         },                
 
 
@@ -31,5 +37,29 @@ $(document).ready(function(){
         }
     });
     
+
+    
+    window.listarRecRel = Backbone.View.extend({
+
+        el: $('#opcionesRecetas'),               
+
+        events: {                        
+            "click #buscarRecetas"  : "buscarRecetasRel"                
+        },                
+
+
+        buscarRecetasRel: function(e) {
+            console.log('listarRecRel:buscarRecetasRel');
+
+            receta = new window.recetaModel();
+            
+        }
+    });
+    
     formNuevaReceta = new window.formNuevaReceta();
+    
+    listarRecRel = new window.listarRecRel();
+
+    
+    
 });
