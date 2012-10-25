@@ -11,7 +11,9 @@ use Concurso\Menus4AllBundle\Form\Type\IngredienteType;
 class MainController extends Controller {
 
     public function indexAction() {
-        return $this->render('ConcursoMenus4AllBundle::index.html.twig', array('receta' => 'Galletas'));
+        $receta = new Receta();
+        $form = $this->createForm(new RecetaType(), $receta);
+        return $this->render('ConcursoMenus4AllBundle::index.html.twig', array('form' => $form->createView()));
     }
 }
 ?>

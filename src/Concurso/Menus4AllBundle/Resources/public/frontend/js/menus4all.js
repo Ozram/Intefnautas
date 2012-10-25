@@ -23,6 +23,7 @@ $(document).ready(function(){
             },{
                 success:function(data, textStatus){
                     console.log(receta.id);
+                    $('#formNuevaReceta').hide();
                 },
                 error: function(jqXHR, textStatus, errorThrown){     
                 }

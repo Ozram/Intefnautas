@@ -1,10 +1,9 @@
+{% extends 'ConcursoMenus4AllBundle::layout.html.twig' %}
 
-    
-
-
-<div id="formNuevaReceta">
+{% block cuerpo %}
+<a id="anadirReceta" class="btn btn-success">Añadir Receta</a>
+<div id="formNuevaReceta" style="display:none">
 <form id="miformulario" class="form-horizontal">
-
     <fieldset>
       <div id="legend" class="">
         <legend class="">Nueva Receta</legend>
@@ -56,10 +55,13 @@
     {{ form_rest(form) }}
 
     </fieldset>
-  </form>
+</form>
 </div>
 <script type="text/javascript">    
 $(document).ready(function(){
+    $('#anadirReceta').click(function(){
+        $('#formNuevaReceta').show();
+    });
     $('#erroresReceta').hide();
     $('#exitosReceta').hide();
 });
@@ -74,4 +76,6 @@ var recorreNotificaciones = function (coleccionMensajes){
     return txt;
 };
 </script>
-<script src="{{ asset('bundles/concursomenus4all/frontend/js/menus4all.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+
