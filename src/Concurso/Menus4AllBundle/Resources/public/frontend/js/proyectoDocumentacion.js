@@ -1,6 +1,8 @@
 $(document).ready(function() {
 
-    window.proyectoDocumentacionModel = Backbone.Model.extend();    
+    window.recetaModel = Backbone.Model.extend({
+        urlRoot : '/intefnautas/web/app_web.php/recetas'
+    });    
     
     window.proyectoDocumentacionCollection = Backbone.Collection.extend({
         
@@ -99,6 +101,27 @@ los proyectos realiza una búsqueda con el campo vacío",
         }                                                  
     });  
     
+    window.formNuevaReceta = Backbone.View.extend({
+        
+        el: $('#formNuevaReceta'),               
+        
+        events: {                        
+            "click #crearReceta"  : "crearReceta"                
+        },                
+                
+        
+        crearReceta: function(e) {
+            console.log('formNuevaReceta:crearReceta');
+            
+            receta = new window.recetaModel;
+            receta.set({
+                nombre: $('#receta_nombre'),
+                descripcion: $('#receta_descripcion'),
+                n_personas: $('#receta_n_ndescripcion')
+            });
+            receta.save();
+        }
+    });
     window.botoneraView = Backbone.View.extend({
         
         el: $('#botonera'),               

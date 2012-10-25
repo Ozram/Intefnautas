@@ -1,5 +1,9 @@
-  <form id="miformulario" class="form-horizontal">
+{% extends 'ConcursoMenus4AllBundle::layout.html.twig' %}
 
+{% block cuerpo %}
+<a id="anadirReceta" class="btn btn-success">Añadir Receta</a>
+<div id="formNuevaReceta" style="display:none">
+<form id="miformulario" class="form-horizontal">
     <fieldset>
       <div id="legend" class="">
         <legend class="">Nueva Receta</legend>
@@ -51,30 +55,15 @@
     {{ form_rest(form) }}
 
     </fieldset>
-  </form>
-
-<script type="text/javascript">
-    
+</form>
+</div>
+<script type="text/javascript">    
 $(document).ready(function(){
+    $('#anadirReceta').click(function(){
+        $('#formNuevaReceta').show();
+    });
     $('#erroresReceta').hide();
     $('#exitosReceta').hide();
-    $('#crearReceta').click(function(){
-        jQuery.ajax({
-            type:'POST',
-            dataType:'json',
-            data: $("#miformulario").serializeArray(),
-            success:function(data, textStatus){
-                $('#exitosReceta').show();
-            },
-            error: function(jqXHR, textStatus, errorThrown){
-                var coleccionErrores = jQuery.parseJSON(jqXHR.responseText);
-                listErrors = recorreNotificaciones(coleccionErrores.error.messages);
-                $('#listErrorsNueva').html(listErrors);
-                $('#erroresReceta').show();
-            },
-            url: '{{ url('cm4all_recetas_post') }}'
-        });
-    });
 });
 
 var recorreNotificaciones = function (coleccionMensajes){
@@ -87,3 +76,6 @@ var recorreNotificaciones = function (coleccionMensajes){
     return txt;
 };
 </script>
+{% endblock %}
+
+

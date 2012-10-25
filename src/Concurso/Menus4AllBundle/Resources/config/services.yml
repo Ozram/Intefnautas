@@ -5,4 +5,4 @@ parameters:
 services:
     cm4all.recetasmanager:
         class: %cm4all.recetasmanager.class%
-        arguments: ["@doctrine.orm.entity_manager"]
+        arguments: ["@doctrine.orm.entity_manager", "@validator"]
