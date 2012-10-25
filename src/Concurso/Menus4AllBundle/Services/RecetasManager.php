@@ -43,23 +43,20 @@ class RecetasManager {
     }
 
     public function readReceta($id) {
-        $data = json_decode($json, true);
-        $receta = new Receta();
         try {
-            $receta->setNombre($data['nombre']);
-            $receta->setDescripcion($data['descripcion']);
-            $receta->setNPersonas($data['n_personas']);
-            $this->em->persist($receta);
-            $flushexc = $this->em->flush();
-            $statusCode = 200;
+            $receta = $this->em->getRepository('ConcursoMenus4AllBundle:Receta')->find($id);
+            $listaReceta['id'] = $receta->getId();
+            $listaReceta['nombre'] = $receta->getNombre();
+            $listaReceta['n_personas'] = $receta->getNPersonas();
+            $listaReceta['descripcion'] = $receta->getDescripcion();
+            $resultado['listaReceta'] = $listaReceta;
+            $resultado['statusCode']  = 200;
         } catch (\ErrorException $mapexc) {
-            $statusCode = 500;
-        } catch (\Doctrine\ORM\OptimisticLockException $flushexc) {
             $resultado['statusCode']  = 500;
         } catch (\Exception $exc) {
             $resultado['statusCode']  = 500;
         }
-        return $statusCode;
+        return $resultado;
     }
 
     public function readRecetaCollection() {
@@ -81,44 +78,48 @@ class RecetasManager {
         return $resultado;
     }
 
-    public function updateReceta($id, $data) {
+    public function updateReceta($id, $json) {
         $data = json_decode($json, true);
-        $receta = new Receta();
         try {
+            $receta = $this->em->getRepository('ConcursoMenus4AllBundle:Receta')->find($id);
             $receta->setNombre($data['nombre']);
             $receta->setDescripcion($data['descripcion']);
             $receta->setNPersonas($data['n_personas']);
+            $errors = $this->validator->validate($receta);
+            if (count($errors) > 0) {
+                $resultado['statusCode'] = 422;
+                foreach ($errors as $error) {
+                    $resultado['errores'][$error->getPropertyPath()] = $error->getMessage();
+                }
+                return $resultado;
+            }
             $this->em->persist($receta);
             $flushexc = $this->em->flush();
-            $statusCode = 200;
+            $resultado['statusCode'] = 200;
+            $resultado['id'] = $receta->getId();
         } catch (\ErrorException $mapexc) {
-            $statusCode = 500;
+            $resultado['statusCode'] = 500;
         } catch (\Doctrine\ORM\OptimisticLockException $flushexc) {
-            $statusCode = 500;
+            $resultado['statusCode'] = 500;
         } catch (\Exception $exc) {
-            $statusCode = 500;
+            $resultado['statusCode'] = 500;
         }
-        return $statusCode;
+        return $resultado;
     }
 
     public function deleteReceta($id) {
-        $data = json_decode($json, true);
-        $receta = new Receta();
         try {
-            $receta->setNombre($data['nombre']);
-            $receta->setDescripcion($data['descripcion']);
-            $receta->setNPersonas($data['n_personas']);
-            $this->em->persist($receta);
-            $flushexc = $this->em->flush();
-            $statusCode = 200;
-        } catch (\ErrorException $mapexc) {
-            $statusCode = 500;
-        } catch (\Doctrine\ORM\OptimisticLockException $flushexc) {
-            $statusCode = 500;
+            $receta = $this->em->getRepository('ConcursoMenus4AllBundle:Receta')->find($id);
+            $this->em->remove($receta);
+            $this->em->flush();
+            $resultado['id'] = $id;
+            $resultado['statusCode'] = 200;
         } catch (\Exception $exc) {
-            $statusCode = 500;
+            $resultado['statusCode'] = 500;
+        } catch (\Doctrine\ORM\OptimisticLockException $flushexc) {
+            $resultado['statusCode'] = 500;
         }
-        return $statusCode;
+        return $resultado;
     }
 
 }
