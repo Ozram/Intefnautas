@@ -1,11 +1,12 @@
 $(document).ready(function(){
+    
     window.recetaModel = Backbone.Model.extend({
-        urlRoot : '/Intefnautas/web/app_dev.php/recetas'
+        urlRoot : urlRootDefault+'/recetas'
     });
     
     window.recetaCollection = Backbone.Collection.extend({
         model: window.recetaModel,
-        url: '/Intefnautas/web/app_dev.php/recetas'
+        url: urlRootDefault+'/recetas'
     });
     
     window.formNuevaReceta = Backbone.View.extend({
@@ -78,7 +79,7 @@ $(document).ready(function(){
         el: $('#opcionesRecetas'),               
 
         events: {                        
-            "click #buscarRecetas"  : "buscarRecetasRel"                
+            "click #buscarRecetas"  : "buscarRecetasRel"
         },                
 
         template: _.template($('#plantillaRecetaFormNueva').html()),
@@ -108,12 +109,26 @@ $(document).ready(function(){
     
     window.appRouter = Backbone.Router.extend({
    
+        template: _.template($('#plantillaRecetaFormNueva').html()),
         initialize: function(){
        
             console.log('window.app.initialize');
                 
             this.recetaCollection = new window.recetaCollection();
-    
+            that = this;
+            this.recetaCollection.fetch({
+                success: function(collection, response){
+                    console.log('recetas.fetch.success');
+                    $('#listaRecetasBusqueda').html(that.template({
+                        recetas: that.recetaCollection.toJSON()
+                    }));
+                },
+                error: function(collection, response){
+                    
+                    console.log('recetas.fetch.error');
+
+                }
+            }); 
             this.formNuevaReceta = new window.formNuevaReceta({
                 collection:  this.recetaCollection
             });
@@ -123,13 +138,10 @@ $(document).ready(function(){
             this.listarRecRel = new window.listarRecRel({
                 collection:  this.recetaCollection
             });
-     
+            
         }
    
     });
-    
-    
-    
     
     var menus4all = new window.appRouter;
     

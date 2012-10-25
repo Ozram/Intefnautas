@@ -6,3 +6,4 @@ build/
 vendor
 composer.phar
 /nbproject/
+/src/Concurso/Menus4AllBundle/Resources/public/frontend/js/configBackbone.js
