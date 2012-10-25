@@ -26,11 +26,10 @@ class RecetasController extends Controller {
     }
 
     public function readRecetaAction($id) {
-        $json = $this->getRequest()->get('id');
         $rmService = $this->get('cm4all.recetasmanager');
-        $resultado = $rmService->readReceta($json);
+        $resultado = $rmService->readReceta($id);
         $statusCode = $resultado['statusCode'];       
-        $data = json_encode(NULL);
+        $data = json_encode($resultado['listaReceta']);
         return $this->sendResponse($data, $statusCode);
     }
 
@@ -43,11 +42,11 @@ class RecetasController extends Controller {
     }
 
     public function updateRecetaAction($id) {
-        $json = $this->getRequest()->get('json');
+        $json = $this->getRequest()->getContent();
         $rmService = $this->get('cm4all.recetasmanager');
-        $resultado = $rmService->updateReceta($json);
-        $statusCode = $resultado['statusCode'];
-        $data = json_encode(NULL);
+        $resultado = $rmService->updateReceta($id, $json);
+        $statusCode = $resultado['statusCode'];       
+        $data = json_encode($resultado);
         return $this->sendResponse($data, $statusCode);
     }
 
