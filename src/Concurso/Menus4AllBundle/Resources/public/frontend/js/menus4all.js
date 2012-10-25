@@ -17,7 +17,7 @@ $(document).ready(function(){
             "click #crearReceta"  : "crearReceta"            
         },                
 
-        template: _.template($('#plantillaRecetaFormNueva').html()),
+        template: _.template($('#plantillaRecetaForms').html()),
         
         crearReceta: function(e) {
             console.log('formNuevaReceta:crearReceta');
@@ -49,7 +49,7 @@ $(document).ready(function(){
             "click #actualizarReceta"  : "actualizarReceta"                
         },                
         
-        template: _.template($('#plantillaRecetaFormNueva').html()),
+        template: _.template($('#plantillaRecetaForms').html()),
         
         actualizarReceta: function(e) {
             console.log('formEditarReceta:actualizarReceta');
@@ -118,7 +118,7 @@ $(document).ready(function(){
     
     window.appRouter = Backbone.Router.extend({
    
-        template: _.template($('#plantillaRecetaFormNueva').html()),
+        template: _.template($('#plantillaRecetaList').html()),
         initialize: function(){
        
             console.log('window.app.initialize');
