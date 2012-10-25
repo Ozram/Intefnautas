@@ -22,15 +22,16 @@ class RecetasController extends Controller {
         $resultado = $rmService->createReceta($json);
         $statusCode = $resultado['statusCode'];
         $data = json_encode($resultado);
-        return $this->sendResponse($resultado, $statusCode);
+        return $this->sendResponse($data, $statusCode);
     }
 
     public function readRecetaAction($id) {
-        $json = $this->getRequest()->get('json');
+        $json = $this->getRequest()->get('id');
         $rmService = $this->get('cm4all.recetasmanager');
-        $statusCode = $rmService->readReceta($json);
-        $result = json_encode(NULL);
-        return $this->sendResponse($result, $statusCode);
+        $resultado = $rmService->readReceta($json);
+        $statusCode = $resultado['statusCode'];       
+        $data = json_encode(NULL);
+        return $this->sendResponse($data, $statusCode);
     }
 
     public function readRecetasCollectionAction() {
@@ -44,17 +45,19 @@ class RecetasController extends Controller {
     public function updateRecetaAction($id) {
         $json = $this->getRequest()->get('json');
         $rmService = $this->get('cm4all.recetasmanager');
-        $statusCode = $rmService->updateReceta($json);
-        $result = json_encode(NULL);
-        return $this->sendResponse($result, $statusCode);
+        $resultado = $rmService->updateReceta($json);
+        $statusCode = $resultado['statusCode'];
+        $data = json_encode(NULL);
+        return $this->sendResponse($data, $statusCode);
     }
 
     public function deleteRecetaAction($id) {
         $json = $this->getRequest()->get('json');
         $rmService = $this->get('cm4all.recetasmanager');
-        $statusCode = $rmService->deleteReceta($json);
-        $result = json_encode(NULL);
-        return $this->sendResponse($result, $statusCode);
+        $resultado = $rmService->deleteReceta($json);
+        $statusCode = $resultado['statusCode'];
+        $data = json_encode(NULL);
+        return $this->sendResponse($data, $statusCode);
     }
 
     protected function sendResponse($result, $status_code) {
