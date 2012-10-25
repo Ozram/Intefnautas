@@ -86,7 +86,7 @@ $(document).ready(function(){
             "click #buscarRecetas"  : "buscarRecetasRel"
         },                
 
-        template: _.template($('#plantillaRecetaFormNueva').html()),
+        template: _.template($('#plantillaRecetaList').html()),
 
         buscarRecetasRel: function(e) {
             console.log('listarRecRel:buscarRecetasRel');
