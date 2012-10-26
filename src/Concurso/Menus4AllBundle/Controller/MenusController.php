@@ -4,49 +4,51 @@ namespace Concurso\Menus4AllBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use Concurso\Menus4AllBundle\Entity\Receta;
-use Concurso\Menus4AllBundle\Form\Type\RecetaType;
+use Concurso\Menus4AllBundle\Entity\Menu;
+use Concurso\Menus4AllBundle\Form\Type\MenuType;
 use Concurso\Menus4AllBundle\Form\Type\IngredienteType;
 
-class RecetasController extends Controller {
-    public function createRecetaAction() {
+class MenusController extends Controller {
+
+
+    public function createMenuAction() {
         $json = $this->getRequest()->getContent();
-        $rmService = $this->get('cm4all.recetasmanager');
-        $resultado = $rmService->createReceta($json);
+        $rmService = $this->get('cm4all.menusmanager');
+        $resultado = $rmService->createMenu($json);
         $statusCode = $resultado['statusCode'];
         $data = json_encode($resultado);
         return $this->sendResponse($data, $statusCode);
     }
 
-    public function readRecetaAction($id) {
-        $rmService = $this->get('cm4all.recetasmanager');
-        $resultado = $rmService->readReceta($id);
+    public function readMenuAction($id) {
+        $rmService = $this->get('cm4all.menusmanager');
+        $resultado = $rmService->readMenu($id);
         $statusCode = $resultado['statusCode'];       
-        $data = json_encode($resultado['listaReceta']);
+        $data = json_encode($resultado['listaMenu']);
         return $this->sendResponse($data, $statusCode);
     }
 
-    public function readRecetasCollectionAction() {
-        $rmService = $this->get('cm4all.recetasmanager');
-        $resultado = $rmService->readRecetaCollection();
+    public function readMenusCollectionAction() {
+        $rmService = $this->get('cm4all.menusmanager');
+        $resultado = $rmService->readMenuCollection();
         $statusCode = $resultado['statusCode'];
-        $data = json_encode($resultado['listaRecetas']);
+        $data = json_encode($resultado['listaMenus']);
         return $this->sendResponse($data, $statusCode);
     }
 
-    public function updateRecetaAction($id) {
+    public function updateMenuAction($id) {
         $json = $this->getRequest()->getContent();
-        $rmService = $this->get('cm4all.recetasmanager');
-        $resultado = $rmService->updateReceta($id, $json);
+        $rmService = $this->get('cm4all.menusmanager');
+        $resultado = $rmService->updateMenu($id, $json);
         $statusCode = $resultado['statusCode'];       
         $data = json_encode($resultado);
         return $this->sendResponse($data, $statusCode);
     }
 
-    public function deleteRecetaAction($id) {
+    public function deleteMenuAction($id) {
         $json = $this->getRequest()->get('json');
-        $rmService = $this->get('cm4all.recetasmanager');
-        $resultado = $rmService->deleteReceta($json);
+        $rmService = $this->get('cm4all.menusmanager');
+        $resultado = $rmService->deleteMenu($json);
         $statusCode = $resultado['statusCode'];
         $data = json_encode(NULL);
         return $this->sendResponse($data, $statusCode);

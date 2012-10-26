@@ -2,9 +2,46 @@ cm4all_homepage:
     pattern:  /
     defaults: { _controller: ConcursoMenus4AllBundle:Main:index }
 
-cm4all_recetas_formNueva:
-    pattern: /recetas/formNueva
-    defaults: { _controller: ConcursoMenus4AllBundle:Recetas:formNueva } 
+
+#Routing Menus
+  
+cm4all_menus_post:
+   pattern: /menus
+   defaults: { _controller: ConcursoMenus4AllBundle:Menus:createMenu }
+   requirements:
+     _method: POST
+     _format: json
+
+cm4all_menus_get:
+   pattern: /menus/{id}
+   defaults: { _controller: ConcursoMenus4AllBundle:Menus:readMenu }
+   requirements:
+     _method: GET
+     _format: json
+     
+cm4all_menus_get_collection:
+   pattern: /menus
+   defaults: { _controller: ConcursoMenus4AllBundle:Menus:readMenusCollection }
+   requirements:
+     _method: GET
+     _format: json
+
+cm4all_menus_put:
+   pattern: /menus/{id}
+   defaults: { _controller: ConcursoMenus4AllBundle:Menus:updateMenu }
+   requirements:
+     _method: PUT
+     _format: json
+    
+cm4all_menus_delete:
+   pattern: /menus/{id}
+   defaults: { _controller: ConcursoMenus4AllBundle:Menus:deleteMenu }
+   requirements:
+     _method: DELETE
+     _format: json
+
+
+#Routing Recetas
   
 cm4all_recetas_index:
     pattern:  /recetas/hola
