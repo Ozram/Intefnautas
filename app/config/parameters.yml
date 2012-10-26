@@ -1,7 +1,8 @@
 parameters:
-    database_driver:   pdo_mysql
+    database_driver:   pdo_sqlite
     database_host:     localhost
     database_port:     ~
+    database_path:     /home/ozram/Sitios/Symfony/src/Concurso/Menus4AllBundle/SQLiteDb/menus4all.db
     database_name:     menus4all
     database_user:     root
     database_password: root
