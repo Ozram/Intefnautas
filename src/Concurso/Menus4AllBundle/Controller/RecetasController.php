@@ -30,7 +30,11 @@ class RecetasController extends Controller {
         $rmService = $this->get('cm4all.recetasmanager');
         $resultado = $rmService->readRecetaCollection();
         $statusCode = $resultado['statusCode'];
-        $data = json_encode($resultado['listaRecetas']);
+        if ($statusCode == 200){
+            $data = json_encode($resultado['listaRecetas']);
+        }else{
+            $data = json_encode($resultado);
+        }
         return $this->sendResponse($data, $statusCode);
     }
 

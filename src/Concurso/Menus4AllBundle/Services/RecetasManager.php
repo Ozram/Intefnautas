@@ -62,6 +62,7 @@ class RecetasManager {
     public function readRecetaCollection() {
         try {
             $recetas = $this->em->getRepository('ConcursoMenus4AllBundle:Receta')->findAll();
+            $listaRecetas = array();
             foreach ($recetas as $i => $receta) {
                 $listaRecetas[$i]['id'] = $receta->getId();
                 $listaRecetas[$i]['nombre'] = $receta->getNombre();
@@ -72,8 +73,10 @@ class RecetasManager {
             $resultado['statusCode']  = 200;
         } catch (\ErrorException $mapexc) {
             $resultado['statusCode']  = 500;
+            $resultado['error'] = $mapexc->getMessage();
         } catch (\Exception $exc) {
             $resultado['statusCode']  = 500;
+           $resultado['error'] = $exc->getMessage();
         }
         return $resultado;
     }
