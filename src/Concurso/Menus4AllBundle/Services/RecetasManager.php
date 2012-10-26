@@ -62,6 +62,7 @@ class RecetasManager {
     public function readRecetaCollection() {
         try {
             $recetas = $this->em->getRepository('ConcursoMenus4AllBundle:Receta')->findAll();
+            $listaRecetas = array();
             foreach ($recetas as $i => $receta) {
                 $listaRecetas[$i]['id'] = $receta->getId();
                 $listaRecetas[$i]['nombre'] = $receta->getNombre();

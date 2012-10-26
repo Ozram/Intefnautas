@@ -50,11 +50,11 @@ class MenusManager {
             $listaReceta['n_personas'] = $receta->getNPersonas();
             $listaReceta['descripcion'] = $receta->getDescripcion();
             $resultado['listaReceta'] = $listaReceta;
-            $resultado['statusCode']  = 200;
+            $resultado['statusCode'] = 200;
         } catch (\ErrorException $mapexc) {
-            $resultado['statusCode']  = 500;
+            $resultado['statusCode'] = 500;
         } catch (\Exception $exc) {
-            $resultado['statusCode']  = 500;
+            $resultado['statusCode'] = 500;
         }
         return $resultado;
     }
@@ -62,6 +62,7 @@ class MenusManager {
     public function readRecetaCollection() {
         try {
             $recetas = $this->em->getRepository('ConcursoMenus4AllBundle:Receta')->findAll();
+            $listaRecetas = array();
             foreach ($recetas as $i => $receta) {
                 $listaRecetas[$i]['id'] = $receta->getId();
                 $listaRecetas[$i]['nombre'] = $receta->getNombre();
@@ -69,11 +70,11 @@ class MenusManager {
                 $listaRecetas[$i]['descripcion'] = $receta->getDescripcion();
             }
             $resultado['listaRecetas'] = $listaRecetas;
-            $resultado['statusCode']  = 200;
+            $resultado['statusCode'] = 200;
         } catch (\ErrorException $mapexc) {
-            $resultado['statusCode']  = 500;
+            $resultado['statusCode'] = 500;
         } catch (\Exception $exc) {
-            $resultado['statusCode']  = 500;
+            $resultado['statusCode'] = 500;
         }
         return $resultado;
     }
