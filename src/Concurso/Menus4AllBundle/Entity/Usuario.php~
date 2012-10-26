@@ -1,0 +1,106 @@
+<?php
+
+namespace Concurso\Menus4AllBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Entity\User as BaseUser;
+
+/**
+ * Concurso\Menus4AllBundle\Entity\Usuario
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Concurso\Menus4AllBundle\Entity\UsuarioRepository")
+ */
+class Usuario extends BaseUser {
+
+    /**
+     * @var integer $id
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @var string $nombre
+     *
+     * @ORM\Column(name="nombre", type="string", length=255)
+     */
+    private $nombre;
+
+    /**
+     * @var string $apellidos
+     *
+     * @ORM\Column(name="apellidos", type="string", length=255)
+     */
+    private $apellidos;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Receta", mappedBy="usuario")
+     */
+    private $recetas;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Menu", mappedBy="usuario")
+     */
+    private $menus;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ListaCompra", mappedBy="usuario")
+     */
+    private $listasCompra;
+
+    public function __construct() {
+        parent::__construct();
+        $this->recetas = new ArrayCollection();
+        $this->menus = new ArrayCollection();
+        $this->listasCompra = new ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * Set nombre
+     *
+     * @param string $nombre
+     */
+    public function setNombre($nombre) {
+        $this->nombre = $nombre;
+    }
+
+    /**
+     * Get nombre
+     *
+     * @return string 
+     */
+    public function getNombre() {
+        return $this->nombre;
+    }
+
+    /**
+     * Set apellidos
+     *
+     * @param string $apellidos
+     */
+    public function setApellidos($apellidos) {
+        $this->apellidos = $apellidos;
+    }
+
+    /**
+     * Get apellidos
+     *
+     * @return string 
+     */
+    public function getApellidos() {
+        return $this->apellidos;
+    }
+
+}

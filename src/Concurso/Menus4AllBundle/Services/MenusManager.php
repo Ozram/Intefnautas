@@ -2,7 +2,7 @@
 
 namespace Concurso\Menus4AllBundle\Services;
 
-use Concurso\Menus4AllBundle\Entity\Receta;
+use Concurso\Menus4AllBundle\Entity\Menu;
 
 class MenusManager {
 
@@ -13,14 +13,13 @@ class MenusManager {
         $this->validator = $validator;
     }
 
-    public function createReceta($json) {
+    public function createMenu($json) {
         $data = json_decode($json, true);
-        $receta = new Receta();
+        $menu = new Menu();
         try {
-            $receta->setNombre($data['nombre']);
-            $receta->setDescripcion($data['descripcion']);
-            $receta->setNPersonas($data['n_personas']);
-            $errors = $this->validator->validate($receta);
+            $menu->setNombre($data['nombre']);
+            $menu->setDescripcion($data['descripcion']);
+            $errors = $this->validator->validate($menu);
             if (count($errors) > 0) {
                 $resultado['statusCode'] = 422;
                 foreach ($errors as $error) {
@@ -28,10 +27,10 @@ class MenusManager {
                 }
                 return $resultado;
             }
-            $this->em->persist($receta);
+            $this->em->persist($menu);
             $flushexc = $this->em->flush();
             $resultado['statusCode'] = 200;
-            $resultado['id'] = $receta->getId();
+            $resultado['id'] = $menu->getId();
         } catch (\ErrorException $mapexc) {
             $resultado['statusCode'] = 500;
         } catch (\Doctrine\ORM\OptimisticLockException $flushexc) {
@@ -42,14 +41,13 @@ class MenusManager {
         return $resultado;
     }
 
-    public function readReceta($id) {
+    public function readMenu($id) {
         try {
-            $receta = $this->em->getRepository('ConcursoMenus4AllBundle:Receta')->find($id);
-            $listaReceta['id'] = $receta->getId();
-            $listaReceta['nombre'] = $receta->getNombre();
-            $listaReceta['n_personas'] = $receta->getNPersonas();
-            $listaReceta['descripcion'] = $receta->getDescripcion();
-            $resultado['listaReceta'] = $listaReceta;
+            $menu = $this->em->getRepository('ConcursoMenus4AllBundle:Menu')->find($id);
+            $listaMenu['id'] = $menu->getId();
+            $listaMenu['nombre'] = $menu->getNombre();
+            $listaMenu['descripcion'] = $menu->getDescripcion();
+            $resultado['listaMenu'] = $listaMenu;
             $resultado['statusCode'] = 200;
         } catch (\ErrorException $mapexc) {
             $resultado['statusCode'] = 500;
@@ -59,17 +57,16 @@ class MenusManager {
         return $resultado;
     }
 
-    public function readRecetaCollection() {
+    public function readMenuCollection() {
         try {
-            $recetas = $this->em->getRepository('ConcursoMenus4AllBundle:Receta')->findAll();
-            $listaRecetas = array();
-            foreach ($recetas as $i => $receta) {
-                $listaRecetas[$i]['id'] = $receta->getId();
-                $listaRecetas[$i]['nombre'] = $receta->getNombre();
-                $listaRecetas[$i]['n_personas'] = $receta->getNPersonas();
-                $listaRecetas[$i]['descripcion'] = $receta->getDescripcion();
+            $menus = $this->em->getRepository('ConcursoMenus4AllBundle:Menu')->findAll();
+            $listaMenus = array();
+            foreach ($menus as $i => $menu) {
+                $listaMenus[$i]['id'] = $menu->getId();
+                $listaMenus[$i]['nombre'] = $menu->getNombre();
+                $listaMenus[$i]['descripcion'] = $menu->getDescripcion();
             }
-            $resultado['listaRecetas'] = $listaRecetas;
+            $resultado['listaMenus'] = $listaMenus;
             $resultado['statusCode'] = 200;
         } catch (\ErrorException $mapexc) {
             $resultado['statusCode'] = 500;
@@ -79,14 +76,13 @@ class MenusManager {
         return $resultado;
     }
 
-    public function updateReceta($id, $json) {
+    public function updateMenu($id, $json) {
         $data = json_decode($json, true);
         try {
-            $receta = $this->em->getRepository('ConcursoMenus4AllBundle:Receta')->find($id);
-            $receta->setNombre($data['nombre']);
-            $receta->setDescripcion($data['descripcion']);
-            $receta->setNPersonas($data['n_personas']);
-            $errors = $this->validator->validate($receta);
+            $menu = $this->em->getRepository('ConcursoMenus4AllBundle:Menu')->find($id);
+            $menu->setNombre($data['nombre']);
+            $menu->setDescripcion($data['descripcion']);
+            $errors = $this->validator->validate($menu);
             if (count($errors) > 0) {
                 $resultado['statusCode'] = 422;
                 foreach ($errors as $error) {
@@ -94,10 +90,10 @@ class MenusManager {
                 }
                 return $resultado;
             }
-            $this->em->persist($receta);
+            $this->em->persist($menu);
             $flushexc = $this->em->flush();
             $resultado['statusCode'] = 200;
-            $resultado['id'] = $receta->getId();
+            $resultado['id'] = $menu->getId();
         } catch (\ErrorException $mapexc) {
             $resultado['statusCode'] = 500;
         } catch (\Doctrine\ORM\OptimisticLockException $flushexc) {
@@ -108,10 +104,10 @@ class MenusManager {
         return $resultado;
     }
 
-    public function deleteReceta($id) {
+    public function deleteMenu($id) {
         try {
-            $receta = $this->em->getRepository('ConcursoMenus4AllBundle:Receta')->find($id);
-            $this->em->remove($receta);
+            $menu = $this->em->getRepository('ConcursoMenus4AllBundle:Menu')->find($id);
+            $this->em->remove($menu);
             $this->em->flush();
             $resultado['id'] = $id;
             $resultado['statusCode'] = 200;
