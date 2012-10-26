@@ -1,0 +1,21 @@
+<script type="text/template" id="plantillaMensajes">  
+    <% if(_.isUndefined(mensajes.errores)){ %>
+    <div id="exitosReceta" class="alert alert-success" ><button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>Exito:</strong>   
+        <%= mensajes.success %>
+    </div>
+    <% }; %>
+    
+    <% if(_.isUndefined(mensajes.success)) { %>
+    <div id="erroresReceta" class="alert alert-error"><button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>Error:</strong>
+        <ul id="listErrorsNueva">
+            <% _.each(mensajes.errores, function(error){ %>
+            <li>
+                <%= error %>
+            </li>
+            <%}); %>
+        </ul>
+    </div>
+    <% };%>
+</script>

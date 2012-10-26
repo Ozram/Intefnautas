@@ -55,6 +55,12 @@ class Receta {
      * @var integer $n_personas
      * -------------validadores-------------
      * @Assert\NotBlank(message = "Debes poner el número de comensales")
+     * @Assert\Range(
+     *  min = "1",
+     *  max = "1000",
+     *  minMessage = "La receta tiene que ser para un mínimo de un comensal",
+     *  maxMessage = "Demasiados comensales, el máximo es de 1000"
+     * )
      * @Assert\Type(type="integer", message="El valor {{ value }} no del tipo valido {{ type }}.")
      * 
      * @ORM\Column(name="n_personas", type="integer")

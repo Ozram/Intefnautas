@@ -29,10 +29,15 @@ $(document).ready(function(){
         templateList: _.template($('#plantillaRecetaList').html()),
 
         templateForm: _.template($('#plantillaRecetaForms').html()),
+        
+        templateMensajes: _.template($('#plantillaMensajes').html()),
 
         nuevaReceta: function() {
             console.log('recetaView:nuevaReceta');
-            this.data = {'success': '','errores': '','receta': '' , 'idAccion': 'crearReceta'};
+            this.data = {
+                'receta': '' , 
+                'idAccion': 'crearReceta'
+            };
             that = this;
             $('#listaRecetasBusqueda').html(this.templateForm({
                 data: that.data
@@ -42,13 +47,20 @@ $(document).ready(function(){
         editarReceta: function(e) {
             console.log('recetaView:editarReceta');
             this.idReceta = e.currentTarget.attributes['val'].nodeValue;
-            var receta = that.collection.get(this.idReceta);
-            this.data = {'success': '','errores': '','receta': '' , 'idAccion': 'crearReceta'};
+            this.receta = that.collection.get(this.idReceta);
+            console.log(this.idReceta);
+            console.log(this.receta);
+            this.data = {
+                'success': '',
+                'errores': '',
+                'receta': this.receta.attributes , 
+                'idAccion': 'actualizarReceta'
+            };
             that = this;
             $('#listaRecetasBusqueda').html(this.templateForm({
                 data: that.data
             }));
-            console.log(this.idReceta);
+            
         },
         
         crearReceta: function() {
@@ -60,23 +72,63 @@ $(document).ready(function(){
             receta.save({
                 nombre: this.$el.find('.receta_nombre').val(),
                 descripcion: this.$el.find('.receta_descripcion').val(),
-                n_personas: Number($('.receta_n_personas').val())
+                n_personas: Number(this.$el.find('.receta_n_personas').val())
             },{
-                success:function(data, textStatus){
+                success:function(model, response){
                     console.log('receta.save.success');
                     that.collection.unshift(receta);
+                    $('#crearReceta').removeClass('disabled');
+                    $('#seccionMensajes').html(that.templateMensajes({
+                        mensajes: {
+                            'success': 'Receta creada correctamente'
+                        }
+                    }));
+                    $('#seccionMensajes').show().delay(5000).hide('slow');
                 },
-                error: function(jqXHR, textStatus, errorThrown){     
+                error: function(model, response){
+                    console.log('receta.save.error');
+                    console.log(response.responseText);
+                    $('#seccionMensajes').html(that.templateMensajes({
+                        mensajes: jQuery.parseJSON(response.responseText)
+                    }));
+                    $('#seccionMensajes').show().delay(5000).hide('slow');
+                    $('#crearReceta').removeClass('disabled');
                 }
             });
         },
         
         actualizarReceta: function() {
-            console.log('recetaView:actualizarReceta');
-            var receta = that.collection.get('3');           
-            $('#receta_nombre').val(receta.get('nombre'));
-            $('#receta_descripcion').val(receta.get('descripcion'));
-            $('#receta_n_personas').val(receta.get('n_personas'));   
+            console.log('recetaView:crearReceta');
+            $('#actualizarReceta').addClass('disabled');
+            that = this;
+            recetaaux = this.receta;
+            this.receta.save({
+                nombre: this.$el.find('.receta_nombre').val(),
+                descripcion: this.$el.find('.receta_descripcion').val(),
+                n_personas: Number(this.$el.find('.receta_n_personas').val())
+            },{
+                success:function(model, response){
+                    console.log('receta.save.success');
+                    $('#actualizarReceta').removeClass('disabled');
+                    $('#seccionMensajes').html(that.templateMensajes({
+                        mensajes: {
+                            'success': 'Receta actualizada correctamente'
+                        }
+                    }));
+                    $('#seccionMensajes').show().delay(5000).hide('slow');
+                    that.renderList();
+                },
+                error: function(model, response){
+                    console.log('receta.save.error');
+                    console.log(response.responseText);
+                    $('#seccionMensajes').html(that.templateMensajes({
+                        mensajes: jQuery.parseJSON(response.responseText)
+                    }));
+                    that.receta = recetaaux;
+                    $('#seccionMensajes').show().delay(5000).hide('slow');
+                    $('#actualizarReceta').removeClass('disabled');
+                }
+            }); 
         },
         
         actualizarColeccion: function() {
@@ -84,7 +136,7 @@ $(document).ready(function(){
             that = this;
             this.collection.fetch({
                 success: function(collection, response){
-                    console.log('recetas.fetch.success');         
+                    console.log('recetas.fetch.success');     
                 },
                 error: function(collection, response){
                     console.log('recetas.fetch.error');
@@ -100,6 +152,7 @@ $(document).ready(function(){
             $('#listaRecetasBusqueda').html(this.templateList({
                 recetas: this.collection.toJSON()
             }));
+
         }
              
     });
