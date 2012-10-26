@@ -1,8 +1,12 @@
 parameters:
     cm4all.recetasmanager.class: Concurso\Menus4AllBundle\Services\RecetasManager
-    doctrine: Doctrine\ORM\Mapping
+    cm4all.menusmanager.class: Concurso\Menus4AllBundle\Services\MenusManager
     
 services:
     cm4all.recetasmanager:
         class: %cm4all.recetasmanager.class%
+        arguments: ["@doctrine.orm.entity_manager", "@validator"]
+
+    cm4all.menusmanager:
+        class: %cm4all.menusmanager.class%
         arguments: ["@doctrine.orm.entity_manager", "@validator"]
