@@ -1,12 +1,18 @@
 <script type="text/template" id="plantillaRecetaList">
+    <div class="page-header">
+        <h2>Lista de Recetas <small>filtrando por: blalbabla, blablsf, asdeeif...</small></h1>
+    </div>
     <% _.each(recetas, function(receta){ %>
     <div id="receta_<%= receta.id %>">
-        <h3><%= receta.nombre %></h3>
+        <h4 ><%= receta.nombre %></h3>
         <p>La receta está pensada para: <%= receta.n_personas %></p>
         <p><%= receta.descripcion %></p>
+        <a href="#" class="btn "><i class="icon-eye-open"></i> Ver</a>
     </div>
+    <hr class="bs-docs-separator">
     <%}); %>
 </script>
+
 
 <script type="text/template" id="plantillaRecetaForms">
 <form class="form-horizontal">
@@ -66,4 +72,4 @@
         </div>
     </fieldset>
 </form>
-</scrip>
+</script>

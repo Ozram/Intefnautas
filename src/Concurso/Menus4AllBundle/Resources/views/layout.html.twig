@@ -2,45 +2,45 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}¡Bienvenido!{% endblock %}</title>
         {% block stylesheets %}
         <link href="{{ asset('bundles/concursomenus4all/vendors/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" media="screen"/>
         <link href="{{ asset('bundles/concursomenus4all/vendors/css/bootstrap-responsive.min.css') }}" type="text/css" rel="stylesheet" media="screen"/>
         {% endblock %}
-        
+
         {% block javascripts %}
         <script src="{{ asset('bundles/concursomenus4all/vendors/js/jquery-1.8.2.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('bundles/concursomenus4all/vendors/js/jquery.json-2.3.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bundles/concursomenus4all/vendors/js/bootstrap.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('bundles/concursomenus4all/vendors/js/underscore.js') }}" type="text/javascript"></script>
-        <script src="http://backbonejs.org/backbone-min.js" type="text/javascript"></script>
+        <script src="{{ asset('bundles/concursomenus4all/vendors/js/underscore-min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/concursomenus4all/vendors/js/backbone-min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bundles/concursomenus4all/frontend/js/configBackbone.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('bundles/concursomenus4all/frontend/js/menus4all.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/concursomenus4all/frontend/js/menus4all-Recetas.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bundles/concursomenus4all/frontend/js/menus4all-App.js') }}" type="text/javascript"></script>
         {% endblock %}
-        
+
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-      {% include 'ConcursoMenus4AllBundle::cabecera.html.twig' %}
+        {% include 'ConcursoMenus4AllBundle::cabecera.html.twig' %}
         <div class="container-fluid">
             <div class="row-fluid">
                 <div class="span2">
                     {% block barraIzquierda %}
-                        {% include 'ConcursoMenus4AllBundle::barraIzquierda.html.twig' %}
+                    {% include 'ConcursoMenus4AllBundle::barraIzquierda.html.twig' %}
                     {% endblock %}
                 </div>
                 <div class="span8">
                     {% block cuerpo %}
-                        {% include 'ConcursoMenus4AllBundle::cuerpo.html.twig' %}
+                    {% include 'ConcursoMenus4AllBundle::cuerpo.html.twig' %}
                     {% endblock %}
                 </div>
                 <div class="span2">
                     {% block barraDerecha %}                    
-                       {% include 'ConcursoMenus4AllBundle::barraDerecha.html.twig' %}        
+                    {% include 'ConcursoMenus4AllBundle::barraDerecha.html.twig' %}        
                     {% endblock %}
                 </div>
             </div>
         </div>
-        {% include 'ConcursoMenus4AllBundle::plantillasUnderscore.html.twig' %} 
+        {% include 'ConcursoMenus4AllBundle:Recetas:plantillasRecetas.html.twig' %} 
     </body>
 </html>
