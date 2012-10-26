@@ -1,12 +1,12 @@
 $(document).ready(function(){
     
     window.recetaModel = Backbone.Model.extend({
-        urlRoot : urlRootDefault+'/recetas'
+        urlRoot: "app_dev.php/recetas"
     });
     
     window.recetaCollection = Backbone.Collection.extend({
         model: window.recetaModel,
-        url: urlRootDefault+'/recetas'
+        url: "app_dev.php/recetas"
     });
     
     window.recetaView = Backbone.View.extend({

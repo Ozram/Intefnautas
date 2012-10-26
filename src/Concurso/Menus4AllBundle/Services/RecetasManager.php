@@ -73,8 +73,10 @@ class RecetasManager {
             $resultado['statusCode']  = 200;
         } catch (\ErrorException $mapexc) {
             $resultado['statusCode']  = 500;
+            $resultado['error'] = $mapexc->getMessage();
         } catch (\Exception $exc) {
             $resultado['statusCode']  = 500;
+           $resultado['error'] = $exc->getMessage();
         }
         return $resultado;
     }
