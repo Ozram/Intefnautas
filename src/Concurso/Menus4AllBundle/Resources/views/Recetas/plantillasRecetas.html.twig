@@ -8,6 +8,7 @@
         <p>La receta está pensada para: <%= receta.n_personas %></p>
         <p><%= receta.descripcion %></p>
         <a href="#" class="btn "><i class="icon-eye-open"></i> Ver</a>
+        <a class="btn btn-info editarReceta" val="<%= receta.id %>"><i class="icon-white icon-pencil"></i> Editar</a>
     </div>
     <hr class="bs-docs-separator">
     <%}); %>
@@ -39,7 +40,7 @@
             </div>
             <label class=" control-label required" for="receta_nombre"> Nombre </label>
             <div class="controls">
-                <input class="receta_nombre" type="text" required="required" value="<%= data.receta.nombre %>">
+                <input class="receta_nombre" type="text" required="required" value=<%= data.receta.nombre %> >
             </div>
         </div>
 
@@ -48,7 +49,7 @@
             <!-- Text input-->
             <label class=" control-label required" for="receta_n_personas"> Comensales </label>
             <div class="controls">
-                <input class="receta_n_personas" type="text" required="required" value="<%= data.receta.n_personas %>">
+                <input class="receta_n_personas" type="text" required="required" value=<%= data.receta.n_personas %>>
             </div>
         </div>
 
@@ -58,7 +59,7 @@
             <label class=" control-label required" for="receta_descripcion"> Descripcion </label>
             <div class="controls">
                 <div class="textarea">
-                    <textarea class="receta_descripcion" required="required" value="<%= data.receta.descripcion %>"></textarea>
+                    <textarea class="receta_descripcion" required="required" value=<%= data.receta.descripcion %>></textarea>
                 </div>
             </div>
         </div>

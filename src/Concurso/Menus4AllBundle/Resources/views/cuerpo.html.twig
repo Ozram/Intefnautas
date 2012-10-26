@@ -1,49 +1,27 @@
 {% extends 'ConcursoMenus4AllBundle::layout.html.twig' %}
 
 {% block cuerpo %}
-<div id="opcionesRecetas">
-    <a id="anadirReceta" class="btn btn-success">Añadir Receta</a>
-    <a id="editarReceta" class="btn btn-success">Editar Receta</a> 
-    <a id="buscarRecetas" class="btn btn-success">Buscar Recetas</a> 
+<div id="seccionRecetas">
+    <div id="opcionesRecetas" class="span2">
+        <p><a id="nuevaReceta" class="btn btn-success"><i class="icon-white icon-plus-sign"></i> Nueva Receta</a></p>
+        <p><a id="buscarRecetas" class="btn btn-info"><i class="icon-white icon-search"></i> Buscar Recetas</a></p>
+    </div>
+
+
+    <div id="vistasRecetas" class="span10">
+        <div id="formNuevaReceta">
+
+        </div>
+
+        <div id="formEditarReceta">
+
+        </div>
+
+        <div id="listaRecetasBusqueda">
+
+        </div>
+    </div>
 </div>
-
-
-
-<div id="formNuevaReceta" style="display:none">
-
-</div>
-
-<div id="formEditarReceta" style="display:none">
-   
-</div>
-
-<div id="listaRecetasBusqueda">
-    
-</div>
-<script type="text/javascript">    
-$(document).ready(function(){
-    $('#anadirReceta').click(function(){
-        $('#formNuevaReceta').show();
-    });
-    
-     $('#editarReceta').click(function(){
-        $('#formEditarReceta').show();
-    });
-
-    $('#erroresReceta').hide();
-    $('#exitosReceta').hide();
-});
-
-var recorreNotificaciones = function (coleccionMensajes){
-    var txt = '';
-    for each (var mensajesCampo in coleccionMensajes){
-        for each (var mensaje in mensajesCampo){
-            txt = txt + '<li>'+mensaje+'</li>';
-        }
-    }
-    return txt;
-};
-</script>
 {% endblock %}
 
 

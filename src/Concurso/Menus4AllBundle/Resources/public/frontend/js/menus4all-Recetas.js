@@ -15,34 +15,56 @@ $(document).ready(function(){
             this.collection.bind('reset destroy add', this.renderList, this);
         },
         
-        el: $('#opcionesRecetas'),  
+        el: $('#seccionRecetas'),  
         
-        events: {                        
+        events: {
+            "click #nuevaReceta"  : "nuevaReceta" ,
+            "click .editarReceta"  : "editarReceta",
             "click #crearReceta"  : "crearReceta" ,
             "click #actualizarReceta"  : "actualizarReceta",
             "click #buscarRecetas"  : "actualizarColeccion"
+
         },                         
 
         templateList: _.template($('#plantillaRecetaList').html()),
 
         templateForm: _.template($('#plantillaRecetaForms').html()),
 
-             
-              
+        nuevaReceta: function() {
+            console.log('recetaView:nuevaReceta');
+            this.data = {'success': '','errores': '','receta': '' , 'idAccion': 'crearReceta'};
+            that = this;
+            $('#listaRecetasBusqueda').html(this.templateForm({
+                data: that.data
+            }));
+        },
+         
+        editarReceta: function(e) {
+            console.log('recetaView:editarReceta');
+            this.idReceta = e.currentTarget.attributes['val'].nodeValue;
+            var receta = that.collection.get(this.idReceta);
+            this.data = {'success': '','errores': '','receta': '' , 'idAccion': 'crearReceta'};
+            that = this;
+            $('#listaRecetasBusqueda').html(this.templateForm({
+                data: that.data
+            }));
+            console.log(this.idReceta);
+        },
+        
         crearReceta: function() {
             console.log('recetaView:crearReceta');
+            $('#crearReceta').addClass('disabled');
             receta = new window.recetaModel();
             that = this;
-            
+           
             receta.save({
                 nombre: this.$el.find('.receta_nombre').val(),
                 descripcion: this.$el.find('.receta_descripcion').val(),
                 n_personas: Number($('.receta_n_personas').val())
             },{
                 success:function(data, textStatus){
-                    console.log(receta.id);
+                    console.log('receta.save.success');
                     that.collection.unshift(receta);
-                    $('#formNuevaReceta').hide();
                 },
                 error: function(jqXHR, textStatus, errorThrown){     
                 }
@@ -79,6 +101,7 @@ $(document).ready(function(){
                 recetas: this.collection.toJSON()
             }));
         }
+             
     });
     
 });
