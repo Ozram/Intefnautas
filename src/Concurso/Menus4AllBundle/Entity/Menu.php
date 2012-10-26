@@ -4,6 +4,7 @@ namespace Concurso\Menus4AllBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Concurso\Menus4AllBundle\Entity\Menu
@@ -24,14 +25,28 @@ class Menu {
 
     /**
      * @var string $nombre
-     *
+     * -------------validadores-------------
+     * @Assert\NotBlank(message = "El nombre no puede estar vacío")
+     * @Assert\Length(
+     *  min = "5",
+     *  max = "255",
+     *  minMessage = "El nombre de la receta no puede contener menos de 5 caracteres alfanuméricos",
+     *  maxMessage = "El nombre de la receta no puede contener más de 255 caracteres alfanuméricos"
+     * )
      * @ORM\Column(name="nombre", type="string", length=255)
      */
     private $nombre;
 
     /**
      * @var string $descripcion
-     *
+     * -------------validadores-------------
+     * @Assert\NotBlank(message = "La descripción no puede estar vacía")
+     * @Assert\Length(
+     *  min = "100",
+     *  max = "10000",
+     *  minMessage = "La descripción no puede tener menos de 100 caracteres",
+     *  maxMessage = "La descripción es demasiado larga, no nos cuentes tu vida"
+     * )
      * @ORM\Column(name="descripcion", type="string", length=255)
      */
     private $descripcion;
