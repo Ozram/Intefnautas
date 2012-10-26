@@ -51,8 +51,6 @@ $(document).ready(function(){
             console.log(this.idReceta);
             console.log(this.receta);
             this.data = {
-                'success': '',
-                'errores': '',
                 'receta': this.receta.attributes , 
                 'idAccion': 'actualizarReceta'
             };
@@ -101,7 +99,6 @@ $(document).ready(function(){
             console.log('recetaView:crearReceta');
             $('#actualizarReceta').addClass('disabled');
             that = this;
-            recetaaux = this.receta;
             this.receta.save({
                 nombre: this.$el.find('.receta_nombre').val(),
                 descripcion: this.$el.find('.receta_descripcion').val(),
@@ -120,11 +117,10 @@ $(document).ready(function(){
                 },
                 error: function(model, response){
                     console.log('receta.save.error');
-                    console.log(response.responseText);
                     $('#seccionMensajes').html(that.templateMensajes({
                         mensajes: jQuery.parseJSON(response.responseText)
                     }));
-                    that.receta = recetaaux;
+                    that.receta = model;
                     $('#seccionMensajes').show().delay(5000).hide('slow');
                     $('#actualizarReceta').removeClass('disabled');
                 }
