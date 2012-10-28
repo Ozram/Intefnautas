@@ -10,8 +10,10 @@ class MenusController extends Controller {
 
     public function createMenuAction() {
         $json = $this->getRequest()->getContent();
+        $session = $this->getRequest()->getSession();
+        $idUsuario = $session->getId();
         $rmService = $this->get('cm4all.menusmanager');
-        $resultado = $rmService->createMenu($json);
+        $resultado = $rmService->createMenu($json, $idUsuario);
         $statusCode = $resultado['statusCode'];
         $data = json_encode($resultado);
         return $this->sendResponse($data, $statusCode);

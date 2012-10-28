@@ -5,15 +5,19 @@
     <% _.each(menus, function(menu){ %>
     <div id="menu_<%= menu.id %>">
         <h4 ><%= menu.nombre %></h3>
-            <p>La menu está pensada para: <%= menu.tipo %></p>
+            <p>El tipo de menú es: <%= menu.tipo %></p>
             <p><%= menu.descripcion %></p>
-            <a href="#" class="btn "><i class="icon-eye-open"></i> Ver</a>
+            <a class="btn "><i class="icon-eye-open"></i> Ver</a>
             <a class="btn btn-info editarMenu" val="<%= menu.id %>"><i class="icon-white icon-pencil"></i> Editar</a>
     </div>
     <hr class="bs-docs-separator">
     <%}); %>
 </script>
 
+<script type="text/template" id="plantillaMenuOpciones">
+    <p><a id="nuevoMenu" class="btn btn-success"><i class="icon-white icon-plus-sign"></i> Nuevo Menú</a></p>
+    <p><a id="buscarMenus" class="btn btn-info"><i class="icon-white icon-search"></i> Buscar Menús</a></p>
+</script>
 
 <script type="text/template" id="plantillaMenuForms">
     <form class="form-horizontal">
@@ -27,26 +31,39 @@
 
                 <label class=" control-label required" for="menu_nombre"> Nombre </label>
                 <div class="controls">
-                    <input class="menu_nombre" type="text" required="required" value=<%= data.menu.nombre %> >
+                    <input class="menu_nombre" type="text" required="required" value="<%= data.menu.nombre %>" >
                 </div>
             </div>
 
             <div class="control-group">
 
                 <!-- Text input-->
-                <label class=" control-label required" for="menu_n_personas"> Comensales </label>
+                <label class=" control-label required" for="menu_tipo"> Tipo de menú </label>
                 <div class="controls">
-                    <input class="menu_n_personas" type="text" required="required" value=<%= data.menu.n_personas %>>
+                    <select class="menu_tipo">
+                            <option>desayuno</option>
+                            <option>comida</option>
+                            <option>merienda</option>
+                            <option>cena</option>
+                    </select>
                 </div>
             </div>
-
+                
+            <div class="control-group">   
+                <label class=" control-label required" for=""> Recetas: </label>
+                <div class="controls">
+                    <a id="anadirReceta" class="btn btn-primary"><i class="icon-white icon-plus-sign"></i></a>
+                    <div id="recetas"></div>
+                </div>
+            </div>  
+                
             <div class="control-group">
 
                 <!-- Textarea -->
                 <label class=" control-label required" for="menu_descripcion"> Descripcion </label>
                 <div class="controls">
                     <div class="textarea">
-                        <textarea class="menu_descripcion" required="required"><%= data.menu.descripcion %></textarea>
+                        <textarea class="menu_descripcion span7" rows="6" required="required"><%= data.menu.descripcion %></textarea>
                     </div>
                 </div>
             </div>
