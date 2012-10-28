@@ -15,7 +15,7 @@ class MenuRepository extends EntityRepository {
     public function getRecetasDescartadas($idsReceta,$idMenu) {
         $em = $this->getDoctrine()->getEntityManager();
         // Todas las recetas cuya id no se encuentra en el array recibido y pertenezca al menú actual
-        $query = $em->createQuery("SELECT r FROM ConcursoMenus4AllBundle:Receta r where r.id in (:ids) AND m.id = :idMenu ")
+        $query = $em->createQuery("SELECT r FROM ConcursoMenus4AllBundle:Receta r JOIN r.ConcursoMenus4AllBundle:Menu m where r.id not in (:ids) AND m.id = :idMenu ")
                 ->setParameter(array(
                     "ids" => $idsReceta,
                     "idMenu" => $idMenu
