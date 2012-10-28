@@ -3,6 +3,7 @@
 namespace Concurso\Menus4AllBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Concurso\Menus4AllBundle\Entity\ListaCompra
@@ -34,13 +35,9 @@ class ListaCompra {
     private $usuario;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Ingrediente", inversedBy="listas_compra")
+     * @ORM\OneToMany(targetEntity="IngredientesListaCompra", mappedBy="lista_compra", cascade={"persist"}))
      */
-    private $ingredientes;
-
-    public function __construct() {
-        $this->ingredientes = new ArrayCollection();
-    }
+    private $ingredientesListaCompra;
 
     /**
      * Get id
@@ -72,4 +69,83 @@ class ListaCompra {
         return $this->nombre;
     }
 
+    /**
+     * Set usuario
+     *
+     * @param Concurso\Menus4AllBundle\Entity\Usuario $usuario
+     * @return ListaCompra
+     */
+    public function setUsuario(\Concurso\Menus4AllBundle\Entity\Usuario $usuario = null) {
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return Concurso\Menus4AllBundle\Entity\Usuario 
+     */
+    public function getUsuario() {
+        return $this->usuario;
+    }
+
+   
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->ingredientesListaCompra = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+ 
+
+    /**
+     * Add ingredientesListaCompra
+     *
+     * @param Concurso\Menus4AllBundle\Entity\IngredientesListaCompra $ingredientesListaCompra
+     * @return ListaCompra
+     */
+     public function addIngrediente(\Concurso\Menus4AllBundle\Entity\Ingrediente $ingrediente, $cantidad)
+    {    
+        $ingredientesListaCompra = new \Concurso\Menus4AllBundle\Entity\IngredientesListaCompra();
+        $ingredientesListaCompra->setIngrediente($ingrediente)->setCantidad($cantidad)->setListaCompra($this);
+        $this->ingredientesListaCompra[] = $ingredientesListaCompra;
+    
+        return $this;
+    }
+
+    /**
+     * Remove ingredientesListaCompra
+     *
+     * @param Concurso\Menus4AllBundle\Entity\IngredientesListaCompra $ingredientesListaCompra
+     */
+    public function removeIngredientesListaCompra(\Concurso\Menus4AllBundle\Entity\IngredientesListaCompra $ingredientesListaCompra)
+    {
+        $this->ingredientesListaCompra->removeElement($ingredientesListaCompra);
+    }
+
+    /**
+     * Get ingredientesListaCompra
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getIngredientesListaCompra()
+    {
+        return $this->ingredientesListaCompra;
+    }
+
+    /**
+     * Add ingredientesListaCompra
+     *
+     * @param Concurso\Menus4AllBundle\Entity\IngredientesListaCompra $ingredientesListaCompra
+     * @return ListaCompra
+     */
+    public function addIngredientesListaCompra(\Concurso\Menus4AllBundle\Entity\IngredientesListaCompra $ingredientesListaCompra)
+    {
+        $this->ingredientesListaCompra[] = $ingredientesListaCompra;
+    
+        return $this;
+    }
 }
