@@ -80,7 +80,7 @@ $(document).ready(function(){
             console.log('recetaView:crearReceta');
             $('#crearReceta').addClass('disabled');
             receta = new window.recetaModel();
-            for (i=1;i<=this.n_ingredientes;i++) { 
+            for(i=0;i<this.n_ingredientes;i++) { 
                 ingredientes[i] = {
                     nombre: this.$el.find('#ingrediente_'+i).val(),
                     cantidad: this.$el.find('#cantidad_'+i).val()

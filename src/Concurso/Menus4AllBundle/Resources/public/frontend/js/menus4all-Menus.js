@@ -23,7 +23,7 @@ $(document).ready(function(){
             "click #crearMenu" : "crearMenu",
             "click #actualizarMenu" : "actualizarMenu", 
             "click #buscarMenus"  : "actualizarColeccion",
-            "click #anadirReceta": "anadirReceta"
+            "click #anadirRecetas": "anadirRecetas"
         },                         
 
         templateList: _.template($('#plantillaMenuList').html()),
@@ -40,9 +40,21 @@ $(document).ready(function(){
                 'menu': '' , 
                 'idAccion': 'crearMenu'
             };
-            $('#listaMenusBusqueda').html(this.templateForm({
-                data: that.data
-            }));
+            that = this;
+            this.recetaCollection = new window.recetaCollection();
+
+            this.recetaCollection.fetch({
+                success: function(collection, response){
+                    console.log(collection);  
+                    $('#listaMenusBusqueda').html(that.templateForm({
+                        data: that.data,
+                        recetas: collection.toJSON()
+                    }));
+                },
+                error: function(collection, response){
+                    console.log('recetas.fetch.error');
+                }
+            });
         },
         
         editarMenu: function(e) {
@@ -53,11 +65,27 @@ $(document).ready(function(){
                 'menu': this.menu.attributes , 
                 'idAccion': 'actualizarMenu'
             };
-            console.log(this.menu.attributes);
-            $('#listaMenusBusqueda').html(this.templateForm({
-                data: that.data
-            }));
-          
+            this.recetaCollection = new window.recetaCollection();
+            this.recetaCollection.fetch({
+                success: function(collection, response){
+                    $('#listaMenusBusqueda').html(that.templateForm({
+                        data: that.data,
+                        recetas: collection.toJSON()
+                    }));
+                    _.each(that.recetaCollection.models, function(receta, index){
+                         _.each(that.menu.attributes.recetas, function(idRec, index){
+                             if(that.$el.find('#receta_'+index).val() == idRec){
+                                 that.$el.find('#receta_'+index).attr('checked','');
+                             }
+                        });
+                    });
+                },
+                error: function(collection, response){
+                    console.log('recetas.fetch.error');
+                }
+            });
+            this.listaRecetas = [];
+            
         },
         
         crearMenu: function() {
@@ -65,12 +93,18 @@ $(document).ready(function(){
             $('#crearMenu').addClass('disabled');
             menu = new window.menuModel();
             that = this;
+            this.listaRecetas = [];
+            for (i=0;i<this.recetaCollection.length;i++) { 
+                if(this.$el.find('#receta_'+i).attr('checked')){
+                    this.listaRecetas.push(this.$el.find('#receta_'+i).val());
+                };
+            };
            
             menu.save({
                 nombre: this.$el.find('.menu_nombre').val(),
                 descripcion: this.$el.find('.menu_descripcion').val(),
                 tipo: this.$el.find('.menu_tipo').val(),
-                recetas: ''
+                recetas: this.listaRecetas
             },{
                 success:function(model, response){
                     console.log('menu.save.success');
@@ -98,11 +132,18 @@ $(document).ready(function(){
             console.log('menuView:crearMenu');
             $('#actualizarMenu').addClass('disabled');
             that = this;
+            
+            this.listaRecetas = [];
+            for (i=0;i<this.recetaCollection.length;i++) { 
+                if(this.$el.find('#receta_'+i).attr('checked')){
+                    this.listaRecetas.push(this.$el.find('#receta_'+i).val());
+                };
+            };
             this.menu.save({
                 nombre: this.$el.find('.menu_nombre').val(),
                 descripcion: this.$el.find('.menu_descripcion').val(),
                 tipo: this.$el.find('.menu_tipo').val(),
-                recetas: ''
+                recetas: this.listaRecetas
             },{
                 success:function(model, response){
                     console.log('menu.save.success');
@@ -140,8 +181,14 @@ $(document).ready(function(){
             });    
         },
         
-        anadirReceta: function(){
-            console.log('menuView.anadirReceta');
+        anadirRecetas: function(){
+            console.log('menuView:anadirRecetas');
+            $('#recetas').html('');
+            for (i=0;i<this.recetaCollection.length;i++) { 
+                if(this.$el.find('#receta_'+i).attr('checked')){
+                    $('#recetas').append('<br/>' + this.recetaCollection.get(this.$el.find('#receta_'+i).val()).attributes.nombre+'<br/>');
+                };
+            };
         },
         
         renderList: function(){

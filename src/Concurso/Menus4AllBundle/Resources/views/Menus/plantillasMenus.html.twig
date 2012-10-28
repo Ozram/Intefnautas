@@ -2,13 +2,13 @@
     <div class="page-header">
         <h2>Lista de Menus <small>filtrando por: blalbabla, blablsf, asdeeif...</small></h1>
     </div>
-    <% _.each(menus, function(menu){ %>
-    <div id="menu_<%= menu.id %>">
-        <h4 ><%= menu.nombre %></h3>
-            <p>El tipo de menú es: <%= menu.tipo %></p>
-            <p><%= menu.descripcion %></p>
-            <a class="btn "><i class="icon-eye-open"></i> Ver</a>
-            <a class="btn btn-info editarMenu" val="<%= menu.id %>"><i class="icon-white icon-pencil"></i> Editar</a>
+    <% _.each(menus, function(menu, index){ %>
+    <div id="menu_<%= index %>">
+        <h4><%= menu.nombre %></h4>
+        <p>El tipo de menú es: <%= menu.tipo %></p>
+        <p><%= menu.descripcion %></p>
+        <a class="btn "><i class="icon-eye-open"></i> Ver</a>
+        <a class="btn btn-info editarMenu" val="<%= menu.id %>"><i class="icon-white icon-pencil"></i> Editar</a>
     </div>
     <hr class="bs-docs-separator">
     <%}); %>
@@ -41,22 +41,41 @@
                 <label class=" control-label required" for="menu_tipo"> Tipo de menú </label>
                 <div class="controls">
                     <select class="menu_tipo">
-                            <option>desayuno</option>
-                            <option>comida</option>
-                            <option>merienda</option>
-                            <option>cena</option>
+                        <option>desayuno</option>
+                        <option>comida</option>
+                        <option>merienda</option>
+                        <option>cena</option>
                     </select>
                 </div>
             </div>
-                
+
             <div class="control-group">   
                 <label class=" control-label required" for=""> Recetas: </label>
                 <div class="controls">
-                    <a id="anadirReceta" class="btn btn-primary"><i class="icon-white icon-plus-sign"></i></a>
+                    <a href="#recetasModal" role="button" data-toggle="modal" id="anadirReceta" class="btn btn-primary"><i class="icon-white icon-plus-sign"></i></a>
                     <div id="recetas"></div>
                 </div>
             </div>  
-                
+
+            <div id="recetasModal" class="modal hide fade">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3>Seleccionar Recetas</h3>
+                </div>
+                <div class="modal-body">
+                    <% _.each(recetas, function(receta, index){ %>
+
+                    <p><label class="checkbox">
+                            <input id="receta_<%= index %>" type="checkbox" value="<%= receta.id %>"><%= receta.nombre %>
+                        </label></p>
+
+                    <%}); %>
+                </div>
+                <div class="modal-footer">
+                    <a id="anadirRecetas" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Añadir Recetas</a>
+                </div>
+            </div>
+
             <div class="control-group">
 
                 <!-- Textarea -->

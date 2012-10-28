@@ -20,7 +20,7 @@ class MenusManager {
             $menu->setNombre($data['nombre']);
             $menu->setDescripcion($data['descripcion']);
             //$menu->setUsuario($idUsuario);
-            
+
             $menu->setTipoMenu($this->em->getRepository('ConcursoMenus4AllBundle:TipoMenu')->findOneByNombre($data['tipo']));
             //se recorren las ids de recetas y se añaden al menu
 //            if (empty($data['recetas'])) {
@@ -104,9 +104,9 @@ class MenusManager {
                 $listaMenus[$n]['descripcion'] = $menu->getDescripcion();
                 $recetasMenu = $menu->getRecetas();
                 foreach ($recetasMenu as $i => $recetaMenu) {
-                    $listaMenus[$n]['recetas'][$i]['id'] = $recetaMenu->getId();
-                    $listaMenus[$n]['recetas'][$i]['nombre'] = $recetaMenu->getNombre();
-                    $listaMenus[$n]['recetas'][$i]['n_personas'] = $recetaMenu->getNPersonas();
+                    $listaMenus[$n]['recetas'][$i] = $recetaMenu->getId();
+//                    $listaMenus[$n]['recetas'][$i]['nombre'] = $recetaMenu->getNombre();
+//                    $listaMenus[$n]['recetas'][$i]['n_personas'] = $recetaMenu->getNPersonas();
                 }
                 $valoracionesMenu = $menu->getValoraciones();
                 $puntuacionTotal = 0;
@@ -120,7 +120,7 @@ class MenusManager {
                 }
                 $listaMenus[$n]['valoracionMedia'] = $puntuacionTotal / ($i + 1);
                 $listaMenus[$n]['tipo'] = $menu->getTipoMenu()->getNombre();
-                $listaMenus[$n]['autor'] = $menu->getUsuario()->getNombre();
+                //$listaMenus[$n]['autor'] = $menu->getUsuario()->getNombre();
             }
             $resultado['listaMenus'] = $listaMenus;
             $resultado['statusCode'] = 200;
@@ -145,23 +145,25 @@ class MenusManager {
 //                $resultado['errores']['QueMeEstasContainer'] = 'El menú debe tener al menos una receta asociada';
 //                return $resultado;
 //            }
-//            $recetasDesc = $this->em->getRepository('ConcursoMenus4AllBundle:Menu')->getRecetasDescartadas($data['recetas'], $menu->getId());
-//            if (!empty($recetasDesc)) {
-//                foreach ($recetasDesc as $recetaDesc) {
-//                    $menu->removeReceta($recetaDesc);
-//                }
-//            }
-//            $recetasMenu = $menu->getRecetas();
-//            $idsRecetaMenu = array();
-//            foreach ($recetasMenu as $recetaMenu) {
-//                $idsRecetaMenu[] = $recetaMenu->getId();
-//            }
-//            foreach ($data['recetas'] as $idReceta) {
-//                if (!in_array($idReceta, $idsRecetaMenu)) {
-//                    $nuevaRecetaMenu = $menu = $this->em->getRepository('ConcursoMenus4AllBundle:Receta')->find($idReceta);
-//                    $menu->addReceta($nuevaRecetaMenu);
-//                }
-//            }
+            $recetasDesc = $this->em->getRepository('ConcursoMenus4AllBundle:Menu')->getRecetasDescartadas($data['recetas'], $menu->getId());
+            if (!empty($recetasDesc)) {
+                foreach ($recetasDesc as $recetaDesc) {
+                    $menu->removeReceta($recetaDesc);
+                }
+            }
+            $recetasMenu = $menu->getRecetas();
+            $idsRecetaMenu = array();
+            foreach ($recetasMenu as $recetaMenu) {
+                $idsRecetaMenu[] = $recetaMenu->getId();
+            } if (!empty($data['recetas'])) {
+                foreach ($data['recetas'] as $idReceta) {
+
+                    if (!in_array($idReceta, $idsRecetaMenu)) {
+                        $nuevaRecetaMenu = $this->em->getRepository('ConcursoMenus4AllBundle:Receta')->find($idReceta);
+                        $menu->addReceta($nuevaRecetaMenu);
+                    }
+                }
+            }
             $menu->setTipoMenu($this->em->getRepository('ConcursoMenus4AllBundle:TipoMenu')->findOneByNombre($data['tipo']));
             $errors = $this->validator->validate($menu);
             if (count($errors) > 0) {

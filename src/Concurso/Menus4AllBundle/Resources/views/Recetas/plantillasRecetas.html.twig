@@ -2,9 +2,9 @@
     <div class="page-header">
         <h2>Lista de Recetas <small>filtrando por: blalbabla, blablsf, asdeeif...</small></h1>
     </div>
-    <% _.each(recetas, function(receta){ %>
-    <div id="receta_<%= receta.id %>">
-        <h4 ><%= receta.nombre %></h3>
+    <% _.each(recetas, function(receta, index){ %>
+    <div id="receta_<%= index %>">
+        <h4><%= receta.nombre %></h4>
             <p>La receta está pensada para: <%= receta.n_personas %></p>
             <p><%= receta.descripcion %></p>
             <a  class="btn "><i class="icon-eye-open"></i> Ver</a>
