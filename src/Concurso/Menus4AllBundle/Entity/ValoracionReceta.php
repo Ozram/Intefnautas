@@ -41,6 +41,11 @@ class ValoracionReceta {
     private $receta;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Usuario")
+     */
+    private $usuario;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -91,17 +96,15 @@ class ValoracionReceta {
         return $this->comentario;
     }
 
-
     /**
      * Set receta
      *
      * @param Concurso\Menus4AllBundle\Entity\Receta $receta
      * @return ValoracionReceta
      */
-    public function setReceta(\Concurso\Menus4AllBundle\Entity\Receta $receta = null)
-    {
+    public function setReceta(\Concurso\Menus4AllBundle\Entity\Receta $receta = null) {
         $this->receta = $receta;
-    
+
         return $this;
     }
 
@@ -110,8 +113,31 @@ class ValoracionReceta {
      *
      * @return Concurso\Menus4AllBundle\Entity\Receta 
      */
-    public function getReceta()
-    {
+    public function getReceta() {
         return $this->receta;
+    }
+
+
+    /**
+     * Set usuario
+     *
+     * @param Concurso\Menus4AllBundle\Entity\Usuario $usuario
+     * @return ValoracionReceta
+     */
+    public function setUsuario(\Concurso\Menus4AllBundle\Entity\Usuario $usuario = null)
+    {
+        $this->usuario = $usuario;
+    
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return Concurso\Menus4AllBundle\Entity\Usuario 
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
     }
 }

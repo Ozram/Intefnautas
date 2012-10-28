@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Concurso\Menus4AllBundle\Entity\ValoracionMenuRepository")
  */
-class ValoracionMenu
-{
+class ValoracionMenu {
+
     /**
      * @var integer $id
      *
@@ -34,19 +34,23 @@ class ValoracionMenu
      * @ORM\Column(name="comentario", type="text")
      */
     private $comentario;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Menu")
      */
     private $menu;
-    
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Usuario")
+     */
+    private $usuario;
+
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -56,10 +60,9 @@ class ValoracionMenu
      * @param integer $puntuacion
      * @return ValoracionMenu
      */
-    public function setPuntuacion($puntuacion)
-    {
+    public function setPuntuacion($puntuacion) {
         $this->puntuacion = $puntuacion;
-    
+
         return $this;
     }
 
@@ -68,8 +71,7 @@ class ValoracionMenu
      *
      * @return integer 
      */
-    public function getPuntuacion()
-    {
+    public function getPuntuacion() {
         return $this->puntuacion;
     }
 
@@ -79,10 +81,9 @@ class ValoracionMenu
      * @param string $comentario
      * @return ValoracionMenu
      */
-    public function setComentario($comentario)
-    {
+    public function setComentario($comentario) {
         $this->comentario = $comentario;
-    
+
         return $this;
     }
 
@@ -91,8 +92,7 @@ class ValoracionMenu
      *
      * @return string 
      */
-    public function getComentario()
-    {
+    public function getComentario() {
         return $this->comentario;
     }
 
@@ -102,10 +102,9 @@ class ValoracionMenu
      * @param Concurso\Menus4AllBundle\Entity\Menu $menu
      * @return ValoracionMenu
      */
-    public function setMenu(\Concurso\Menus4AllBundle\Entity\Menu $menu = null)
-    {
+    public function setMenu(\Concurso\Menus4AllBundle\Entity\Menu $menu = null) {
         $this->menu = $menu;
-    
+
         return $this;
     }
 
@@ -114,8 +113,31 @@ class ValoracionMenu
      *
      * @return Concurso\Menus4AllBundle\Entity\Menu 
      */
-    public function getMenu()
-    {
+    public function getMenu() {
         return $this->menu;
+    }
+
+
+    /**
+     * Set usuario
+     *
+     * @param Concurso\Menus4AllBundle\Entity\Usuario $usuario
+     * @return ValoracionMenu
+     */
+    public function setUsuario(\Concurso\Menus4AllBundle\Entity\Usuario $usuario = null)
+    {
+        $this->usuario = $usuario;
+    
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return Concurso\Menus4AllBundle\Entity\Usuario 
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
     }
 }

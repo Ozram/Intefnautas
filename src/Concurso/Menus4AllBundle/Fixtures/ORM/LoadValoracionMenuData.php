@@ -15,18 +15,21 @@ class LoadValoracionMenuData extends AbstractFixture implements OrderedFixtureIn
         $valoracionmenu1->setPuntuacion(4);
         $valoracionmenu1->setComentario('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
         $valoracionmenu1->setMenu($this->getReference('arroz_trigo_maiz'));
+        $valoracionmenu1->setUsuario($this->getReference('alberto'));
         $manager->persist($valoracionmenu1);
 
         $valoracionmenu2 = new ValoracionMenu();
         $valoracionmenu2->setPuntuacion(3);
         $valoracionmenu2->setComentario('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
         $valoracionmenu2->setMenu($this->getReference('arroz_avena_maiz'));
+        $valoracionmenu2->setUsuario($this->getReference('alberto'));
         $manager->persist($valoracionmenu2);
 
         $valoracionmenu3 = new ValoracionMenu();
         $valoracionmenu3->setPuntuacion(2);
         $valoracionmenu3->setComentario('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
         $valoracionmenu3->setMenu($this->getReference('arroz_avena_trigo'));
+        $valoracionmenu3->setUsuario($this->getReference('alberto'));
         $manager->persist($valoracionmenu3);
 
 

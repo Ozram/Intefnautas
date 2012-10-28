@@ -238,4 +238,27 @@ class Menu {
     {
         return $this->valoraciones;
     }
+
+    /**
+     * Add valoraciones
+     *
+     * @param Concurso\Menus4AllBundle\Entity\ValoracionMenu $valoraciones
+     * @return Menu
+     */
+    public function addValoracione(\Concurso\Menus4AllBundle\Entity\ValoracionMenu $valoraciones)
+    {
+        $this->valoraciones[] = $valoraciones;
+    
+        return $this;
+    }
+
+    /**
+     * Remove valoraciones
+     *
+     * @param Concurso\Menus4AllBundle\Entity\ValoracionMenu $valoraciones
+     */
+    public function removeValoracione(\Concurso\Menus4AllBundle\Entity\ValoracionMenu $valoraciones)
+    {
+        $this->valoraciones->removeElement($valoraciones);
+    }
 }

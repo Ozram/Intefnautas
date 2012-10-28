@@ -48,6 +48,16 @@ class Usuario extends BaseUser {
     private $menus;
 
     /**
+     * @ORM\OneToMany(targetEntity="ValoracionMenu", mappedBy="usuario")
+     */
+    private $valoracionMenu;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ValoracionReceta", mappedBy="usuario")
+     */
+    private $valoracionReceta;
+
+    /**
      * @ORM\OneToMany(targetEntity="ListaCompra", mappedBy="usuario")
      */
     private $listasCompra;
@@ -104,17 +114,15 @@ class Usuario extends BaseUser {
         return $this->apellidos;
     }
 
-
     /**
      * Add recetas
      *
      * @param Concurso\Menus4AllBundle\Entity\Receta $recetas
      * @return Usuario
      */
-    public function addReceta(\Concurso\Menus4AllBundle\Entity\Receta $recetas)
-    {
+    public function addReceta(\Concurso\Menus4AllBundle\Entity\Receta $recetas) {
         $this->recetas[] = $recetas;
-    
+
         return $this;
     }
 
@@ -123,8 +131,7 @@ class Usuario extends BaseUser {
      *
      * @param Concurso\Menus4AllBundle\Entity\Receta $recetas
      */
-    public function removeReceta(\Concurso\Menus4AllBundle\Entity\Receta $recetas)
-    {
+    public function removeReceta(\Concurso\Menus4AllBundle\Entity\Receta $recetas) {
         $this->recetas->removeElement($recetas);
     }
 
@@ -133,8 +140,7 @@ class Usuario extends BaseUser {
      *
      * @return Doctrine\Common\Collections\Collection 
      */
-    public function getRecetas()
-    {
+    public function getRecetas() {
         return $this->recetas;
     }
 
@@ -144,10 +150,9 @@ class Usuario extends BaseUser {
      * @param Concurso\Menus4AllBundle\Entity\Menu $menus
      * @return Usuario
      */
-    public function addMenu(\Concurso\Menus4AllBundle\Entity\Menu $menus)
-    {
+    public function addMenu(\Concurso\Menus4AllBundle\Entity\Menu $menus) {
         $this->menus[] = $menus;
-    
+
         return $this;
     }
 
@@ -156,8 +161,7 @@ class Usuario extends BaseUser {
      *
      * @param Concurso\Menus4AllBundle\Entity\Menu $menus
      */
-    public function removeMenu(\Concurso\Menus4AllBundle\Entity\Menu $menus)
-    {
+    public function removeMenu(\Concurso\Menus4AllBundle\Entity\Menu $menus) {
         $this->menus->removeElement($menus);
     }
 
@@ -166,8 +170,7 @@ class Usuario extends BaseUser {
      *
      * @return Doctrine\Common\Collections\Collection 
      */
-    public function getMenus()
-    {
+    public function getMenus() {
         return $this->menus;
     }
 
@@ -177,10 +180,9 @@ class Usuario extends BaseUser {
      * @param Concurso\Menus4AllBundle\Entity\ListaCompra $listasCompra
      * @return Usuario
      */
-    public function addListasCompra(\Concurso\Menus4AllBundle\Entity\ListaCompra $listasCompra)
-    {
+    public function addListasCompra(\Concurso\Menus4AllBundle\Entity\ListaCompra $listasCompra) {
         $this->listasCompra[] = $listasCompra;
-    
+
         return $this;
     }
 
@@ -189,8 +191,7 @@ class Usuario extends BaseUser {
      *
      * @param Concurso\Menus4AllBundle\Entity\ListaCompra $listasCompra
      */
-    public function removeListasCompra(\Concurso\Menus4AllBundle\Entity\ListaCompra $listasCompra)
-    {
+    public function removeListasCompra(\Concurso\Menus4AllBundle\Entity\ListaCompra $listasCompra) {
         $this->listasCompra->removeElement($listasCompra);
     }
 
@@ -199,8 +200,74 @@ class Usuario extends BaseUser {
      *
      * @return Doctrine\Common\Collections\Collection 
      */
-    public function getListasCompra()
-    {
+    public function getListasCompra() {
         return $this->listasCompra;
+    }
+
+
+    /**
+     * Add valoracionMenu
+     *
+     * @param Concurso\Menus4AllBundle\Entity\ValoracionMenu $valoracionMenu
+     * @return Usuario
+     */
+    public function addValoracionMenu(\Concurso\Menus4AllBundle\Entity\ValoracionMenu $valoracionMenu)
+    {
+        $this->valoracionMenu[] = $valoracionMenu;
+    
+        return $this;
+    }
+
+    /**
+     * Remove valoracionMenu
+     *
+     * @param Concurso\Menus4AllBundle\Entity\ValoracionMenu $valoracionMenu
+     */
+    public function removeValoracionMenu(\Concurso\Menus4AllBundle\Entity\ValoracionMenu $valoracionMenu)
+    {
+        $this->valoracionMenu->removeElement($valoracionMenu);
+    }
+
+    /**
+     * Get valoracionMenu
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getValoracionMenu()
+    {
+        return $this->valoracionMenu;
+    }
+
+    /**
+     * Add valoracionReceta
+     *
+     * @param Concurso\Menus4AllBundle\Entity\ValoracionReceta $valoracionReceta
+     * @return Usuario
+     */
+    public function addValoracionReceta(\Concurso\Menus4AllBundle\Entity\ValoracionReceta $valoracionReceta)
+    {
+        $this->valoracionReceta[] = $valoracionReceta;
+    
+        return $this;
+    }
+
+    /**
+     * Remove valoracionReceta
+     *
+     * @param Concurso\Menus4AllBundle\Entity\ValoracionReceta $valoracionReceta
+     */
+    public function removeValoracionReceta(\Concurso\Menus4AllBundle\Entity\ValoracionReceta $valoracionReceta)
+    {
+        $this->valoracionReceta->removeElement($valoracionReceta);
+    }
+
+    /**
+     * Get valoracionReceta
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getValoracionReceta()
+    {
+        return $this->valoracionReceta;
     }
 }

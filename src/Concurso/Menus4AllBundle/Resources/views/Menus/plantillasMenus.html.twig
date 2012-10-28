@@ -5,7 +5,7 @@
     <% _.each(menus, function(menu){ %>
     <div id="menu_<%= menu.id %>">
         <h4 ><%= menu.nombre %></h3>
-            <p>La menu está pensada para: <%= menu.n_personas %></p>
+            <p>La menu está pensada para: <%= menu.tipo %></p>
             <p><%= menu.descripcion %></p>
             <a href="#" class="btn "><i class="icon-eye-open"></i> Ver</a>
             <a class="btn btn-info editarMenu" val="<%= menu.id %>"><i class="icon-white icon-pencil"></i> Editar</a>

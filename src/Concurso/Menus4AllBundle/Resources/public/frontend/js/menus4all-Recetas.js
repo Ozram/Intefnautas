@@ -55,7 +55,7 @@ $(document).ready(function(){
         editarReceta: function(e) {
             console.log('recetaView:editarReceta');
             this.idReceta = e.currentTarget.attributes['val'].nodeValue;
-            this.receta = that.collection.get(this.idReceta);
+            this.receta = this.collection.get(this.idReceta);
             this.data = {
                 'receta': this.receta.attributes , 
                 'idAccion': 'actualizarReceta'
