@@ -89,7 +89,6 @@ class ListasCompraManager {
             $listaListaCompra['nombre'] = $listaCompra->getNombre();
             $listaListaCompra['idUsuario'] = $listaCompra->getUsuario()->getId();
             $ingredientesListaCompra = $listaCompra->getIngredientesListaCompra();
-            $ingredienteListaCompra = new \Concurso\Menus4AllBundle\Entity\IngredientesListaCompra();
             foreach ($ingredientesListaCompra as $i => $ingredienteListaCompra) {
                 $listaListaCompra['ingredientes'][$i]['cantidad'] = $ingredienteListaCompra->getCantidad();
                 $ingrediente = $ingredienteListaCompra->getIngrediente();
@@ -115,7 +114,6 @@ class ListasCompraManager {
                 $listaListasCompra[$i]['nombre'] = $listaCompra->getNombre();
                 $listaListasCompra[$i]['idUsuario'] = $listaCompra->getUsuario()->getId();
                 $ingredientesListaCompra = $listaCompra->getIngredientesListaCompra();
-                $ingredienteListaCompra = new \Concurso\Menus4AllBundle\Entity\IngredientesListaCompra();
                 foreach ($ingredientesListaCompra as $k => $ingredienteListaCompra) {
                     $listaListasCompra[$i]['ingredientes'][$k]['cantidad'] = $ingredienteListaCompra->getCantidad();
                     $ingrediente = $ingredienteListaCompra->getIngrediente();
@@ -150,7 +148,6 @@ class ListasCompraManager {
             if (!empty($data['recetas'])) {
                 foreach ($data['recetas'] as $idReceta) {
                     $receta = $this->em->getRepository('ConcursoMenus4AllBundle:Receta')->find($idReceta);
-                    $receta = new \Concurso\Menus4AllBundle\Entity\Receta();
                     $ingredientesReceta = $receta->getIngredientesReceta();
                     foreach ($ingredientesReceta as $ingredienteReceta) {
                         if (empty($isdIngredientesRecetaListaCompra[$ingredienteReceta->getId()])) {
@@ -187,7 +184,6 @@ class ListasCompraManager {
             }
             $ingredientesDescartados = $this->em->getRepository('ConcursoMenus4AllBundle:ListaCompra')->getIngredientesListaCompraDescartados($idsIngredientes);
             $listaCompra->removeIngredientesListaCompra($ingredientesDescartados);
-            $listaCompra = new ListaCompra();
             $idsIngredientesExistentes = array();
             $ingredientesListaCompra = $listaCompra->getIngredientesListaCompra();
             foreach ($ingredientesListaCompra as $ingredienteListaCompra) {
@@ -196,7 +192,6 @@ class ListasCompraManager {
                 $idsIngredientesExistentes[] = $ingredienteExistente->getId();
             }
             foreach ($listaIngredientes as $ingrediente) {
-                $ingrediente = new \Concurso\Menus4AllBundle\Entity\Ingrediente();
                 if (in_array($ingrediente['obj']->getId(), $idsIngredientesExistentes)) {
                     $cantAux = $ingredientesExistentes[$ingrediente['obj']->getId()]['cantidad'] + $ingrediente['cantidad'];
                     $listaCompra->addIngrediente($ingrediente['obj'], $cantAux);
