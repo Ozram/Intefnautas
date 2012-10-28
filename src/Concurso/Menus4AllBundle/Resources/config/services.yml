@@ -2,6 +2,7 @@ parameters:
     cm4all.recetasmanager.class: Concurso\Menus4AllBundle\Services\RecetasManager
     cm4all.menusmanager.class: Concurso\Menus4AllBundle\Services\MenusManager
     cm4all.listasCompramanager.class: Concurso\Menus4AllBundle\Services\ListasCompra
+    cm4all.valoracionesMenumanager.class: Concurso\Menus4AllBundle\Services\ValoracionMenu
     
 services:
     cm4all.recetasmanager:

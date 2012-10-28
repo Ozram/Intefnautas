@@ -62,12 +62,16 @@ $(document).ready(function(){
             $('#listaRecetasBusqueda').html(this.templateForm({
                 data: that.data
             }));
-            console.log(this.receta.ingredientes);
-            this.n_ingredientes = this.receta.ingredientes.lenght;
-            $.each(this.receta['ingredientes'] ,function(ingrediente) {
-                 $('#ingredientes').append('<br/>'+this.templateIngredientes({id: that.n_ingredientes})+'<br/>');
-            });
             
+            this.n_ingredientes = 0;
+            $.each(this.receta.attributes.ingredientes ,function(ingrediente) {
+                 that.n_ingredientes += 1;
+                 $('#ingredientes').append('<br/>'+that.templateIngredientes({id: that.n_ingredientes})+'<br/>');
+                 console.log(ingrediente);
+                 that.$el.find('#ingrediente_'+that.n_ingredientes).val(that.receta.attributes.ingredientes[ingrediente].nombre);
+                 that.$el.find('#cantidad_'+that.n_ingredientes).val(that.receta.attributes.ingredientes[ingrediente].cantidad);
+            });
+          
         },
         
         crearReceta: function() {
