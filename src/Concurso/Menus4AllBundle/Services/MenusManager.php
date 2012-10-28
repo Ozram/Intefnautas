@@ -17,6 +17,7 @@ class MenusManager {
         $data = json_decode($json, true);
         $session = $this->getRequest()->getSession();
         $idUsuario = $session->getId();
+        $menu = new Menu();
         try {
             $menu->setNombre($data['nombre']);
             $menu->setDescripcion($data['descripcion']);

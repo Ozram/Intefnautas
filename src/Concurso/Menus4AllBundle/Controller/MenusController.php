@@ -4,9 +4,6 @@ namespace Concurso\Menus4AllBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use Concurso\Menus4AllBundle\Entity\Menu;
-use Concurso\Menus4AllBundle\Form\Type\MenuType;
-use Concurso\Menus4AllBundle\Form\Type\IngredienteType;
 
 class MenusController extends Controller {
 
