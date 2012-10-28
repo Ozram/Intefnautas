@@ -1,6 +1,7 @@
 parameters:
     cm4all.recetasmanager.class: Concurso\Menus4AllBundle\Services\RecetasManager
     cm4all.menusmanager.class: Concurso\Menus4AllBundle\Services\MenusManager
+    cm4all.listasCompramanager.class: Concurso\Menus4AllBundle\Services\ListasCompra
     
 services:
     cm4all.recetasmanager:
@@ -9,4 +10,12 @@ services:
 
     cm4all.menusmanager:
         class: %cm4all.menusmanager.class%
+        arguments: ["@doctrine.orm.entity_manager", "@validator"]
+        
+    cm4all.valoracionesMenumanager:
+        class: %cm4all.valoracionesMenumanager.class%
+        arguments: ["@doctrine.orm.entity_manager", "@validator"]
+        
+    cm4all.listasCompramanager:
+        class: %cm4all.listasCompramanager.class%
         arguments: ["@doctrine.orm.entity_manager", "@validator"]
