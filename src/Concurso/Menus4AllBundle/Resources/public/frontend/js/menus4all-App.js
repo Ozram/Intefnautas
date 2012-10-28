@@ -6,13 +6,14 @@ $(document).ready(function(){
        
             console.log('window.app.initialize');
                 
-            this.recetaCollection = new window.recetaCollection();
-
-            this.recetaView = new window.recetaView({
-                collection:  this.recetaCollection
-            });
-            
-            this.recetaView.actualizarColeccion();
+            this.navOpcionesIzqView = new window.navOpcionesIzqView();
+//            this.recetaCollection = new window.recetaCollection();
+//
+//            this.recetaView = new window.recetaView({
+//                collection:  this.recetaCollection
+//            });
+//            
+//            this.recetaView.actualizarColeccion();
         }
    
     });

@@ -31,6 +31,8 @@ $(document).ready(function(){
 
         templateForm: _.template($('#plantillaRecetaForms').html()),
         
+        templateOpciones: _.template($('#plantillaRecetaOpciones').html()),
+        
         templateMensajes: _.template($('#plantillaMensajes').html()),
         
         templateIngredientes: _.template($('#plantillaIngredientes').html()),
@@ -167,6 +169,7 @@ $(document).ready(function(){
             $('#listaRecetasBusqueda').html(this.templateList({
                 recetas: this.collection.toJSON()
             }));
+            $('#opcionesRecetas').html(this.templateOpciones());
         },
         
         anadirIngrediente: function(){

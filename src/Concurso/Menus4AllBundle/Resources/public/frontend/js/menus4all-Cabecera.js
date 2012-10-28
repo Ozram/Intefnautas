@@ -8,21 +8,16 @@ $(document).ready(function(){
         model: window.menuModel,
         url: "app_dev.php/menus"
     });
+    
     window.navOpcionesIzqView = Backbone.View.extend({
               
         initialize: function(){
-            this.collection.bind('reset destroy add', this.renderList, this);
         },
         
         el: $('#navOpcionesIzq'),  
         
         events: {
-            "click #menus4allMenus"  : "nuevoMenu" ,
-            "click .editarMenu"  : "editarMenu",
-            "click #crearMenu"  : "crearMenu" ,
-            "click #actualizarMenu"  : "actualizarMenu",
-            "click #buscarMenus"  : "actualizarColeccion"
-
+            "click #menus4allRecetas"  : "seccionRecetas" 
         },                         
 
 //        templateList: _.template($('#plantillaMenuList').html()),
@@ -93,63 +88,17 @@ $(document).ready(function(){
 //                }
 //            });
 //        },
-        
-        actualizarMenu: function() {
-            console.log('menuView:crearMenu');
-            $('#actualizarMenu').addClass('disabled');
-            that = this;
-            this.menu.save({
-                nombre: this.$el.find('.menu_nombre').val(),
-                descripcion: this.$el.find('.menu_descripcion').val(),
-                n_personas: Number(this.$el.find('.menu_n_personas').val())
-            },{
-                success:function(model, response){
-                    console.log('menu.save.success');
-                    $('#actualizarMenu').removeClass('disabled');
-                    $('#seccionMensajes').html(that.templateMensajes({
-                        mensajes: {
-                            'success': 'Menu actualizada correctamente'
-                        }
-                    }));
-                    $('#seccionMensajes').show().delay(5000).hide('slow');
-                    that.renderList();
-                },
-                error: function(model, response){
-                    console.log('menu.save.error');
-                    $('#seccionMensajes').html(that.templateMensajes({
-                        mensajes: jQuery.parseJSON(response.responseText)
-                    }));
-                    that.menu = model;
-                    $('#seccionMensajes').show().delay(5000).hide('slow');
-                    $('#actualizarMenu').removeClass('disabled');
-                }
-            }); 
-        },
-        
-        actualizarColeccion: function() {
-            console.log('menuView:actualizarColeccion');
-            that = this;
-            this.collection.fetch({
-                success: function(collection, response){
-                    console.log('menus.fetch.success');     
-                },
-                error: function(collection, response){
-                    console.log('menus.fetch.error');
-                }
-            });    
-        },
-        buscarMenusRel: function() {
-            console.log('menuView:buscarMenusRel');
-        },
-        
-        renderList: function(){
-            console.log('menuView.renderList');
-            $('#listaMenusBusqueda').html(this.templateList({
-                menus: this.collection.toJSON()
-            }));
+        seccionRecetas: function(){
+            this.recetaCollection = new window.recetaCollection();
 
+            this.recetaView = new window.recetaView({
+                collection:  this.recetaCollection
+            });
+            
+            this.recetaView.actualizarColeccion();
         }
-             
+        
+
     });
     
 });
