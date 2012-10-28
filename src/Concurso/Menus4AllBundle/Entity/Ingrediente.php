@@ -41,7 +41,6 @@ class Ingrediente {
     /**
      * @var integer $calorias
      * -------------validadores-------------
-     * @Assert\NotBlank()
      * 
      * @ORM\Column(name="calorias", type="integer")
      */
@@ -50,7 +49,6 @@ class Ingrediente {
     /**
      * @var float $carbohidratos
      * -------------validadores-------------
-     * @Assert\NotBlank()
      * 
      * @ORM\Column(name="carbohidratos", type="float")
      */
@@ -66,7 +64,6 @@ class Ingrediente {
     /**
      * @var float $proteinas
      * -------------validadores-------------
-     * @Assert\NotBlank()
      * 
      * @ORM\Column(name="proteinas", type="float")
      */

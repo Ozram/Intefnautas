@@ -3,6 +3,7 @@
 namespace Concurso\Menus4AllBundle\Services;
 
 use Concurso\Menus4AllBundle\Entity\Receta;
+use Concurso\Menus4AllBundle\Entity\Ingrediente;
 
 class RecetasManager {
 
@@ -20,6 +21,11 @@ class RecetasManager {
             $receta->setNombre($data['nombre']);
             $receta->setDescripcion($data['descripcion']);
             $receta->setNPersonas($data['n_personas']);
+
+            foreach ($data['ingredientes'] as $datos_ingr) {
+                $ingrediente = $this->crearIngrediente($datos_ingr['nombre']);
+                $receta->addIngredientes($ingrediente, $datos_ingr['cantidad']);
+            }
             $errors = $this->validator->validate($receta);
             if (count($errors) > 0) {
                 $resultado['statusCode'] = 422;
@@ -34,10 +40,13 @@ class RecetasManager {
             $resultado['id'] = $receta->getId();
         } catch (\ErrorException $mapexc) {
             $resultado['statusCode'] = 500;
+            $resultado['error'] = $mapexc->getMessage();
         } catch (\Doctrine\ORM\OptimisticLockException $flushexc) {
             $resultado['statusCode'] = 500;
+            $resultado['error'] = $flushexc->getMessage();
         } catch (\Exception $exc) {
             $resultado['statusCode'] = 500;
+            $resultado['error'] = $exc->getMessage();
         }
         return $resultado;
     }
@@ -49,12 +58,13 @@ class RecetasManager {
             $listaReceta['nombre'] = $receta->getNombre();
             $listaReceta['n_personas'] = $receta->getNPersonas();
             $listaReceta['descripcion'] = $receta->getDescripcion();
+            $listaReceta['ingredientes'] = $receta->getIngredientesReceta();
             $resultado['listaReceta'] = $listaReceta;
-            $resultado['statusCode']  = 200;
+            $resultado['statusCode'] = 200;
         } catch (\ErrorException $mapexc) {
-            $resultado['statusCode']  = 500;
+            $resultado['statusCode'] = 500;
         } catch (\Exception $exc) {
-            $resultado['statusCode']  = 500;
+            $resultado['statusCode'] = 500;
         }
         return $resultado;
     }
@@ -62,21 +72,28 @@ class RecetasManager {
     public function readRecetaCollection() {
         try {
             $recetas = $this->em->getRepository('ConcursoMenus4AllBundle:Receta')->findAll();
+//            $ingredientes = $recetas[1]->getIngredientesReceta();
+//            print_r($ingredientes); exit;
             $listaRecetas = array();
             foreach ($recetas as $i => $receta) {
                 $listaRecetas[$i]['id'] = $receta->getId();
                 $listaRecetas[$i]['nombre'] = $receta->getNombre();
                 $listaRecetas[$i]['n_personas'] = $receta->getNPersonas();
                 $listaRecetas[$i]['descripcion'] = $receta->getDescripcion();
+                $ingredientes =  $receta->getIngredientesReceta();
+                foreach ($ingredientes as $j => $ingrediente) {
+                     $listaRecetas[$i]['ingredientes'][$j]['nombre'] = $ingrediente->getIngrediente()->getNombre();
+                     $listaRecetas[$i]['ingredientes'][$j]['cantidad'] = $ingrediente->getCantidad();
+                }
             }
             $resultado['listaRecetas'] = $listaRecetas;
-            $resultado['statusCode']  = 200;
+            $resultado['statusCode'] = 200;
         } catch (\ErrorException $mapexc) {
-            $resultado['statusCode']  = 500;
+            $resultado['statusCode'] = 500;
             $resultado['error'] = $mapexc->getMessage();
         } catch (\Exception $exc) {
-            $resultado['statusCode']  = 500;
-           $resultado['error'] = $exc->getMessage();
+            $resultado['statusCode'] = 500;
+            $resultado['error'] = $exc->getMessage();
         }
         return $resultado;
     }
@@ -123,6 +140,20 @@ class RecetasManager {
             $resultado['statusCode'] = 500;
         }
         return $resultado;
+    }
+
+    private function crearIngrediente($nombre) {
+        $ingrediente = $this->em->getRepository('ConcursoMenus4AllBundle:Ingrediente')->findOneByNombre($nombre);
+        if (is_null($ingrediente)) {
+            $ingrediente = new Ingrediente();
+            $ingrediente->setNombre($nombre);
+            $ingrediente->setCalorias(200);
+            $ingrediente->setGrasas(25);
+            $ingrediente->setCarbohidratos(25);
+            $ingrediente->setProteinas(25);
+            $this->em->persist($ingrediente);
+        }
+        return $ingrediente;
     }
 
 }

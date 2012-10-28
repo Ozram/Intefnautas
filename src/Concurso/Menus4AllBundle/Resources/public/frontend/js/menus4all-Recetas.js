@@ -22,7 +22,8 @@ $(document).ready(function(){
             "click .editarReceta"  : "editarReceta",
             "click #crearReceta"  : "crearReceta" ,
             "click #actualizarReceta"  : "actualizarReceta",
-            "click #buscarRecetas"  : "actualizarColeccion"
+            "click #buscarRecetas"  : "actualizarColeccion",
+            "click #anadirIngrediente": "anadirIngrediente"
 
         },                         
 
@@ -31,7 +32,10 @@ $(document).ready(function(){
         templateForm: _.template($('#plantillaRecetaForms').html()),
         
         templateMensajes: _.template($('#plantillaMensajes').html()),
-
+        
+        templateIngredientes: _.template($('#plantillaIngredientes').html()),
+        
+        
         nuevaReceta: function() {
             console.log('recetaView:nuevaReceta');
             this.data = {
@@ -42,14 +46,14 @@ $(document).ready(function(){
             $('#listaRecetasBusqueda').html(this.templateForm({
                 data: that.data
             }));
+            this.n_ingredientes = 0;
+            console.log(this.n_ingredientes);
         },
          
         editarReceta: function(e) {
             console.log('recetaView:editarReceta');
             this.idReceta = e.currentTarget.attributes['val'].nodeValue;
             this.receta = that.collection.get(this.idReceta);
-            console.log(this.idReceta);
-            console.log(this.receta);
             this.data = {
                 'receta': this.receta.attributes , 
                 'idAccion': 'actualizarReceta'
@@ -58,6 +62,11 @@ $(document).ready(function(){
             $('#listaRecetasBusqueda').html(this.templateForm({
                 data: that.data
             }));
+            console.log(this.receta.ingredientes);
+            this.n_ingredientes = this.receta.ingredientes.lenght;
+            $.each(this.receta['ingredientes'] ,function(ingrediente) {
+                 $('#ingredientes').append('<br/>'+this.templateIngredientes({id: that.n_ingredientes})+'<br/>');
+            });
             
         },
         
@@ -65,12 +74,19 @@ $(document).ready(function(){
             console.log('recetaView:crearReceta');
             $('#crearReceta').addClass('disabled');
             receta = new window.recetaModel();
+            for (i=1;i<=this.n_ingredientes;i++) { 
+                ingredientes[i] = {
+                    nombre: this.$el.find('#ingrediente_'+i).val(),
+                    cantidad: this.$el.find('#cantidad_'+i).val()
+                }
+            }
             that = this;
            
             receta.save({
                 nombre: this.$el.find('.receta_nombre').val(),
                 descripcion: this.$el.find('.receta_descripcion').val(),
-                n_personas: Number(this.$el.find('.receta_n_personas').val())
+                n_personas: Number(this.$el.find('.receta_n_personas').val()),
+                ingredientes: ingredientes
             },{
                 success:function(model, response){
                     console.log('receta.save.success');
@@ -85,7 +101,6 @@ $(document).ready(function(){
                 },
                 error: function(model, response){
                     console.log('receta.save.error');
-                    console.log(response.responseText);
                     $('#seccionMensajes').html(that.templateMensajes({
                         mensajes: jQuery.parseJSON(response.responseText)
                     }));
@@ -148,7 +163,14 @@ $(document).ready(function(){
             $('#listaRecetasBusqueda').html(this.templateList({
                 recetas: this.collection.toJSON()
             }));
-
+        },
+        
+        anadirIngrediente: function(){
+            console.log('recetaView.renderList');
+            that = this;
+            this.n_ingredientes += 1;
+            $('#ingredientes').append('<br/>'+this.templateIngredientes({id: that.n_ingredientes})+'<br/>');
+            console.log(this.n_ingredientes);
         }
              
     });
