@@ -72,10 +72,13 @@ $(document).ready(function(){
                         data: that.data,
                         recetas: collection.toJSON()
                     }));
+                   
                     _.each(that.recetaCollection.models, function(receta, index){
+                         $('#recetas').html('');
                          _.each(that.menu.attributes.recetas, function(idRec, index){
                              if(that.$el.find('#receta_'+index).val() == idRec){
                                  that.$el.find('#receta_'+index).attr('checked','');
+                                 $('#recetas').append('<br/><span class="label label-info">' + that.recetaCollection.get(that.$el.find('#receta_'+index).val()).attributes.nombre+'</span><br/>');
                              }
                         });
                     });
@@ -186,7 +189,7 @@ $(document).ready(function(){
             $('#recetas').html('');
             for (i=0;i<this.recetaCollection.length;i++) { 
                 if(this.$el.find('#receta_'+i).attr('checked')){
-                    $('#recetas').append('<br/>' + this.recetaCollection.get(this.$el.find('#receta_'+i).val()).attributes.nombre+'<br/>');
+                    $('#recetas').append('<br/><span class="label label-info">' + this.recetaCollection.get(this.$el.find('#receta_'+i).val()).attributes.nombre+'</span><br/>');
                 };
             };
         },
