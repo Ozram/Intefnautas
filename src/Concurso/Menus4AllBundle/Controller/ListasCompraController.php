@@ -5,47 +5,49 @@ namespace Concurso\Menus4AllBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
-class MenusController extends Controller {
-
-
-    public function createMenuAction() {
+class ListasCompraController extends Controller {
+    public function createListaCompraAction() {
         $json = $this->getRequest()->getContent();
-        $rmService = $this->get('cm4all.menusmanager');
-        $resultado = $rmService->createMenu($json);
+        $rmService = $this->get('cm4all.listaComprasmanager');
+        $resultado = $rmService->createListaCompra($json);
         $statusCode = $resultado['statusCode'];
         $data = json_encode($resultado);
         return $this->sendResponse($data, $statusCode);
     }
 
-    public function readMenuAction($id) {
-        $rmService = $this->get('cm4all.menusmanager');
-        $resultado = $rmService->readMenu($id);
+    public function readListaCompraAction($id) {
+        $rmService = $this->get('cm4all.listaComprasmanager');
+        $resultado = $rmService->readListaCompra($id);
         $statusCode = $resultado['statusCode'];       
-        $data = json_encode($resultado['listaMenu']);
+        $data = json_encode($resultado['listaListaCompra']);
         return $this->sendResponse($data, $statusCode);
     }
 
-    public function readMenusCollectionAction() {
-        $rmService = $this->get('cm4all.menusmanager');
-        $resultado = $rmService->readMenuCollection();
+    public function readListasCompraCollectionAction() {
+        $rmService = $this->get('cm4all.listaComprasmanager');
+        $resultado = $rmService->readListaCompraCollection();
         $statusCode = $resultado['statusCode'];
-        $data = json_encode($resultado['listaMenus']);
+        if ($statusCode == 200){
+            $data = json_encode($resultado['listaListasCompra']);
+        }else{
+            $data = json_encode($resultado);
+        }
         return $this->sendResponse($data, $statusCode);
     }
 
-    public function updateMenuAction($id) {
+    public function updateListaCompraAction($id) {
         $json = $this->getRequest()->getContent();
-        $rmService = $this->get('cm4all.menusmanager');
-        $resultado = $rmService->updateMenu($id, $json);
+        $rmService = $this->get('cm4all.listaComprasmanager');
+        $resultado = $rmService->updateListaCompra($id, $json);
         $statusCode = $resultado['statusCode'];       
         $data = json_encode($resultado);
         return $this->sendResponse($data, $statusCode);
     }
 
-    public function deleteMenuAction($id) {
+    public function deleteListaCompraAction($id) {
         $json = $this->getRequest()->get('json');
-        $rmService = $this->get('cm4all.menusmanager');
-        $resultado = $rmService->deleteMenu($json);
+        $rmService = $this->get('cm4all.listaComprasmanager');
+        $resultado = $rmService->deleteListaCompra($json);
         $statusCode = $resultado['statusCode'];
         $data = json_encode(NULL);
         return $this->sendResponse($data, $statusCode);
@@ -58,5 +60,4 @@ class MenusController extends Controller {
         $response->setStatusCode($status_code);
         return $response;
     }
-
 }
