@@ -9,16 +9,20 @@ class MenusCompartidosController extends Controller {
 
     public function createMenuCompartidoAction() {
         $json = $this->getRequest()->getContent();
+        $session = $this->getRequest()->getSession();
+        $idUsuario = $session->getId();
         $rmService = $this->get('cm4all.menusCompartidosmanager');
-        $resultado = $rmService->createMenuCompartido($json);
+        $resultado = $rmService->createMenuCompartido($json, $idUsuario);
         $statusCode = $resultado['statusCode'];
         $data = json_encode($resultado);
         return $this->sendResponse($data, $statusCode);
     }
 
     public function readMenusCompartidosCollectionAction() {
+        $session = $this->getRequest()->getSession();
+        $idUsuario = $session->getId();
         $rmService = $this->get('cm4all.menusCompartidosmanager');
-        $resultado = $rmService->readMenuCompartidoCollection();
+        $resultado = $rmService->readMenuCompartidoCollection($idUsuario);
         $statusCode = $resultado['statusCode'];
         if ($statusCode == 200) {
             $data = json_encode($resultado['listaMenusCompartidos']);
@@ -29,9 +33,8 @@ class MenusCompartidosController extends Controller {
     }
 
     public function updateMenuCompartidoAction($id) {
-        $json = $this->getRequest()->getContent();
         $rmService = $this->get('cm4all.menusCompartidosmanager');
-        $resultado = $rmService->updateMenuCompartido($id, $json);
+        $resultado = $rmService->updateMenuCompartido($id);
         $statusCode = $resultado['statusCode'];
         $data = json_encode($resultado);
         return $this->sendResponse($data, $statusCode);

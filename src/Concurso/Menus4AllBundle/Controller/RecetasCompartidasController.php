@@ -1,5 +1,4 @@
-<?php
-
+<?php // 
 namespace Concurso\Recetas4AllBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -9,8 +8,10 @@ class RecetasCompartidasController extends Controller {
 
     public function createRecetaCompartidoAction() {
         $json = $this->getRequest()->getContent();
+        $session = $this->getRequest()->getSession();
+        $idUsuario = $session->getId();
         $rmService = $this->get('cm4all.recetasCompartidosmanager');
-        $resultado = $rmService->createRecetaCompartido($json);
+        $resultado = $rmService->createRecetaCompartido($json,$idUsuario);
         $statusCode = $resultado['statusCode'];
         $data = json_encode($resultado);
         return $this->sendResponse($data, $statusCode);

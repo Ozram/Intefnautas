@@ -2,9 +2,9 @@
 
 namespace Concurso\Menus4AllBundle\Services;
 
-use Concurso\Menus4AllBundle\Entity\ListaCompra;
+use Concurso\Menus4AllBundle\Entity\RecetaCompartida;
 
-class ListasCompraManager {
+class RecetasCompartidasManager {
 
     protected $em, $validator;
 
@@ -13,65 +13,15 @@ class ListasCompraManager {
         $this->validator = $validator;
     }
 
-    public function createListaCompra($json) {
+    public function createRecetaCompartida($json, $idUsuario) {
         $data = json_decode($json, true);
-        $session = $this->getRequest()->getSession();
-        $idUsuario = $session->getId();
-        $listaCompra = new ListaCompra();
+        $recetaCompartida = new RecetaCompartida();
         try {
-            $listaCompra->setUsuario($this->em->getRepository('ConcursoMenus4AllBundle:Usuario')->find($idUsuario));
-            $listaCompra->setNombre($data['nombre']);
-            $listaIngredientes = array();
-            if (!empty($data['recetas'])) {
-                foreach ($data['recetas'] as $idReceta) {
-                    $receta = $this->em->getRepository('ConcursoMenus4AllBundle:Receta')->find($idReceta);
-                    $ingredientesReceta = $receta->getIngredientesReceta();
-                    foreach ($ingredientesReceta as $i => $ingredienteReceta) {
-                        $ingredienteLista = $ingredienteReceta->getIngrediente();
-                        if (empty($listaIngredientes[$ingredienteLista->getNombre()])) {
-                            $listaIngredientes[$ingredienteLista->getNombre()]['obj'] = $ingredienteLista;
-                            $listaIngredientes[$ingredienteLista->getNombre()]['cantidad'] = 1;
-                        } else {
-                            $listaIngredientes[$ingredienteLista->getNombre()]['cantidad']++;
-                        }
-                    }
-                }
-            }
-            if (!empty($data['menus'])) {
-                foreach ($data['menus'] as $idMenu) {
-
-                    $menu = $this->em->getRepository('ConcursoMenus4AllBundle:Menu')->find($idMenu);
-                    $recetasMenu = $menu->getRecetas();
-                    foreach ($recetasMenu as $receta) {
-                        $ingredientesReceta = $receta->getIngredientesReceta();
-                        foreach ($ingredientesReceta as $i => $ingredienteReceta) {
-                            $ingredienteLista = $ingredienteReceta->getIngrediente();
-                            if (empty($listaIngredientes[$ingredienteLista->getNombre()])) {
-                                $listaIngredientes[$ingredienteLista->getNombre()]['obj'] = $ingredienteLista;
-                                $listaIngredientes[$ingredienteLista->getNombre()]['cantidad'] = 1;
-                            } else {
-                                $listaIngredientes[$ingredienteLista->getNombre()]['cantidad']++;
-                            }
-                        }
-                    }
-                }
-            }
-            foreach ($listaIngredientes as $ingredienteListaCompra) {
-                $listaCompra->addIngrediente($ingredienteListaCompra['obj'], $ingredienteListaCompra['cantidad']);
-            }
-
-            $errors = $this->validator->validate($listaCompra);
-            if (count($errors) > 0) {
-                $resultado['statusCode'] = 422;
-                foreach ($errors as $error) {
-                    $resultado['errores'][$error->getPropertyPath()] = $error->getMessage();
-                }
-                return $resultado;
-            }
-            $this->em->persist($listaCompra);
-            $flushexc = $this->em->flush();
-            $resultado['statusCode'] = 200;
-            $resultado['id'] = $listaCompra->getId();
+            $recetaCompartida->setEmisor($this->em->getRepository('ConcursoMenus4AllBundle:Usuario')->find($idUsuario));
+            $recetaCompartida->setReceptor($this->em->getRepository('ConcursoMenus4AllBundle:Usuario')->find($data['usuario']));
+            $recetaCompartida->setMensaje($data['mensaje']);
+            $recetaCompartida->setVisitado(false);
+            $recetaCompartida->setMenu($this->em->getRepository('ConcursoMenus4AllBundle:Menu')->find($data['menu']));
         } catch (\ErrorException $mapexc) {
             $resultado['statusCode'] = 500;
         } catch (\Doctrine\ORM\OptimisticLockException $flushexc) {
@@ -82,45 +32,18 @@ class ListasCompraManager {
         return $resultado;
     }
 
-    public function readListaCompra($id) {
+    public function readRecetaCompartidaCollection($idUsuario) {
         try {
-            $listaCompra = $this->em->getRepository('ConcursoMenus4AllBundle:ListaCompra')->find($id);
-            $listaListaCompra['id'] = $listaCompra->getId();
-            $listaListaCompra['nombre'] = $listaCompra->getNombre();
-            $listaListaCompra['idUsuario'] = $listaCompra->getUsuario()->getId();
-            $ingredientesListaCompra = $listaCompra->getIngredientesListaCompra();
-            foreach ($ingredientesListaCompra as $i => $ingredienteListaCompra) {
-                $listaListaCompra['ingredientes'][$i]['cantidad'] = $ingredienteListaCompra->getCantidad();
-                $ingrediente = $ingredienteListaCompra->getIngrediente();
-                $listaListaCompra['ingredientes'][$i]['nombre'] = $ingrediente->getNombre();
+            $recetasCompartidas = $this->em->getRepository('ConcursoMenus4AllBundle:RecetaCompartida')->findByIdReceptor($idUsuario);
+            $listaRecetasCompartidas = array();
+            foreach ($recetasCompartidas as $i => $recetaCompartida) {
+                $listaRecetasCompartidas[$i]['id'] = $recetaCompartida->getId();
+                $emisor = $recetaCompartida->getEmisor();
+                $listaRecetasCompartidas[$i]['emisor'] = $emisor->getId();
+                $menu = $recetaCompartida->getMenu();
+                $listaRecetasCompartidas[$i]['menu'] = $menu->getId();
             }
-            $resultado['listaListaCompra'] = $listaListaCompra;
-            $resultado['statusCode'] = 200;
-        } catch (\ErrorException $mapexc) {
-            $resultado['statusCode'] = 500;
-        } catch (\Exception $exc) {
-            $resultado['statusCode'] = 500;
-        }
-        return $resultado;
-    }
-
-    public function readListaCompraCollection() {
-        try {
-            $listasCompra = $this->em->getRepository('ConcursoMenus4AllBundle:ListaCompra')->findAll();
-            $listaListasCompra = array();
-            foreach ($listasCompra as $i => $listaCompra) {
-                $listaCompra = $this->em->getRepository('ConcursoMenus4AllBundle:ListaCompra')->find($id);
-                $listaListasCompra[$i]['id'] = $listaCompra->getId();
-                $listaListasCompra[$i]['nombre'] = $listaCompra->getNombre();
-                $listaListasCompra[$i]['idUsuario'] = $listaCompra->getUsuario()->getId();
-                $ingredientesListaCompra = $listaCompra->getIngredientesListaCompra();
-                foreach ($ingredientesListaCompra as $k => $ingredienteListaCompra) {
-                    $listaListasCompra[$i]['ingredientes'][$k]['cantidad'] = $ingredienteListaCompra->getCantidad();
-                    $ingrediente = $ingredienteListaCompra->getIngrediente();
-                    $listaListasCompra[$i]['ingredientes'][$k]['nombre'] = $ingrediente->getNombre();
-                }
-            }
-            $resultado['listaListasCompra'] = $listaListasCompra;
+            $resultado['listaRecetasCompartidas'] = $listaRecetasCompartidas;
             $resultado['statusCode'] = 200;
         } catch (\ErrorException $mapexc) {
             $resultado['statusCode'] = 500;
@@ -132,77 +55,12 @@ class ListasCompraManager {
         return $resultado;
     }
 
-    public function updateListaCompra($id, $json) {
-        $data = json_decode($json, true);
+    public function updateRecetaCompartida($id) {
         try {
-            $listaCompra = $this->em->getRepository('ConcursoMenus4AllBundle:ListaCompra')->find($id);
+            $recetaCompartida = $this->em->getRepository('ConcursoMenus4AllBundle:RecetaCompartida')->find($id);
+            $recetaCompartida->setVisitado(true);
 
-            $listaCompra->setNombre($data['nombre']);
-            if (empty($data['recetas']) && empty($data['menus'])) {
-                $resultado['statusCode'] = 500;
-                $resultado['errores']['QueMeEstasContainer'] = 'El menú debe tener al menos una receta asociada';
-                return $resultado;
-            }
-            $idsIngredientes = array();
-            $listaIngredientes = array();
-            if (!empty($data['recetas'])) {
-                foreach ($data['recetas'] as $idReceta) {
-                    $receta = $this->em->getRepository('ConcursoMenus4AllBundle:Receta')->find($idReceta);
-                    $ingredientesReceta = $receta->getIngredientesReceta();
-                    foreach ($ingredientesReceta as $ingredienteReceta) {
-                        if (empty($isdIngredientesRecetaListaCompra[$ingredienteReceta->getId()])) {
-                            $isdIngredientesRecetaListaCompra[$ingredienteReceta->getId()] = $ingredienteReceta->getId();
-                        }
-                        if (empty($listaIngredientes[$ingredienteLista->getNombre()])) {
-                            $listaIngredientes[$ingredienteLista->getNombre()]['obj'] = $ingredienteLista;
-                            $listaIngredientes[$ingredienteLista->getNombre()]['cantidad'] = 1;
-                        } else {
-                            $listaIngredientes[$ingredienteLista->getNombre()]['cantidad']++;
-                        }
-                    }
-                }
-            }
-            if (!empty($data['menus'])) {
-                foreach ($data['menus'] as $idMenu) {
-                    $menu = $this->em->getRepository('ConcursoMenus4AllBundle:Menu')->find($idMenu);
-                    $recetas = $menu->getRecetas();
-                    foreach ($recetas as $receta) {
-                        $ingredientesReceta = $receta->getIngredientesReceta();
-                        foreach ($ingredientesReceta as $ingredienteReceta) {
-                            if (empty($isdIngredientesRecetaListaCompra[$ingredienteReceta->getId()])) {
-                                $isdIngredientesRecetaListaCompra[$ingredienteReceta->getId()] = $ingredienteReceta->getId();
-                            }
-                            if (empty($listaIngredientes[$ingredienteLista->getNombre()])) {
-                                $listaIngredientes[$ingredienteLista->getNombre()]['obj'] = $ingredienteLista;
-                                $listaIngredientes[$ingredienteLista->getNombre()]['cantidad'] = 1;
-                            } else {
-                                $listaIngredientes[$ingredienteLista->getNombre()]['cantidad']++;
-                            }
-                        }
-                    }
-                }
-            }
-            $ingredientesDescartados = $this->em->getRepository('ConcursoMenus4AllBundle:ListaCompra')->getIngredientesListaCompraDescartados($idsIngredientes);
-            $listaCompra->removeIngredientesListaCompra($ingredientesDescartados);
-            $idsIngredientesExistentes = array();
-            $ingredientesListaCompra = $listaCompra->getIngredientesListaCompra();
-            foreach ($ingredientesListaCompra as $ingredienteListaCompra) {
-                $ingredientesExistentes[$ingredienteListaCompra->getIngrediente()->getId()]['obj'] = $ingredienteListaCompra->getIngrediente();
-                $ingredientesExistentes[$ingredienteListaCompra->getIngrediente()->getId()]['cantidad'] = $ingredienteListaCompra->getCantidad();
-                $idsIngredientesExistentes[] = $ingredienteExistente->getId();
-            }
-            foreach ($listaIngredientes as $ingrediente) {
-                if (in_array($ingrediente['obj']->getId(), $idsIngredientesExistentes)) {
-                    $cantAux = $ingredientesExistentes[$ingrediente['obj']->getId()]['cantidad'] + $ingrediente['cantidad'];
-                    $listaCompra->addIngrediente($ingrediente['obj'], $cantAux);
-                }
-                else{
-                    $listaCompra->addIngrediente($ingrediente['obj'], $ingrediente['cantidad']);
-                }
-            }
-
-
-            $errors = $this->validator->validate($listaCompra);
+            $errors = $this->validator->validate($recetaCompartida);
             if (count($errors) > 0) {
                 $resultado['statusCode'] = 422;
                 foreach ($errors as $error) {
@@ -210,10 +68,10 @@ class ListasCompraManager {
                 }
                 return $resultado;
             }
-            $this->em->persist($listaCompra);
+            $this->em->persist($recetaCompartida);
             $flushexc = $this->em->flush();
             $resultado['statusCode'] = 200;
-            $resultado['id'] = $listaCompra->getId();
+            $resultado['id'] = $recetaCompartida->getId();
         } catch (\ErrorException $mapexc) {
             $resultado['statusCode'] = 500;
         } catch (\Doctrine\ORM\OptimisticLockException $flushexc) {
@@ -224,10 +82,10 @@ class ListasCompraManager {
         return $resultado;
     }
 
-    public function deleteListaCompra($id) {
+    public function deleteRecetaCompartida($id) {
         try {
-            $listaCompra = $this->em->getRepository('ConcursoMenus4AllBundle:ListaCompra')->find($id);
-            $this->em->remove($listaCompra);
+            $recetaCompartida = $this->em->getRepository('ConcursoMenus4AllBundle:RecetaCompartida')->find($id);
+            $this->em->remove($recetaCompartida);
             $this->em->flush();
             $resultado['id'] = $id;
             $resultado['statusCode'] = 200;
