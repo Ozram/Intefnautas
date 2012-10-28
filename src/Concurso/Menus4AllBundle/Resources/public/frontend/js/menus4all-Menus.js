@@ -1,12 +1,12 @@
 $(document).ready(function(){
     
     window.menuModel = Backbone.Model.extend({
-        urlRoot: "app_dev.php/menus"
+        urlRoot: "menus"
     });
     
     window.menuCollection = Backbone.Collection.extend({
         model: window.menuModel,
-        url: "app_dev.php/menus"
+        url: "menus"
     });
     
     window.menuView = Backbone.View.extend({
@@ -15,7 +15,7 @@ $(document).ready(function(){
             this.collection.bind('reset destroy add', this.renderList, this);
         },
         
-        el: $('#seccionMenus'),  
+        el: $('#seccionCentral'),  
         
         events: {
             "click #nuevoMenu"  : "nuevoMenu" ,
@@ -23,7 +23,8 @@ $(document).ready(function(){
             "click #crearMenu" : "crearMenu",
             "click #actualizarMenu" : "actualizarMenu", 
             "click #buscarMenus"  : "actualizarColeccion",
-            "click #anadirRecetas": "anadirRecetas"
+            "click #anadirRecetas": "anadirRecetas",
+            "click #cancelar"  : "actualizarColeccion"
         },                         
 
         templateList: _.template($('#plantillaMenuList').html()),
@@ -46,7 +47,7 @@ $(document).ready(function(){
             this.recetaCollection.fetch({
                 success: function(collection, response){
                     console.log(collection);  
-                    $('#listaMenusBusqueda').html(that.templateForm({
+                    $('#seccionPrincipal').html(that.templateForm({
                         data: that.data,
                         recetas: collection.toJSON()
                     }));
@@ -68,14 +69,14 @@ $(document).ready(function(){
             this.recetaCollection = new window.recetaCollection();
             this.recetaCollection.fetch({
                 success: function(collection, response){
-                    $('#listaMenusBusqueda').html(that.templateForm({
+                    $('#seccionPrincipal').html(that.templateForm({
                         data: that.data,
                         recetas: collection.toJSON()
                     }));
-                   
+                    $('#recetas').html('');
                     _.each(that.recetaCollection.models, function(receta, index){
-                         $('#recetas').html('');
-                         _.each(that.menu.attributes.recetas, function(idRec, index){
+                         
+                         _.each(that.menu.attributes.recetas, function(idRec){
                              if(that.$el.find('#receta_'+index).val() == idRec){
                                  that.$el.find('#receta_'+index).attr('checked','');
                                  $('#recetas').append('<br/><span class="label label-info">' + that.recetaCollection.get(that.$el.find('#receta_'+index).val()).attributes.nombre+'</span><br/>');
@@ -196,10 +197,10 @@ $(document).ready(function(){
         
         renderList: function(){
             console.log('menuView.renderList');
-            $('#listaMenusBusqueda').html(this.templateList({
+            $('#seccionPrincipal').html(this.templateList({
                 menus: this.collection.toJSON()
             }));
-            $('#opcionesMenus').html(this.templateOpciones());
+            $('#seccionOpciones').html(this.templateOpciones());
         }
              
     });

@@ -1,7 +1,10 @@
 cm4all_homepage:
     pattern:  /
     defaults: { _controller: ConcursoMenus4AllBundle:Main:index }
-
+    
+cm4all_logout:
+    pattern: /logout
+    
 #Routing Usuarios
 
 cm4all_numnotificacionesusuario_get_collection:
@@ -21,33 +24,33 @@ cm4all_usuario_get:
 
 #Routing RecetasCompartidas
 
-cm4all_recetaCompartida_post:
-   pattern: /recetaCompartida
-   defaults: { _controller: ConcursoMenus4AllBundle:RecetasCompartidas:createRecetaCompartida }
-   requirements:
-     _method: POST
-     _format: json
-
-cm4all_recetaCompartida_get_collection:
-   pattern: /recetaCompartida
-   defaults: { _controller: ConcursoMenus4AllBundle:RecetasCompartidas:readRecetasCompartidasCollection }
-   requirements:
-     _method: GET
-     _format: json
-
-cm4all_recetaCompartida_put:
-   pattern: /recetaCompartida/{id}
-   defaults: { _controller: ConcursoMenus4AllBundle:RecetasCompartidas:updateRecetaCompartida }
-   requirements:
-     _method: PUT
-     _format: json
+#cm4all_recetaCompartida_post:
+#   pattern: /recetaCompartida
+#   defaults: { _controller: ConcursoMenus4AllBundle:RecetasCompartidas:createRecetaCompartida }
+#   requirements:
+#     _method: POST
+#     _format: json
+#
+#cm4all_recetaCompartida_get_collection:
+#   pattern: /recetaCompartida
+#   defaults: { _controller: ConcursoMenus4AllBundle:RecetasCompartidas:readRecetasCompartidasCollection }
+#   requirements:
+#     _method: GET
+#     _format: json
+#
+#cm4all_recetaCompartida_put:
+#   pattern: /recetaCompartida/{id}
+#   defaults: { _controller: ConcursoMenus4AllBundle:RecetasCompartidas:updateRecetaCompartida }
+#   requirements:
+#     _method: PUT
+#     _format: json
      
-cm4all_recetaCompartida_delete:
-   pattern: /recetaCompartida/{id}
-   defaults: { _controller: ConcursoMenus4AllBundle:RecetasCompartidas:deleteRecetaCompartida }
-   requirements:
-     _method: DELETE
-     _format: json
+#cm4all_recetaCompartida_delete:
+#   pattern: /recetaCompartida/{id}
+#   defaults: { _controller: ConcursoMenus4AllBundle:RecetasCompartidas:deleteRecetaCompartida }
+#   requirements:
+#     _method: DELETE
+#     _format: json
     
 #Routing MenusCompartidos
 

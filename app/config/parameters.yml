@@ -8,9 +8,9 @@ parameters:
     database_password: root
 
     mailer_transport:  smtp
-    mailer_host:       localhost
-    mailer_user:       ~
-    mailer_password:   ~
+    mailer_host:       hermes.pntic.mec.es
+    mailer_user:       cget0001
+    mailer_password:   telema03
 
     locale:            es
     secret:            ThisTokenIsNotSoSecretChangeIt

@@ -5,7 +5,7 @@ $(document).ready(function(){
         initialize: function(){
        
             console.log('window.app.initialize');
-    
+            
             this.navbar = new window.navbar();
         }
    

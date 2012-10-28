@@ -1,12 +1,12 @@
 $(document).ready(function(){
     
     window.recetaModel = Backbone.Model.extend({
-        urlRoot: "app_dev.php/recetas"
+        urlRoot: "recetas"
     });
     
     window.recetaCollection = Backbone.Collection.extend({
         model: window.recetaModel,
-        url: "app_dev.php/recetas"
+        url: "recetas"
     });
     
     window.recetaView = Backbone.View.extend({
@@ -15,7 +15,7 @@ $(document).ready(function(){
             this.collection.bind('reset destroy add', this.renderList, this);
         },
         
-        el: $('#seccionRecetas'),  
+        el: $('#seccionCentral'),  
         
         events: {
             "click #nuevaReceta"  : "nuevaReceta" ,
@@ -23,7 +23,8 @@ $(document).ready(function(){
             "click #crearReceta"  : "crearReceta" ,
             "click #actualizarReceta"  : "actualizarReceta",
             "click #buscarRecetas"  : "actualizarColeccion",
-            "click #anadirIngrediente": "anadirIngrediente"
+            "click #anadirIngrediente": "anadirIngrediente",
+            "click #cancelar"  : "actualizarColeccion"
 
         },                         
 
@@ -45,7 +46,7 @@ $(document).ready(function(){
                 'idAccion': 'crearReceta'
             };
             that = this;
-            $('#listaRecetasBusqueda').html(this.templateForm({
+            $('#seccionPrincipal').html(this.templateForm({
                 data: that.data
             }));
             this.n_ingredientes = 0;
@@ -61,7 +62,7 @@ $(document).ready(function(){
                 'idAccion': 'actualizarReceta'
             };
             that = this;
-            $('#listaRecetasBusqueda').html(this.templateForm({
+            $('#seccionPrincipal').html(this.templateForm({
                 data: that.data
             }));
             
@@ -166,10 +167,10 @@ $(document).ready(function(){
         
         renderList: function(){
             console.log('recetaView.renderList');
-            $('#listaRecetasBusqueda').html(this.templateList({
+            $('#seccionPrincipal').html(this.templateList({
                 recetas: this.collection.toJSON()
             }));
-            $('#opcionesRecetas').html(this.templateOpciones());
+            $('#seccionOpciones').html(this.templateOpciones());
         },
         
         anadirIngrediente: function(){

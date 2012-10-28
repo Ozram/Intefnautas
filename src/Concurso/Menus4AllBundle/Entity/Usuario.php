@@ -26,14 +26,14 @@ class Usuario extends BaseUser {
     /**
      * @var string $nombre
      *
-     * @ORM\Column(name="nombre", type="string", length=255)
+     * @ORM\Column(name="nombre", type="string", length=255, nullable=true)
      */
     private $nombre;
 
     /**
      * @var string $apellidos
      *
-     * @ORM\Column(name="apellidos", type="string", length=255)
+     * @ORM\Column(name="apellidos", type="string", length=255, nullable=true)
      */
     private $apellidos;
 

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping\UniqueConstraint;
 /**
  * Concurso\Menus4AllBundle\Entity\MenuCompartido
  *
- * @ORM\Table(uniqueConstraints={@UniqueConstraint(name="menuCompartidoUnico", columns={"idReceptor", "idEmisor", "idMenu"})})
+ * @ORM\Table(uniqueConstraints={@UniqueConstraint(name="menuCompartidoUnico", columns={"receptor_id", "emisor_id", "menu_id"})})
  * @ORM\Entity(repositoryClass="Concurso\Menus4AllBundle\Entity\MenuCompartidoRepository")
  */
 class MenuCompartido
