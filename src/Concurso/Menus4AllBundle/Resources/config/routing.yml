@@ -2,6 +2,181 @@ cm4all_homepage:
     pattern:  /
     defaults: { _controller: ConcursoMenus4AllBundle:Main:index }
 
+#Routing Usuarios
+
+cm4all_numnotificacionesusuario_get_collection:
+   pattern: /usuario
+   defaults: { _controller: ConcursoMenus4AllBundle:Usuarios:readNumNotificacionesUsuario }
+   requirements:
+     _method: GET
+     _format: json
+
+cm4all_usuario_get:
+   pattern: /usuario/{id}
+   defaults: { _controller: ConcursoMenus4AllBundle:Usuarios:readUsuario }
+   requirements:
+     _method: GET
+     _format: json
+    
+
+#Routing RecetasCompartidas
+
+cm4all_recetaCompartida_post:
+   pattern: /recetaCompartida
+   defaults: { _controller: ConcursoMenus4AllBundle:RecetasCompartidas:createRecetaCompartida }
+   requirements:
+     _method: POST
+     _format: json
+
+cm4all_recetaCompartida_get_collection:
+   pattern: /recetaCompartida
+   defaults: { _controller: ConcursoMenus4AllBundle:RecetasCompartidas:readRecetasCompartidasCollection }
+   requirements:
+     _method: GET
+     _format: json
+
+cm4all_recetaCompartida_put:
+   pattern: /recetaCompartida/{id}
+   defaults: { _controller: ConcursoMenus4AllBundle:RecetasCompartidas:updateRecetaCompartida }
+   requirements:
+     _method: PUT
+     _format: json
+     
+cm4all_recetaCompartida_delete:
+   pattern: /recetaCompartida/{id}
+   defaults: { _controller: ConcursoMenus4AllBundle:RecetasCompartidas:deleteRecetaCompartida }
+   requirements:
+     _method: DELETE
+     _format: json
+    
+#Routing MenusCompartidos
+
+cm4all_menuCompartido_post:
+   pattern: /menuCompartido
+   defaults: { _controller: ConcursoMenus4AllBundle:MenusCompartidos:createMenuCompartido }
+   requirements:
+     _method: POST
+     _format: json
+
+cm4all_menuCompartido_get_collection:
+   pattern: /menuCompartido
+   defaults: { _controller: ConcursoMenus4AllBundle:MenusCompartidos:readMenusCompartidosCollection }
+   requirements:
+     _method: GET
+     _format: json
+
+cm4all_menuCompartido_put:
+   pattern: /menuCompartido/{id}
+   defaults: { _controller: ConcursoMenus4AllBundle:MenusCompartidos:updateMenuCompartido }
+   requirements:
+     _method: PUT
+     _format: json
+     
+cm4all_menuCompartido_delete:
+   pattern: /menuCompartido/{id}
+   defaults: { _controller: ConcursoMenus4AllBundle:MenusCompartidos:deleteMenuCompartido }
+   requirements:
+     _method: DELETE
+     _format: json
+     
+#Routing ValoracionesReceta
+
+cm4all_valoracionReceta_post:
+   pattern: /valoracionReceta
+   defaults: { _controller: ConcursoMenus4AllBundle:ValoracionesReceta:createValoracionReceta }
+   requirements:
+     _method: POST
+     _format: json
+
+cm4all_valoracionReceta_get:
+   pattern: /valoracionReceta/{id}
+   defaults: { _controller: ConcursoMenus4AllBundle:ValoracionesReceta:readValoracionReceta }
+   requirements:
+     _method: GET
+     _format: json
+     
+cm4all_valoracionReceta_get_collection:
+   pattern: /valoracionReceta
+   defaults: { _controller: ConcursoMenus4AllBundle:ValoracionesReceta:readValoracionesRecetaCollection }
+   requirements:
+     _method: GET
+     _format: json
+
+cm4all_valoracionReceta_put:
+   pattern: /valoracionReceta/{id}
+   defaults: { _controller: ConcursoMenus4AllBundle:ValoracionesReceta:updateValoracionReceta }
+   requirements:
+     _method: PUT
+     _format: json
+    
+
+#Routing ValoracionesMenu
+
+cm4all_valoracionMenu_post:
+   pattern: /valoracionMenu
+   defaults: { _controller: ConcursoMenus4AllBundle:ValoracionesMenu:createValoracionMenu }
+   requirements:
+     _method: POST
+     _format: json
+
+cm4all_valoracionMenu_get:
+   pattern: /valoracionMenu/{id}
+   defaults: { _controller: ConcursoMenus4AllBundle:ValoracionesMenu:readValoracionMenu }
+   requirements:
+     _method: GET
+     _format: json
+     
+cm4all_valoracionMenu_get_collection:
+   pattern: /valoracionMenu
+   defaults: { _controller: ConcursoMenus4AllBundle:ValoracionesMenu:readValoracionesMenuCollection }
+   requirements:
+     _method: GET
+     _format: json
+
+cm4all_valoracionMenu_put:
+   pattern: /valoracionMenu/{id}
+   defaults: { _controller: ConcursoMenus4AllBundle:ValoracionesMenu:updateValoracionMenu }
+   requirements:
+     _method: PUT
+     _format: json
+    
+     
+#Routing ListasCompra
+
+cm4all_listaCompra_post:
+   pattern: /listaCompra
+   defaults: { _controller: ConcursoMenus4AllBundle:ListasCompra:createListaCompra }
+   requirements:
+     _method: POST
+     _format: json
+
+cm4all_listaCompra_get:
+   pattern: /listaCompra/{id}
+   defaults: { _controller: ConcursoMenus4AllBundle:ListasCompra:readListaCompra }
+   requirements:
+     _method: GET
+     _format: json
+     
+cm4all_listaCompra_get_collection:
+   pattern: /listaCompra
+   defaults: { _controller: ConcursoMenus4AllBundle:ListasCompra:readListasCompraCollection }
+   requirements:
+     _method: GET
+     _format: json
+
+cm4all_listaCompra_put:
+   pattern: /listaCompra/{id}
+   defaults: { _controller: ConcursoMenus4AllBundle:ListasCompra:updateListaCompra }
+   requirements:
+     _method: PUT
+     _format: json
+    
+cm4all_listaCompra_delete:
+   pattern: /listaCompra/{id}
+   defaults: { _controller: ConcursoMenus4AllBundle:ListasCompra:deleteListaCompra }
+   requirements:
+     _method: DELETE
+     _format: json
 
 #Routing Menus
   

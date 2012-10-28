@@ -68,7 +68,6 @@ class ValoracionesMenuManager {
     public function readValoracionMenuCollection($json) {
         $data = json_decode($json, true);
         try {
-            $valoracionesMenu = new \Concurso\Menus4AllBundle\Entity\ValoracionMenuRepository();
             $valoracionesMenu = $this->em->getRepository('ConcursoMenus4AllBundle:ValoracionMenu')->findByIdMenu($data['idMenu']);
             $listaValoracionesMenu = array();
             foreach ($valoracionesMenu as $i => $valoracionMenu) {

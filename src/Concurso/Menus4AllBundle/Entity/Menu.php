@@ -70,6 +70,11 @@ class Menu {
      * @ORM\ManyToMany(targetEntity="Receta", inversedBy="menus")
      */
     private $recetas;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="RecetaCompartida", mappedBy="menu")
+     */
+    private $menusCompartidos;
 
     public function __construct() {
         $this->recetas = new ArrayCollection();
@@ -260,5 +265,38 @@ class Menu {
     public function removeValoracione(\Concurso\Menus4AllBundle\Entity\ValoracionMenu $valoraciones)
     {
         $this->valoraciones->removeElement($valoraciones);
+    }
+
+    /**
+     * Add menusCompartidos
+     *
+     * @param Concurso\Menus4AllBundle\Entity\RecetaCompartida $menusCompartidos
+     * @return Menu
+     */
+    public function addMenusCompartido(\Concurso\Menus4AllBundle\Entity\RecetaCompartida $menusCompartidos)
+    {
+        $this->menusCompartidos[] = $menusCompartidos;
+    
+        return $this;
+    }
+
+    /**
+     * Remove menusCompartidos
+     *
+     * @param Concurso\Menus4AllBundle\Entity\RecetaCompartida $menusCompartidos
+     */
+    public function removeMenusCompartido(\Concurso\Menus4AllBundle\Entity\RecetaCompartida $menusCompartidos)
+    {
+        $this->menusCompartidos->removeElement($menusCompartidos);
+    }
+
+    /**
+     * Get menusCompartidos
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getMenusCompartidos()
+    {
+        return $this->menusCompartidos;
     }
 }
