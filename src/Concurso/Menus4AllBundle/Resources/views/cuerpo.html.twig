@@ -10,52 +10,100 @@
     </div>
 
     <div id="seccionPrincipal" class="span10">
-        <div class="span3">
+        <div class="page-header">
+            <h2>Para el jurado <small>pequeña reseña sobre la aplicación</small></h2>
+        </div>
+        <div class="span12">
             <div class="well">
-                <h2 class="muted">Silver</h2>
-                <p><span class="label">POPULAR</span></p>
+                <h4 class="text-info">Librerias Javascript</h4>
+                <hr>
+                <p>Hemos usado las siguientes librerias de Javascript:.</p>
                 <ul>
-                    <li>10 users</li>
-                    <li>Unlimited access</li>
-                    <li>3TB of space</li>
-                    <li>E-mail support</li>
+                    <li>JQuery 1.8.2</li>
+                    <li>Underscore</li>
+                    <li>Backbone</li>
+                    <li>Bootstrap (js de bootstrap)</li>
                 </ul>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.</p>
                 <hr>
-                <h3>$15.99 / month</h3>
+                <h4 class="text-info">Bundles Usados</h4>
                 <hr>
-                <p><a class="btn btn-large" href="#"><i class="icon-ok"></i> Select plan</a></p>
+                <p>Hemos usado los siguientes bundles para facilitar y agilizar el desarollo de nuestra aplicación.</p>
+                <ul>
+                    <li>FOSUserBundle</li>
+                    <li>DoctrineFixturesBundle</li>
+                </ul>
+                <p>El FOSUserBundle es el encargado de gestionar los usuarios incluyendo <i>login</i>,<i>registro</i>,<i>profile</i>,<i>confirmacion</i>...</p>
+                <p>DoctrineFixturesBundle es un bundle que facilita la creación de datos de prueba en la base de datos, para al borrar esta
+                    mediante la ejecucion de un simple comando se rellenen los datos.</p>
+                <p>En un principio nos planteamos el uso de MopaBootstrapBundle y de KnpPaginatorBundle, pero como al final nos decidimos a realizar la app dividiendo cliente y servidor, dejaron de ser necesarios y los descartamos.</p>
+                <hr>
+                <h4 class="text-info">CSS</h4>
+                <hr>
+                <ul>
+                    <li>Bootstrap</li>
+                </ul>
+                <p>Hemos usado Bootstrap para dar estilo a la página.</p>
             </div>
         </div>
-        <div class="span3">
+        <div class="span12">
             <div class="well">
-                <h2 class="text-warning">Bronze</h2>
-                <p><span class="label label-success">POPULAR</span></p>
-                <ul>
-                    <li>20 users</li>
-                    <li>Unlimited access with no limits</li>
-                    <li>5TB of space</li>
-                </ul>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.</p>
+                <h4 class="muted">Funcionamiento de la Aplicación</h4>
                 <hr>
-                <h3>$10.99 / month</h3>
-                <hr>
-                <p><a class="btn btn-success btn-large" href="#"><i class="icon-ok"></i> Select plan</a></p>
+                <p>Hemos realizado la aplicación bajo una arquitectura RESTful, en la que el cliente se comunica mediante peticiones
+                    Ajax con el servidor y este devuelve datos estructurados en forma de JSON para que sean manipulados e interpretados en 
+                    el cliente mediante el uso de librerias de Javascript.</p>
+                <p>De recibir las peticiones Ajax del cliente se encargan los diferentes controladores situados en
+                    <i>src/Concurso/Menus4AllBundle/Controller</i>, el routing de la aplicación es el encargado de que, segun la ruta y
+                    el method de la petición, se ejecute una u otra acción del controlador.
+                </p>
+                <p>Los controladores hacen llamadas a los servicios de <i>src/Concurso/Menus4AllBundle/Services</i>, que son los que se encargan
+                    de introducir los datos a la BD <i>SQLite</i> y poseen toda la lógica de negocio de la aplicación. Una vez estos servicios
+                    procesan todos los datos, devuelven un array de información, con el StatusCode (dependiendo de que todo haya ido o bien o
+                    de si ha habido algún problema) y un listado de los errores (en caso de haberlos) o en caso de éxito del listado de Objetos que han sido afectados
+                    por la petición.
+                </p>
+                <h5 class="muted">Modelo Entidad Relación</h5>
+                <img src="{{ asset('bundles/concursomenus4all/vendors/img/modeloEntidadRealcionMenus4All.svg') }}" alt="Modelo Entidad Realción"> </img>
+
             </div>
         </div>
-        <div class="span3">
+        <div class="span12">
             <div class="well">
-                <h2 class="text-info">Economy</h2>
-                <p><span class="label label-info">BUDGET</span></p>
-                <ul>
-                    <li>10 users</li>
-                    <li>5TB of space</li>
-                </ul>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.</p>
+                <h4 class="text-warning">Funcionalidades de la aplicación</h4>
                 <hr>
-                <h3>$8.99 / month</h3>
+                <h4>Creación, listado y edición de recetas</h4>
+                <p>Se ha implementado la posibilidad de listar, crear y editar las recetas. A cada receta se le puede añadir la lista de
+                    ingredientes asociados con la cantidad correspondiente.</p>
+                <h4>Creación, listado y edición de menús</h4>
+                <p>Se ha implementado la posibilidad de listar, crear y editar las menús. A cada menú se le pueden asociar recetas que lo forman
+                    un menu representa una de las comidas del día (desayuno, almuerzo, merienda, cena...), eso se marca mediante la propiedad 'tipo de menu'
+                    que se puede elegir y modificar en el formulario de menús.</p>
+
+                <h4 class="text-warning">Funcionalidades de la aplicación no finalizadas</h4>
+                <h4>Compartir recetas y menús</h4>
+                <p>Esta implementada del lado del servidor la posiblidadad de compartir recetas y menus con otros usuarios, pero debido al límite
+                    de los 10 días no nos ha dado tiempo a implementar la interfaz de usuario y la lógica de cliente de esta sección</p>
+                <h4>Valoraciones</h4>
+                <p>Esta implementada del lado del servidor la posiblidadad de valorar las recetas y menús de los diferentes usuarios, 
+                    una valoración consite en una <i>puntuación</i> y un <i>mensaje</i>, está relacionada con una receta o un menú y el usuario que la ha creado.</p>
+                <h4>Notificaciones</h4>
+                <p>Tambien hemos implementado en el servidor un sistema de notificaciones que devuelve los menús y recetas que han compartido contigo otros usuarios.</p>
+                <h4>Lista de la Compra</h4>
+                <p>Hay implementado un controlador y un servicio que permite la creación de listas de la compra a partir de Menús y Recetas, 
+                    recorriendo los ingredientes y apuntandolos juntoa la cantidad necesaria de cada uno.</p>
                 <hr>
-                <p><a class="btn btn-large" href="#"><i class="icon-ok"></i> Select plan</a></p>
+            </div>
+        </div>
+        <div class="span12">
+            <div class="well">
+                <h4 class="text-warning">El porqué de la arquitectura RESTful</h4>
+                <hr>
+                <p>
+
+
+
+                </p>
+
             </div>
         </div>
     </div>
