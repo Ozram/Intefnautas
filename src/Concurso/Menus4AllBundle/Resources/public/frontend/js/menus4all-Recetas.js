@@ -24,7 +24,7 @@ $(document).ready(function(){
             "click #actualizarReceta"  : "actualizarReceta",
             "click #buscarRecetas"  : "actualizarColeccion",
             "click #anadirIngrediente": "anadirIngrediente",
-            "click #cancelar"  : "actualizarColeccion"
+            "click #cancelarReceta"  : "actualizarColeccion"
 
         },                         
 

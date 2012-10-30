@@ -24,7 +24,7 @@ $(document).ready(function(){
             "click #actualizarMenu" : "actualizarMenu", 
             "click #buscarMenus"  : "actualizarColeccion",
             "click #anadirRecetas": "anadirRecetas",
-            "click #cancelar"  : "actualizarColeccion"
+            "click #cancelarMenu"  : "actualizarColeccion"
         },                         
 
         templateList: _.template($('#plantillaMenuList').html()),
