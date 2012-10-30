@@ -56,7 +56,7 @@
                 <label class=" control-label required" for="receta_descripcion"> Descripción </label>
                 <div class="controls">
                     <div class="textarea">
-                        <textarea class="receta_descripcion span7" rows="6" required="required"><%= data.receta.descripcion %></textarea>
+                        <textarea class="receta_descripcion span12" rows="12" required="required"><%= data.receta.descripcion %></textarea>
                     </div>
                 </div>
             </div>
@@ -64,7 +64,7 @@
             <div class="control-group">
                 <!-- Form Actions -->
                 <div class="form-actions">
-                    <a id="<%= data.idAccion %>" type="submit" class="btn btn-primary">Save changes</a>
+                    <a id="<%= data.idAccion %>" type="submit" class="btn btn-primary">Guardar cambios</a>
                     <button id="cancelarReceta" type="button" class="btn">Cancelar</button>
                 </div>
             </div>
@@ -76,7 +76,7 @@
 <script type="text/template" id="plantillaIngredientes">
         <input id="ingrediente_<%= id %>"class="receta_ingrediente_nombre span2" placeholder="Nombre..." type="text" required="required">
         <div class="input-append ">
-              <input id="cantidad_<%= id %>" class="span4" placeholder="Cantidad..." type="text" required="required">
+              <input id="cantidad_<%= id %>" class="span5" placeholder="Cantidad..." type="text" required="required">
               <span class="add-on">gr.</span>
         </div>
 </script>

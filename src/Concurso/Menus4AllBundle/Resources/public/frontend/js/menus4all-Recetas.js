@@ -42,6 +42,7 @@ $(document).ready(function(){
         nuevaReceta: function() {
             console.log('recetaView:nuevaReceta');
             this.data = {
+                'nombreForm': 'Nueva Receta',
                 'receta': '' , 
                 'idAccion': 'crearReceta'
             };
@@ -50,7 +51,6 @@ $(document).ready(function(){
                 data: that.data
             }));
             this.n_ingredientes = 0;
-            console.log(this.n_ingredientes);
         },
          
         editarReceta: function(e) {
@@ -58,6 +58,7 @@ $(document).ready(function(){
             this.idReceta = e.currentTarget.attributes['val'].nodeValue;
             this.receta = this.collection.get(this.idReceta);
             this.data = {
+                'nombreForm': 'Editar Receta: '+this.receta.attributes.nombre,
                 'receta': this.receta.attributes , 
                 'idAccion': 'actualizarReceta'
             };
@@ -65,16 +66,13 @@ $(document).ready(function(){
             $('#seccionPrincipal').html(this.templateForm({
                 data: that.data
             }));
-            
             this.n_ingredientes = 0;
-            $.each(this.receta.attributes.ingredientes ,function(ingrediente) {
-                 that.n_ingredientes += 1;
+            _.each(this.receta.attributes.ingredientes ,function(ingrediente, index) { 
                  $('#ingredientes').append('<br/>'+that.templateIngredientes({id: that.n_ingredientes})+'<br/>');
-                 console.log(ingrediente);
-                 that.$el.find('#ingrediente_'+that.n_ingredientes).val(that.receta.attributes.ingredientes[ingrediente].nombre);
-                 that.$el.find('#cantidad_'+that.n_ingredientes).val(that.receta.attributes.ingredientes[ingrediente].cantidad);
-            });
-          
+                 that.$el.find('#ingrediente_'+that.n_ingredientes).val(that.receta.attributes.ingredientes[index].nombre);
+                 that.$el.find('#cantidad_'+that.n_ingredientes).val(that.receta.attributes.ingredientes[index].cantidad);
+                 that.n_ingredientes += 1;
+            }); 
         },
         
         crearReceta: function() {
@@ -118,13 +116,20 @@ $(document).ready(function(){
         },
         
         actualizarReceta: function() {
-            console.log('recetaView:crearReceta');
+            console.log('recetaView:actualizarReceta');
             $('#actualizarReceta').addClass('disabled');
+            for(i=0;i<this.n_ingredientes;i++) { 
+                ingredientes[i] = {
+                    nombre: this.$el.find('#ingrediente_'+i).val(),
+                    cantidad: this.$el.find('#cantidad_'+i).val()
+                }
+            }
             that = this;
             this.receta.save({
                 nombre: this.$el.find('.receta_nombre').val(),
                 descripcion: this.$el.find('.receta_descripcion').val(),
-                n_personas: Number(this.$el.find('.receta_n_personas').val())
+                n_personas: Number(this.$el.find('.receta_n_personas').val()),
+                ingredientes: ingredientes
             },{
                 success:function(model, response){
                     console.log('receta.save.success');
@@ -174,11 +179,10 @@ $(document).ready(function(){
         },
         
         anadirIngrediente: function(){
-            console.log('recetaView.renderList');
-            that = this;
-            this.n_ingredientes += 1;
+            console.log('recetaView.anadirIngrediente');
+            that = this; 
             $('#ingredientes').append('<br/>'+this.templateIngredientes({id: that.n_ingredientes})+'<br/>');
-            console.log(this.n_ingredientes);
+            this.n_ingredientes += 1;
         }
              
     });

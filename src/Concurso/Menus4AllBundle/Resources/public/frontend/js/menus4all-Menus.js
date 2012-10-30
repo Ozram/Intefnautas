@@ -6,7 +6,7 @@ $(document).ready(function(){
     
     window.menuCollection = Backbone.Collection.extend({
         model: window.menuModel,
-        url:  urlRootDefault +"menus"
+        url:  urlRootDefault +"/menus"
     });
     
     window.menuView = Backbone.View.extend({
@@ -38,6 +38,7 @@ $(document).ready(function(){
         nuevoMenu: function(){
             console.log('menuView:nuevoMenu');
             this.data = {
+                'nombreForm': 'Nuevo Menú',
                 'menu': '' , 
                 'idAccion': 'crearMenu'
             };
@@ -46,7 +47,7 @@ $(document).ready(function(){
 
             this.recetaCollection.fetch({
                 success: function(collection, response){
-                    console.log(collection);  
+                    console.log('recetas.fetch.success');  
                     $('#seccionPrincipal').html(that.templateForm({
                         data: that.data,
                         recetas: collection.toJSON()
@@ -63,19 +64,20 @@ $(document).ready(function(){
             this.idMenu = e.currentTarget.attributes['val'].nodeValue;
             this.menu = this.collection.get(this.idMenu);
             this.data = {
+                'nombreForm': 'Editar Menú: '+this.menu.attributes.nombre,
                 'menu': this.menu.attributes , 
                 'idAccion': 'actualizarMenu'
             };
             this.recetaCollection = new window.recetaCollection();
             this.recetaCollection.fetch({
                 success: function(collection, response){
+                    console.log('recetas.fetch.success');
                     $('#seccionPrincipal').html(that.templateForm({
                         data: that.data,
                         recetas: collection.toJSON()
                     }));
                     $('#recetas').html('');
-                    _.each(that.recetaCollection.models, function(receta, index){
-                         
+                    _.each(that.recetaCollection.models, function(receta, index){           
                          _.each(that.menu.attributes.recetas, function(idRec){
                              if(that.$el.find('#receta_'+index).val() == idRec){
                                  that.$el.find('#receta_'+index).attr('checked','');
