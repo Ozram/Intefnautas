@@ -1,12 +1,14 @@
 $(document).ready(function(){
-    
+    function isNumber(n) {
+        return !isNaN(parseFloat(n)) && isFinite(n);
+    }
     window.recetaModel = Backbone.Model.extend({
-        urlRoot:  urlRootDefault+"/recetas"
+        urlRoot:  urlRootDefault+"recetas"
     });
     
     window.recetaCollection = Backbone.Collection.extend({
         model: window.recetaModel,
-        url:  urlRootDefault+"/recetas"
+        url:  urlRootDefault+"recetas"
     });
     
     window.recetaView = Backbone.View.extend({
@@ -51,11 +53,18 @@ $(document).ready(function(){
                 data: that.data
             }));
             this.n_ingredientes = 0;
+            menus4all.navigate("recetas/nueva", {
+                trigger: false
+            });
         },
          
         editarReceta: function(e) {
             console.log('recetaView:editarReceta');
-            this.idReceta = e.currentTarget.attributes['val'].nodeValue;
+            if(isNumber(e)){
+                this.idReceta = e;
+            }else{
+                this.idReceta = e.currentTarget.attributes['val'].nodeValue;
+            }
             this.receta = this.collection.get(this.idReceta);
             this.data = {
                 'nombreForm': 'Editar Receta: '+this.receta.attributes.nombre,
@@ -68,11 +77,16 @@ $(document).ready(function(){
             }));
             this.n_ingredientes = 0;
             _.each(this.receta.attributes.ingredientes ,function(ingrediente, index) { 
-                 $('#ingredientes').append('<br/>'+that.templateIngredientes({id: that.n_ingredientes})+'<br/>');
-                 that.$el.find('#ingrediente_'+that.n_ingredientes).val(that.receta.attributes.ingredientes[index].nombre);
-                 that.$el.find('#cantidad_'+that.n_ingredientes).val(that.receta.attributes.ingredientes[index].cantidad);
-                 that.n_ingredientes += 1;
+                $('#ingredientes').append('<br/>'+that.templateIngredientes({
+                    id: that.n_ingredientes
+                })+'<br/>');
+                that.$el.find('#ingrediente_'+that.n_ingredientes).val(that.receta.attributes.ingredientes[index].nombre);
+                that.$el.find('#cantidad_'+that.n_ingredientes).val(that.receta.attributes.ingredientes[index].cantidad);
+                that.n_ingredientes += 1;
             }); 
+            menus4all.navigate("recetas/editar/"+this.idReceta, {
+                trigger: false
+            });
         },
         
         crearReceta: function() {
@@ -124,11 +138,12 @@ $(document).ready(function(){
                     cantidad: this.$el.find('#cantidad_'+i).val()
                 }
             }
+            nuevaReceta
             that = this;
             this.receta.save({
                 nombre: this.$el.find('.receta_nombre').val(),
                 descripcion: this.$el.find('.receta_descripcion').val(),
-                n_personas: Number(this.$el.find('.receta_n_personas').val()),
+                n_personas: Number(this.$el.find('renderList.receta_n_personas').val()),
                 ingredientes: ingredientes
             },{
                 success:function(model, response){
@@ -164,7 +179,7 @@ $(document).ready(function(){
                 error: function(collection, response){
                     console.log('recetas.fetch.error');
                 }
-            });    
+            });
         },
         buscarRecetasRel: function() {
             console.log('recetaView:buscarRecetasRel');
@@ -176,15 +191,57 @@ $(document).ready(function(){
                 recetas: this.collection.toJSON()
             }));
             $('#seccionOpciones').html(this.templateOpciones());
+            menus4all.navigate("recetas/lista", {
+                trigger: false
+            });
         },
         
         anadirIngrediente: function(){
             console.log('recetaView.anadirIngrediente');
             that = this; 
-            $('#ingredientes').append('<br/>'+this.templateIngredientes({id: that.n_ingredientes})+'<br/>');
+            $('#ingredientes').append('<br/>'+this.templateIngredientes({
+                id: that.n_ingredientes
+            })+'<br/>');
             this.n_ingredientes += 1;
         }
              
+    });
+    
+    window.recetaRouter = Backbone.Router.extend({
+
+        
+        routes: {
+            "recetas/nueva"         : "nuevaReceta", 
+            "recetas/lista"         : "renderList",
+            "recetas/editar/:id"    : "editarReceta"
+        },                         
+
+        templateList: _.template($('#plantillaRecetaList').html()),
+
+        templateForm: _.template($('#plantillaRecetaForms').html()),
+        
+        templateOpciones: _.template($('#plantillaRecetaOpciones').html()),
+        
+        initialize: function(){
+            this.recetaCollection = new window.recetaCollection();
+            this.recetaView = new window.recetaView({
+                collection:  this.recetaCollection
+            });
+        },
+        
+        nuevaReceta: function() {
+            this.recetaView.nuevaReceta();
+        },
+            
+        renderList: function(){
+            this.recetaView.actualizarColeccion();  
+        },
+        
+        editarReceta: function(id){
+            this.recetaView.editarReceta(id);  
+        }
+
+
     });
     
 });

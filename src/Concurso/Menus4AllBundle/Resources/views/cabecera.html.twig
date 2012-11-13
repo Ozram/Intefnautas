@@ -9,11 +9,11 @@
             <a class="brand" style="color: green;" name="top">Menus4All</a>
             <div class="nav-collapse collapse">
                 <ul id="navOpcionesIzq" class="nav">
-                    <li id="menus4allRecetas"><a href="#"><i class="icon-list-alt"></i> Recetas</a></li>
+                    <li id="menus4allRecetas"><a style="cursor: pointer"><i class="icon-list-alt"></i> Recetas</a></li>
                     <li class="divider-vertical"></li>
-                    <li id="menus4allMenus"><a href="#"><i class="icon-th-list"></i> Menus</a></li>
+                    <li id="menus4allMenus"><a style="cursor: pointer"><i class="icon-th-list"></i> Menus</a></li>
                     <li class="divider-vertical"></li>
-                    <li id="menus4allDietas"><a href="#"><i class="icon-calendar"></i> Dietas</a></li>
+                    <li id="menus4allDietas"><a style="cursor: pointer"><i class="icon-calendar"></i> Dietas</a></li>
                     <li class="divider-vertical"></li>
                     <li class=" pull-right">
                         <a class=" dropdown-toggle pull-right" data-toggle="dropdown">
@@ -30,7 +30,7 @@
             {% if is_granted('ROLE_USER') %}
             <ul class="nav pull-right">
                 
-                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Ey {{app.user.username}}<b class="caret"></b></a>
+                <li class="dropdown"><a style="cursor: pointer" class="dropdown-toggle" data-toggle="dropdown">Ey {{app.user.username}}<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="/user/preferences"><i class="icon-cog"></i> Preferences</a></li>
                         <li><a href="/help/support"><i class="icon-envelope"></i> Contact Support</a></li>
@@ -44,7 +44,7 @@
             {% else %}
                  <ul class="nav pull-right">
                     <li class="divider-vertical"></li>
-                    <li id="menus4allRecetas"><a href="#"><i class="icon-list-alt"></i> Login</a></li>
+                    <li id="menus4allRecetas"><a style="cursor: pointer"><i class="icon-list-alt"></i> Login</a></li>
                     
                  </ul>
             {% endif %}

@@ -16,14 +16,9 @@ $(document).ready(function(){
         seccionRecetas: function(){
             this.desactivar();
             $('#menus4allRecetas').addClass('active');
-            
-            this.recetaCollection = new window.recetaCollection();
-
-            this.recetaView = new window.recetaView({
-                collection:  this.recetaCollection
+            menus4all.navigate("recetas/lista", {
+                trigger: true
             });
-            
-            this.recetaView.actualizarColeccion();
         },
         
         seccionMenus: function(){
