@@ -29,7 +29,7 @@ class IngredientesReceta {
     private $cantidad;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Receta")
+     * @ORM\ManyToOne(targetEntity="Receta", inversedBy="ingredientesReceta")
      */
     private $receta;
 

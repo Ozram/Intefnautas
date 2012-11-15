@@ -37,17 +37,17 @@ class RecetaCompartida {
     private $visitada;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Usuario")
+     * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="recetasCompartidasConUsuario")
      */
     private $receptor;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Usuario")
+     * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="recetasCompartidasPorUsuario")
      */
     private $emisor;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Receta")
+     * @ORM\ManyToOne(targetEntity="Receta", inversedBy="recetasCompartidas")
      */
     private $receta;
 

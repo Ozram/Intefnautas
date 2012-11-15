@@ -36,12 +36,12 @@ class ValoracionMenu {
     private $comentario;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Menu")
+     * @ORM\ManyToOne(targetEntity="Menu", inversedBy="valoraciones")
      */
     private $menu;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Usuario")
+     * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="valoracionMenu")
      */
     private $usuario;
 

@@ -52,7 +52,7 @@ class Menu {
     private $descripcion;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Usuario")
+     * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="menus")
      */
     private $usuario;
 
@@ -72,7 +72,7 @@ class Menu {
     private $recetas;
     
     /**
-     * @ORM\OneToMany(targetEntity="RecetaCompartida", mappedBy="menu")
+     * @ORM\OneToMany(targetEntity="MenuCompartido", mappedBy="menu")
      */
     private $menusCompartidos;
 

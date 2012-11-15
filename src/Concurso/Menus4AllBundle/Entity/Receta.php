@@ -68,7 +68,7 @@ class Receta {
     private $n_personas;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Usuario")
+     * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="recetas")
      */
     private $usuario;
 

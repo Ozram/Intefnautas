@@ -30,12 +30,12 @@ class ListaCompra {
     private $nombre;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Usuario")
+     * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="listasCompra")
      */
     private $usuario;
 
     /**
-     * @ORM\OneToMany(targetEntity="IngredientesListaCompra", mappedBy="lista_compra", cascade={"persist"}))
+     * @ORM\OneToMany(targetEntity="IngredientesListaCompra", mappedBy="listaCompra", cascade={"persist"}))
      */
     private $ingredientesListaCompra;
 

@@ -36,12 +36,12 @@ class ValoracionReceta {
     private $comentario;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Receta")
+     * @ORM\ManyToOne(targetEntity="Receta", inversedBy="valoraciones")
      */
     private $receta;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Usuario")
+     * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="valoracionReceta")
      */
     private $usuario;
 

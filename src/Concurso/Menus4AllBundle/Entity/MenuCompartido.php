@@ -37,17 +37,17 @@ class MenuCompartido
     private $visitado;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Usuario")
+     * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="menusCompartidasConUsuario")
      */
     private $receptor;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Usuario")
+     * @ORM\ManyToOne(targetEntity="Usuario", inversedBy="menusCompartidasPorUsuario")
      */
     private $emisor;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Menu")
+     * @ORM\ManyToOne(targetEntity="Menu", inversedBy="menusCompartidos")
      */
     private $menu;
     
