@@ -143,7 +143,7 @@ $(document).ready(function(){
             this.receta.save({
                 nombre: this.$el.find('.receta_nombre').val(),
                 descripcion: this.$el.find('.receta_descripcion').val(),
-                n_personas: Number(this.$el.find('renderList.receta_n_personas').val()),
+                n_personas: Number(this.$el.find('.receta_n_personas').val()),
                 ingredientes: ingredientes
             },{
                 success:function(model, response){
