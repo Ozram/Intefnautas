@@ -7,11 +7,12 @@ use Concurso\Menus4AllBundle\Entity\Ingrediente;
 
 class RecetasManager {
 
-    protected $em, $validator;
+    protected $em, $validator, $translator;
 
-    public function __construct($em, $validator) {
+    public function __construct($em, $validator, $translator) {
         $this->em = $em;
         $this->validator = $validator;
+        $this->translator = $translator;
     }
 
     public function createReceta($json) {
@@ -22,15 +23,15 @@ class RecetasManager {
             $receta->setDescripcion($data['descripcion']);
             $receta->setNPersonas($data['n_personas']);
 
-            foreach ($data['ingredientes'] as $datos_ingr) {
-                $ingrediente = $this->crearIngrediente($datos_ingr['nombre']);
-                $receta->addIngredientes($ingrediente, $datos_ingr['cantidad']);
-            }
+//            foreach ($data['ingredientes'] as $datos_ingr) {
+//                $ingrediente = $this->crearIngrediente($datos_ingr['nombre']);
+//                $receta->addIngredientes($ingrediente, $datos_ingr['cantidad']);
+//            }
             $errors = $this->validator->validate($receta);
             if (count($errors) > 0) {
                 $resultado['statusCode'] = 422;
                 foreach ($errors as $error) {
-                    $resultado['errores'][$error->getPropertyPath()] = $error->getMessage();
+                    $resultado['errores'][$error->getPropertyPath()] = $this->translator->transChoice($error->getMessageTemplate(), 1 , $error->getMessageParameters(), 'validators');
                 }
                 return $resultado;
             }
@@ -80,10 +81,10 @@ class RecetasManager {
                 $listaRecetas[$i]['nombre'] = $receta->getNombre();
                 $listaRecetas[$i]['n_personas'] = $receta->getNPersonas();
                 $listaRecetas[$i]['descripcion'] = $receta->getDescripcion();
-                $ingredientes =  $receta->getIngredientesReceta();
+                $ingredientes = $receta->getIngredientesReceta();
                 foreach ($ingredientes as $j => $ingrediente) {
-                     $listaRecetas[$i]['ingredientes'][$j]['nombre'] = $ingrediente->getIngrediente()->getNombre();
-                     $listaRecetas[$i]['ingredientes'][$j]['cantidad'] = $ingrediente->getCantidad();
+                    $listaRecetas[$i]['ingredientes'][$j]['nombre'] = $ingrediente->getIngrediente()->getNombre();
+                    $listaRecetas[$i]['ingredientes'][$j]['cantidad'] = $ingrediente->getCantidad();
                 }
             }
             $resultado['listaRecetas'] = $listaRecetas;
@@ -105,6 +106,7 @@ class RecetasManager {
             $receta->setNombre($data['nombre']);
             $receta->setDescripcion($data['descripcion']);
             $receta->setNPersonas($data['n_personas']);
+
             $errors = $this->validator->validate($receta);
             if (count($errors) > 0) {
                 $resultado['statusCode'] = 422;

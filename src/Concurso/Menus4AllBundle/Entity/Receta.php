@@ -26,12 +26,12 @@ class Receta {
     /**
      * @var string $nombre
      * -------------validadores-------------
-     * @Assert\NotBlank(message = "El nombre no puede estar vacío")
+     * @Assert\NotBlank(message = "receta.nombre.vacio")
      * @Assert\Length(
      *  min = "5",
      *  max = "255",
-     *  minMessage = "El nombre de la receta no puede contener menos de 5 caracteres alfanuméricos",
-     *  maxMessage = "El nombre de la receta no puede contener más de 255 caracteres alfanuméricos"
+     *  minMessage = "receta.nombre.corto",
+     *  maxMessage = "receta.nombre.largo"
      * )
      * @ORM\Column(name="nombre", type="string", length=255)
      */
@@ -40,12 +40,12 @@ class Receta {
     /**
      * @var string $descripcion
      * -------------validadores-------------
-     * @Assert\NotBlank(message = "La descripción no puede estar vacía")
+     * @Assert\NotBlank(message = "receta.descripcion.vacia")
      * @Assert\Length(
      *  min = "100",
      *  max = "10000",
-     *  minMessage = "La descripción no puede tener menos de 100 caracteres",
-     *  maxMessage = "La descripción es demasiado larga, no nos cuentes tu vida"
+     *  minMessage = "receta.descripcion.corta",
+     *  maxMessage = "receta.descripcion.larga"
      * )
      * @ORM\Column(name="descripcion", type="text")
      */
@@ -54,14 +54,14 @@ class Receta {
     /**
      * @var integer $n_personas
      * -------------validadores-------------
-     * @Assert\NotBlank(message = "Debes poner el número de comensales")
+     * @Assert\NotBlank(message = "receta.n_personas.vacio")
      * @Assert\Range(
      *  min = "1",
      *  max = "1000",
-     *  minMessage = "La receta tiene que ser para un mínimo de un comensal",
-     *  maxMessage = "Demasiados comensales, el máximo es de 1000"
+     *  minMessage = "receta.n_personas.pocas",
+     *  maxMessage = "receta.n_personas.muchas"
      * )
-     * @Assert\Type(type="integer", message="El valor {{ value }} no del tipo valido {{ type }}.")
+     * @Assert\Type(type="integer", message="receta.n_personas.tipo_invalido")
      * 
      * @ORM\Column(name="n_personas", type="integer")
      */

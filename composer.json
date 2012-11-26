@@ -23,10 +23,14 @@
         "mopa/bootstrap-bundle": "dev-master",
         "twitter/bootstrap": "master",
         "knplabs/knp-paginator-bundle": "dev-master",
-        "knplabs/knp-menu-bundle": "dev-master",
+        "knplabs/knp-menu-bundle": "1.1.x-dev",
         "craue/formflow-bundle": "dev-master",
         "friendsofsymfony/user-bundle": "*",
-        "doctrine/doctrine-fixtures-bundle": "dev-master"
+        "doctrine/doctrine-fixtures-bundle": "dev-master",
+        "sonata-project/admin-bundle": "dev-master",
+        "sonata-project/doctrine-orm-admin-bundle": "dev-master",
+        "sonata-project/intl-bundle": "dev-master",
+        "sonata-project/cache-bundle": "dev-master"
     },
     "repositories": [
     {

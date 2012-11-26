@@ -1,0 +1,15 @@
+# validators.es.yml
+receta:
+  nombre:
+    vacio: El nombre no puede estar vacío
+    corto: El nombre de la receta no puede contener menos de {{ limit }} caracteres alfanuméricos|El nombre de la receta no puede contener menos de {{ limit }} caracteres alfanuméricos"
+    largo: El nombre de la receta no puede contener más de {{ limit }} caracteres alfanuméricos|El nombre de la receta no puede contener más de {{ limit }} caracteres alfanuméricos
+  descripcion:
+    vacia: La descripción no puede estar vacía
+    corta: "{0} No descripción, so melón|{1} La descripción es demasiado corta, debe tener más de {{ limit }} caracteres|]1, Inf] Las putas descripciónes son demasiado cortas, deben tener más de {{ limit }} caracteres"
+    larga: La descripción es demasiado larga, no nos cuentes tu vida|La descripción es demasiado larga, no nos cuentes tu vida
+  n_personas:
+    vacio: Debes poner el número de comensales
+    pocas: La receta tiene que ser para un mínimo de {{ limit }} comensales
+    muchas: Demasiados comensales, el máximo es de {{ limit }}
+    tipo_invalido: El valor {{ value }} no del tipo valido {{ type }}

@@ -7,7 +7,7 @@ parameters:
 services:
     cm4all.recetasmanager:
         class: %cm4all.recetasmanager.class%
-        arguments: ["@doctrine.orm.entity_manager", "@validator"]
+        arguments: ["@doctrine.orm.entity_manager", "@validator", "@translator"]
 
     cm4all.menusmanager:
         class: %cm4all.menusmanager.class%
@@ -20,3 +20,12 @@ services:
     cm4all.listasCompramanager:
         class: %cm4all.listasCompramanager.class%
         arguments: ["@doctrine.orm.entity_manager", "@validator"]
+    sonata.cm4all.admin.receta:
+       id: sonata.admin.course
+       class: Concurso\Menus4AllBundle\Admin\RecetaAdmin
+       tags:
+          - { name: sonata.admin, manager_type: orm, group: 'Recetas', label: 'Receta' }
+       arguments:
+          - null
+          - Concurso\Menus4AllBundle\Entity\Receta
+          - ConcursoMenus4AllBundle:Admin
