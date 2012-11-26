@@ -59,7 +59,6 @@ class RecetasController extends Controller {
     protected function sendResponse($result, $status_code) {
         $response = new Response();
         $response->headers->set('Content-Type', 'application/json;charset=UTF-8');
-        //$response->headers->set('Content-Type', 'application/json');
         $response->setContent($result);
         $response->setStatusCode($status_code);
         return $response;
