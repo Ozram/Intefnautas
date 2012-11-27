@@ -1,0 +1,58 @@
+<div id="cabecera" class="navbar">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" style="color: green;" name="top">Menus4All</a>
+            <div class="nav-collapse collapse">
+                <ul id="navOpcionesIzq" class="nav">
+                    <li id="menus4allRecetas"><a style="cursor: pointer"><i class="icon-list-alt"></i> Recetas</a></li>
+                    <li class="divider-vertical"></li>
+                    <li id="menus4allMenus"><a style="cursor: pointer"><i class="icon-th-list"></i> Menus</a></li>
+                    <li class="divider-vertical"></li>
+                    <li id="menus4allDietas"><a style="cursor: pointer"><i class="icon-calendar"></i> Dietas</a></li>
+                    <li class="divider-vertical"></li>
+                    <li class=" pull-right">
+                        <a class=" dropdown-toggle pull-right" data-toggle="dropdown">
+                            <i class="icon-user"></i> Tu Zona <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a><i class="icon-wrench"></i> Recetas</a></li>
+                            <li><a><i class="icon-share"></i> Menus</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            {% if is_granted('ROLE_USER') %}
+            <ul class="nav pull-right">
+                
+                <li class="dropdown"><a style="cursor: pointer" class="dropdown-toggle" data-toggle="dropdown">Ey {{app.user.username}}<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/user/preferences"><i class="icon-cog"></i> Preferences</a></li>
+                        <li><a href="/help/support"><i class="icon-envelope"></i> Contact Support</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{ path('cm4all_logout') }}"><i class="icon-off"></i> Logout</a></li>
+                    </ul>
+                </li>
+                
+                
+            </ul>
+            {% else %}
+                 <ul class="nav pull-right">
+                    <li class="divider-vertical"></li>
+                    <li id="menus4allRecetas"><a style="cursor: pointer"><i class="icon-list-alt"></i> Login</a></li>
+                    
+                 </ul>
+            {% endif %}
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+    <!--/.container-fluid -->
+</div>
+<!--/.navbar-inner -->
+</div>
+<!--/.navbar -->

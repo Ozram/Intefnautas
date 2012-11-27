@@ -1,0 +1,5 @@
+{% extends "ConcursoMenus4AllBundle::layout.html.twig" %}
+
+{% block cuerpo %}
+    <p>{{ 'registration.check_email'|trans({'%email%': user.email}, 'FOSUserBundle') }}</p>
+{% endblock %}
