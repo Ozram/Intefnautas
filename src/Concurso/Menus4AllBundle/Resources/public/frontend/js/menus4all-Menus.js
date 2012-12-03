@@ -57,6 +57,9 @@ $(document).ready(function(){
                     console.log('recetas.fetch.error');
                 }
             });
+                        menus4all.navigate("menus/nuevo", {
+                trigger: false
+            });
         },
         
         editarMenu: function(e) {
@@ -78,11 +81,11 @@ $(document).ready(function(){
                     }));
                     $('#recetas').html('');
                     _.each(that.recetaCollection.models, function(receta, index){           
-                         _.each(that.menu.attributes.recetas, function(idRec){
-                             if(that.$el.find('#receta_'+index).val() == idRec){
-                                 that.$el.find('#receta_'+index).attr('checked','');
-                                 $('#recetas').append('<br/><span class="label label-info">' + that.recetaCollection.get(that.$el.find('#receta_'+index).val()).attributes.nombre+'</span><br/>');
-                             }
+                        _.each(that.menu.attributes.recetas, function(idRec){
+                            if(that.$el.find('#receta_'+index).val() == idRec){
+                                that.$el.find('#receta_'+index).attr('checked','');
+                                $('#recetas').append('<br/><span class="label label-info">' + that.recetaCollection.get(that.$el.find('#receta_'+index).val()).attributes.nombre+'</span><br/>');
+                            }
                         });
                     });
                 },
@@ -91,7 +94,9 @@ $(document).ready(function(){
                 }
             });
             this.listaRecetas = [];
-            
+            menus4all.navigate("menus/editar/"+this.idMenu, {
+                trigger: false
+            });
         },
         
         crearMenu: function() {
@@ -203,8 +208,48 @@ $(document).ready(function(){
                 menus: this.collection.toJSON()
             }));
             $('#seccionOpciones').html(this.templateOpciones());
+            menus4all.navigate("menus/lista", {
+                trigger: false
+            });
         }
              
+    });
+    
+    window.menuRouter = Backbone.Router.extend({
+
+        
+        routes: {
+            "menus/nuevo"         : "nuevaMenu", 
+            "menus/lista"         : "renderList",
+            "menus/editar/:id"    : "editarMenu"
+        },                         
+
+        templateList: _.template($('#plantillaMenuList').html()),
+
+        templateForm: _.template($('#plantillaMenuForms').html()),
+        
+        templateOpciones: _.template($('#plantillaMenuOpciones').html()),
+        
+        initialize: function(){
+            this.menuCollection = new window.menuCollection();
+            this.menuView = new window.menuView({
+                collection:  this.menuCollection
+            });
+        },
+        
+        nuevaMenu: function() {
+            this.menuView.nuevoMenu();
+        },
+            
+        renderList: function(){
+            this.menuView.actualizarColeccion();  
+        },
+        
+        editarMenu: function(id){
+            this.menuView.editarMenu(id);  
+        }
+
+
     });
     
 });

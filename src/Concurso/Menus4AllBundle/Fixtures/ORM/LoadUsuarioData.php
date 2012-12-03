@@ -14,8 +14,8 @@ class LoadUsuarioData extends AbstractFixture implements OrderedFixtureInterface
         $usuario1 = new Usuario();
         $usuario1->setNombre('Alberto');
         $usuario1->setApellidos('Einstein');
-        $usuario1->setUsername('alberto');
-        $usuario1->setPassword('620a7de82763527406a413ca7ee267816d332811');
+        $usuario1->setUsername('admin');
+        $usuario1->setPassword('4rHrVuWGdtGRX4c8mSXI8ydjCtoLAvsFH0khYEjtCXQdfjtLXvLLl95RwddcXltQ');
         $usuario1->setEmail('alberto@mentornotas.es');
         $usuario1->setExpired(true);
         $usuario1->setEnabled(true);
@@ -29,7 +29,7 @@ class LoadUsuarioData extends AbstractFixture implements OrderedFixtureInterface
         $usuario2->setNombre('Máximo');
         $usuario2->setApellidos('Planck');
         $usuario2->setUsername('maximo');
-        $usuario2->setPassword('620a7de82763527406a413ca7ee267816d332811');
+        $usuario2->setPassword('4rHrVuWGdtGRX4c8mSXI8ydjCtoLAvsFH0khYEjtCXQdfjtLXvLLl95RwddcXltQ');
         $usuario2->setEmail('maximo@mentornotas.es');
         $usuario2->setExpired(true);
         $usuario2->setEnabled(true);
@@ -43,7 +43,7 @@ class LoadUsuarioData extends AbstractFixture implements OrderedFixtureInterface
         $usuario3->setNombre('María');
         $usuario3->setApellidos('Curie');
         $usuario3->setUsername('maria');
-        $usuario3->setPassword('620a7de82763527406a413ca7ee267816d332811');
+        $usuario3->setPassword('4rHrVuWGdtGRX4c8mSXI8ydjCtoLAvsFH0khYEjtCXQdfjtLXvLLl95RwddcXltQ');
         $usuario3->setEmail('maria@mentornotas.es');
         $usuario3->setExpired(true);
         $usuario3->setEnabled(true);
@@ -57,7 +57,7 @@ class LoadUsuarioData extends AbstractFixture implements OrderedFixtureInterface
         $usuario4->setNombre('Isaac');
         $usuario4->setApellidos('Newton');
         $usuario4->setUsername('isaac');
-        $usuario4->setPassword('620a7de82763527406a413ca7ee267816d332811');
+        $usuario4->setPassword('4rHrVuWGdtGRX4c8mSXI8ydjCtoLAvsFH0khYEjtCXQdfjtLXvLLl95RwddcXltQ');
         $usuario4->setEmail('isaac@kk.es');
         $usuario4->setExpired(true);
         $usuario4->setEnabled(true);

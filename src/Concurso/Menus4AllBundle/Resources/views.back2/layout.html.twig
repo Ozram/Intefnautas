@@ -26,20 +26,26 @@
         {% include 'ConcursoMenus4AllBundle::cabecera.html.twig' %}
         <div class="container-fluid">
             <div class="row-fluid">
-                <div class="span2">
-                    {% block barraIzquierda %}
-                    {% include 'ConcursoMenus4AllBundle::barraIzquierda.html.twig' %}
-                    {% endblock %}
+                <div class="span12">
+                    <div class="span4">
+                        {% block barraIzquierda %}
+                        {% include 'ConcursoMenus4AllBundle::barraZonas.html.twig' %}
+                        {% endblock %}
+                    </div>
                 </div>
-                <div class="span8">
-                    {% block cuerpo %}
-                    {% include 'ConcursoMenus4AllBundle::cuerpo.html.twig' %}
-                    {% endblock %}
+                <div class="span12">
+                    <div class="span4">
+                        {% block cuerpo %}
+                        {% include 'ConcursoMenus4AllBundle::cuerpo.html.twig' %}
+                        {% endblock %}
+                    </div>
                 </div>
-                <div class="span2">
-                    {% block barraDerecha %}                    
-                    {% include 'ConcursoMenus4AllBundle::barraDerecha.html.twig' %}        
-                    {% endblock %}
+                <div class="span12">
+                    <div class="span4">
+                        {% block barraDerecha %}                    
+                        {% include 'ConcursoMenus4AllBundle::barraOpciones.html.twig' %}        
+                        {% endblock %}
+                    </div>
                 </div>
             </div>
         </div>

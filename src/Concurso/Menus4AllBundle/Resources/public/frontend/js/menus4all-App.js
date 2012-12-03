@@ -5,6 +5,7 @@ $(document).ready(function(){
         initialize: function(){
             console.log('window.app.initialize');
             this.recetaRouter = new window.recetaRouter();
+            this.menuRouter = new window.menuRouter();
             this.navbar = new window.navbar();
         }
    
